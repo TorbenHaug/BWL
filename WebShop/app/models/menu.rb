@@ -5,6 +5,6 @@ class Menu < ActiveRecord::Base
   
   belongs_to :menu, :class_name => 'Menu', :foreign_key => 'super_menu_id'
   
-  has_many :tags
   has_many :menus
+  has_many :menu_to_tags
 end

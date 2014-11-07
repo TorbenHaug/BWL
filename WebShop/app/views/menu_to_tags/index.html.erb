@@ -1,0 +1,23 @@
+<h1>Listing menu_to_tags</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @menu_to_tags.each do |menu_to_tag| %>
+      <tr>
+        <td><%= link_to 'Show', menu_to_tag %></td>
+        <td><%= link_to 'Edit', edit_menu_to_tag_path(menu_to_tag) %></td>
+        <td><%= link_to 'Destroy', menu_to_tag, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Menu to tag', new_menu_to_tag_path %>

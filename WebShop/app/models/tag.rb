@@ -5,5 +5,6 @@ class Tag < ActiveRecord::Base
   validates_presence_of :menu_id
   
   belongs_to :article
-  belongs_to :menu
+  
+  has_many :menu_to_tags
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141107170135) do
+ActiveRecord::Schema.define(version: 20141107193902) do
 
   create_table "article_structures", id: false, force: true do |t|
     t.integer  "amount"
@@ -41,6 +41,13 @@ ActiveRecord::Schema.define(version: 20141107170135) do
 
   create_table "bills", force: true do |t|
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "menu_to_tags", force: true do |t|
+    t.integer  "menu_id"
+    t.integer  "tag_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
