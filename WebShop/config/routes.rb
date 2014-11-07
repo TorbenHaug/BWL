@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :news
+
   resources :article_to_tags
 
   resources :menu_to_tags
