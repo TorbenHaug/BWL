@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyString
+  price: 1.5
+  deleted_at: 2014-11-07 17:38:50
+
+two:
+  name: MyString
+  description: MyString
+  price: 1.5
+  deleted_at: 2014-11-07 17:38:50

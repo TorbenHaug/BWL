@@ -1,0 +1,27 @@
+<h1>Listing article_structures</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Amount</th>
+      <th>Deleted at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @article_structures.each do |article_structure| %>
+      <tr>
+        <td><%= article_structure.amount %></td>
+        <td><%= article_structure.deleted_at %></td>
+        <td><%= link_to 'Show', article_structure %></td>
+        <td><%= link_to 'Edit', edit_article_structure_path(article_structure) %></td>
+        <td><%= link_to 'Destroy', article_structure, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Article structure', new_article_structure_path %>

@@ -1,0 +1,27 @@
+<h1>Listing bill_entries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Amount</th>
+      <th>Unit price</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bill_entries.each do |bill_entry| %>
+      <tr>
+        <td><%= bill_entry.amount %></td>
+        <td><%= bill_entry.unit_price %></td>
+        <td><%= link_to 'Show', bill_entry %></td>
+        <td><%= link_to 'Edit', edit_bill_entry_path(bill_entry) %></td>
+        <td><%= link_to 'Destroy', bill_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Bill entry', new_bill_entry_path %>

@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  amount: 1
+  deleted_at: 2014-11-07 17:39:00
+
+two:
+  amount: 1
+  deleted_at: 2014-11-07 17:39:00
