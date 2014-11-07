@@ -18,10 +18,21 @@ class ApplicationController < ActionController::Base
     article2 = Article.find(2)
     render text: ArticleStructure.where(upper_part: article1, lower_part: article2).first.lower_part.name
     
-    #t1 = Tag.new(:name => "...t1");
-    #t2 = Tag.new(:name => "...t2");
-    #t3 = Tag.new(:name => "...t3");
+    t1 = Tag.new(:name => "...t1")
+    t1.save
+    t2 = Tag.new(:name => "...t2")
+    t2.save
+    t3 = Tag.new(:name => "...t3")
+    t3.save
     
-    #m1 = Menu.new(:name => "...m1")
+    m1 = Menu.new(:name => "...m1")
+    m1.save
+    m2 = Menu.new(:name => "...m1")
+    m2.save
+    
+    MenuToTag.new(:menu => m1, :tag => t1).save
+    MenuToTag.new(:menu => m1, :tag => t2).save
+    MenuToTag.new(:menu => m2, :tag => t2).save
+    MenuToTag.new(:menu => m2, :tag => t3).save
   end
 end
