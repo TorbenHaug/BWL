@@ -40,12 +40,14 @@ ActiveRecord::Schema.define(version: 20141107170135) do
   end
 
   create_table "bills", force: true do |t|
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "menus", force: true do |t|
     t.string   "name"
+    t.integer  "super_menu_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -60,6 +62,8 @@ ActiveRecord::Schema.define(version: 20141107170135) do
 
   create_table "tags", force: true do |t|
     t.string   "name"
+    t.integer  "article_id"
+    t.integer  "menu_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
