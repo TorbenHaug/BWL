@@ -69,6 +69,6 @@ class BillEntriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bill_entry_params
-      params.require(:bill_entry).permit(:amount, :unit_price)
+      params.require(:bill_entry).permit(:amount)
     end
 end

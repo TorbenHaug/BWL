@@ -2,8 +2,6 @@
 
 one:
   amount: 1
-  unit_price: 1.5
 
 two:
   amount: 1
-  unit_price: 1.5
