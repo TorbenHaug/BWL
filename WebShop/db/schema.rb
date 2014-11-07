@@ -31,8 +31,10 @@ ActiveRecord::Schema.define(version: 20141107170135) do
     t.datetime "updated_at"
   end
 
-  create_table "bill_entries", force: true do |t|
+  create_table "bill_entries", id: false, force: true do |t|
     t.integer  "amount"
+    t.integer  "bill_id",    default: 0, null: false
+    t.integer  "article_id", default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -48,8 +50,10 @@ ActiveRecord::Schema.define(version: 20141107170135) do
     t.datetime "updated_at"
   end
 
-  create_table "shopping_cart_entries", force: true do |t|
+  create_table "shopping_cart_entries", id: false, force: true do |t|
     t.integer  "amount"
+    t.integer  "user_id",    default: 0, null: false
+    t.integer  "article_id", default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
