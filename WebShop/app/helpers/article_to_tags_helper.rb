@@ -1,0 +1,2 @@
+module ArticleToTagsHelper
+end

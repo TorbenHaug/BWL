@@ -4,35 +4,46 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   
   def test
+    # reset everything
+    Tag.destroy_all
+    Menu.destroy_all
+    Article.destroy_all
     
-    test1 = Article.new(name: "bla1", price: 12.2)
-    test1.save
-
-    test2 = Article.new(name: "bla2", price: 12.2)
-    test2.save
-
-    struct = ArticleStructure.new(upper_part: test1, lower_part: test2, amount: 2)
+    # create tags
+    tags = [Tag.new(:name => "...t1"),
+      Tag.new(:name => "...t2"),
+      Tag.new(:name => "...t3")]
+    tags.each { |i| i.save }
+    
+    # create menus
+    menus = [Menu.new(:name => "...m1"),
+      Menu.new(:name => "...m2"),
+      Menu.new(:name => "...m3")]
+    menus.each { |i| i.save }
+    
+    # create articles
+    articles = [Article.new(:name => "...p1", price: 12.2),
+      Article.new(:name => "...p2", price: 12.2),
+      Article.new(:name => "...p3", price: 12.2)]
+    articles.each { |i| i.save }
+    
+    # create structure
+    struct = ArticleStructure.new(upper_part: articles[0], lower_part: articles[1], amount: 2)
     struct.save
 
-    article1 = Article.find(1)
-    article2 = Article.find(2)
-    render text: ArticleStructure.where(upper_part: article1, lower_part: article2).first.lower_part.name
+    render text: "..."
     
-    t1 = Tag.new(:name => "...t1")
-    t1.save
-    t2 = Tag.new(:name => "...t2")
-    t2.save
-    t3 = Tag.new(:name => "...t3")
-    t3.save
+    MenuToTag.new(:menu => menus[0], :tag => tags[0]).save
+    MenuToTag.new(:menu => menus[0], :tag => tags[1]).save
+    MenuToTag.new(:menu => menus[1], :tag => tags[1]).save
+    MenuToTag.new(:menu => menus[1], :tag => tags[2]).save
     
-    m1 = Menu.new(:name => "...m1")
-    m1.save
-    m2 = Menu.new(:name => "...m1")
-    m2.save
+    ArticleToTag.new(:article => articles[0], :tag => tags[0]).save
+    ArticleToTag.new(:article => articles[0], :tag => tags[1]).save
+    ArticleToTag.new(:article => articles[1], :tag => tags[1]).save
+    ArticleToTag.new(:article => articles[1], :tag => tags[2]).save
     
-    MenuToTag.new(:menu => m1, :tag => t1).save
-    MenuToTag.new(:menu => m1, :tag => t2).save
-    MenuToTag.new(:menu => m2, :tag => t2).save
-    MenuToTag.new(:menu => m2, :tag => t3).save
+    menus[0].super_menu_id = menus[1].id
+    menus[0].save
   end
 end

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :article_to_tags
+
   resources :menu_to_tags
 
   resources :bill_entries

@@ -11,13 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141107193902) do
+ActiveRecord::Schema.define(version: 20141107195915) do
 
   create_table "article_structures", id: false, force: true do |t|
     t.integer  "amount"
     t.datetime "deleted_at"
     t.integer  "upper_part_id", default: 0, null: false
     t.integer  "lower_part_id", default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "article_to_tags", force: true do |t|
+    t.integer  "article_id"
+    t.integer  "tag_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -69,8 +76,6 @@ ActiveRecord::Schema.define(version: 20141107193902) do
 
   create_table "tags", force: true do |t|
     t.string   "name"
-    t.integer  "article_id"
-    t.integer  "menu_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
