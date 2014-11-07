@@ -9,6 +9,6 @@ class CreateShoppingCartEntries < ActiveRecord::Migration
       t.timestamps
     end
     
-    execute "ALTER TABLE article_structures ADD PRIMARY KEY (user_id, article_id);"
+    execute "ALTER TABLE shoping_card_entries ADD PRIMARY KEY (user_id, article_id);"
   end
 end
