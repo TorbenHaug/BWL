@@ -9,5 +9,7 @@ class CreateArticleStructures < ActiveRecord::Migration
 
       t.timestamps
     end
+    
+    execute "ALTER TABLE article_structures ADD PRIMARY KEY (upper_part_id, lower_part_id);"
   end
 end

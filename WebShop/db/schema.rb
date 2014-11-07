@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 20141107170135) do
   create_table "article_structures", id: false, force: true do |t|
     t.integer  "amount"
     t.datetime "deleted_at"
-    t.integer  "upper_part_id"
-    t.integer  "lower_part_id"
+    t.integer  "upper_part_id", default: 0, null: false
+    t.integer  "lower_part_id", default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

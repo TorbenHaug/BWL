@@ -5,15 +5,17 @@ class ApplicationController < ActionController::Base
   
   def test
     
-    #test1 = Article.new(name: "bla1", price: 12.2)
-    #test1.save
+#    test1 = Article.new(name: "bla1", price: 12.2)
+#    test1.save
+#
+#    test2 = Article.new(name: "bla2", price: 12.2)
+#    test2.save
+#
+#    struct = ArticleStructure.new(upper_part: test1, lower_part: test2, amount: 2)
+#    struct.save
 
-    #test2 = Article.new(name: "bla2", price: 12.2)
-    #test2.save
-
-    #struct = ArticleStructure.new(upper_part: test1, lower_part: test2, amount: 2)
-    #struct.save
-    
-    render text: ArticleStructure.find(1).upper_part.name.to_s
+    article1 = Article.find(1)
+    article2 = Article.find(2)
+    render text: ArticleStructure.where(upper_part: article1, lower_part: article2).first.lower_part.name
   end
 end

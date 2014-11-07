@@ -38,5 +38,8 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
 
-# Paperclip gem for images
+# paperclip gem (for images)
 gem "paperclip", "~> 4.2"
+
+# composite_primary_keys gem (for database indices)
+gem "composite_primary_keys"
