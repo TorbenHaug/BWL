@@ -15,7 +15,7 @@ default: &default
   pool: 5
   username: webshop
   password: fmSnFAjYFqHJftLb
-  host: localhost
+  host: haug-dev.de
 
 development:
   <<: *default
@@ -31,4 +31,3 @@ test:
 production:
   <<: *default
   database: WebShop_production
-
