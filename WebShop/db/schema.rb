@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141107195915) do
+ActiveRecord::Schema.define(version: 20141107235123) do
 
   create_table "article_structures", id: false, force: true do |t|
     t.integer  "amount"
@@ -62,6 +62,13 @@ ActiveRecord::Schema.define(version: 20141107195915) do
   create_table "menus", force: true do |t|
     t.string   "name"
     t.integer  "super_menu_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "news", force: true do |t|
+    t.string   "title"
+    t.string   "content"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
