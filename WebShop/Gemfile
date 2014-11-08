@@ -43,3 +43,6 @@ gem "paperclip", "~> 4.2"
 
 # composite_primary_keys gem (for database indices)
 gem "composite_primary_keys"
+
+# crpting gem for passwords
+gem 'bcrypt'
