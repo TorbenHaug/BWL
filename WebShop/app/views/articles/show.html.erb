@@ -7,12 +7,12 @@
 
     lower_parts.each {|item|
       count = parent_amount * item.amount
-      accu.push("<li>" + count.to_s + "x " + item.lower_part.name.to_s + "</li>")
+      accu.push("<li>" + count.to_s + "x <strong>" + item.lower_part.name.to_s + "</strong></li>")
       product_structure_output_list(item.lower_part, count, accu)
     }
 
     if (!lower_parts.empty?)
-      accu.push("<ul>")
+      accu.push("</ul>")
     end
 
     return accu
@@ -48,7 +48,7 @@
     </p>
     
     <p>
-      <% product_structure_output = print_all_art(@article, 1, []) %>
+      <% product_structure_output = product_structure_output_list(@article, 1, []) %>
       <% if (!product_structure_output.empty?) %>
         <strong>Strukturstückliste:</strong><br>
         <% product_structure_output.each {|line| %>
