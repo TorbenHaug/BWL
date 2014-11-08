@@ -1,5 +1,18 @@
-<h1>New user</h1>
+<%= render 'users/usererrors' %>
+<div class="post">
 
-<%= render 'form' %>
+  <%= form_for(@user) do |f| %>
+      <%= f.label :vorname %>
+      <%= f.text_field :firstname %><br />
+      <%= f.label :nachname %>
+      <%= f.text_field :lastname %><br />
+      <%= f.label :email %>
+      <%= f.text_field :email %><br />
+      <%= f.label :password %>
+      <%= f.password_field :password %><br />
+      <%= f.label :password_confirmation, "Password Bestätigung" %>
+      <%= f.password_field :password_confirmation %><br />
+      <%= f.submit "Account Erstellen" %>
+  <% end %>
 
-<%= link_to 'Back', users_path %>
+</div>

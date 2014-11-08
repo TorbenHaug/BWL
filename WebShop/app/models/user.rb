@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  before_save { self.email = email.downcase }
+
   validates_presence_of :firstname
   validates_presence_of :lastname
   validates_presence_of :email

@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   
   root 'application#test'
 
+  get 'signup' => 'users#new'
+
   match '/search',      to: 'search#new',           via: 'get'
   match '/search',      to: 'search#search',        via: 'post'
 

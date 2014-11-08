@@ -69,9 +69,14 @@ Released   : 20130902
 		</ul>
 	</div>
 	<!-- end #sidebar -->
-	<div id="content">
-        <%= notice %>
-		<%= yield %>
+    <% if !flash.empty? then %>
+        <div class="post">
+          <p id="notice"><%= notice %></p>
+        </div>
+    <% end %>
+
+    <div class="post">
+        <%= yield %>
 		<div style="clear: both;">&nbsp;</div>
 	</div>
 	<!-- end #content -->
