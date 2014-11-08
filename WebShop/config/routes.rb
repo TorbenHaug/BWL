@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'search/search'
+
   resources :news
 
   resources :article_to_tags
@@ -22,6 +24,9 @@ Rails.application.routes.draw do
   resources :users
   
   root 'application#test'
+
+  match '/search',      to: 'search#new',           via: 'get'
+  match '/search',      to: 'search#search',        via: 'post'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

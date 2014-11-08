@@ -1,0 +1,22 @@
+<div id="banner-wrapper"></div>
+<div id="header-wrapper">
+  <div id="header" class="container">
+    <div id="logo">
+      <%= form_tag({controller: "search", action: "new"}, method: "post") do %>
+          <%= label_tag(:q, "Search for:") %>
+          <%= text_field_tag(:q) %>
+          <%= submit_tag("Search") %>
+      <% end %>
+    </div>
+    <div id="menu">
+      <ul>
+        <li><%= link_to "Home",   '#' %></li>
+        <li><%= link_to "Warenkorb",   '#' %></li>
+        <li><%= link_to "Admin",   '#' %></li>
+        <li><%= link_to "Sign Up",   '#' %></li>
+        <li><%= link_to "Login",   '#' %></li>
+
+      </ul>
+    </div>
+  </div>
+</div>

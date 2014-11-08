@@ -22,23 +22,14 @@ Released   : 20130902
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div id="banner-wrapper"></div>
-<div id="header-wrapper">
-	<div id="header" class="container">
-		<div id="logo">
-			<h1><a href="#">Monumental</a></h1>
-		</div>
-		<div id="menu">
-			<ul>
-				<li><a href="#" accesskey="1" title="">Homepage</a></li>
-				<li><a href="#" accesskey="2" title="">Our Clients</a></li>
-				<li><a href="#" accesskey="3" title="">About Us</a></li>
-				<li><a href="#" accesskey="4" title="">Careers</a></li>
-				<li><a href="#" accesskey="5" title="">Contact Us</a></li>
-			</ul>
-		</div>
-	</div>
-</div>
+
+<%=
+    # Including the header
+    # for changing it please change
+    # /layouts/_header.html.erb
+    render 'layouts/header'
+%>
+
 <div id="page" class="container">
 	<div id="sidebar">
 		<ul>
@@ -79,6 +70,7 @@ Released   : 20130902
 	</div>
 	<!-- end #sidebar -->
 	<div id="content">
+        <%= notice %>
 		<%= yield %>
 		<div style="clear: both;">&nbsp;</div>
 	</div>
