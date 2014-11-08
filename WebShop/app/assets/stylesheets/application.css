@@ -248,7 +248,7 @@ hr {
 /** SIDEBAR */
 
 #sidebar {
-	float: right;
+	float: left;
 	width: 350px;
 	padding-top: 5em;
 }
@@ -273,6 +273,7 @@ hr {
 	line-height: 40px;
 	border-bottom: 1px solid #282A2B;
 	margin: 0px 0px;
+        margin-right: 40px;
 	border-left: none;
 }
 
