@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141108130337) do
+ActiveRecord::Schema.define(version: 20141108160358) do
 
   create_table "article_structures", id: false, force: true do |t|
     t.integer  "amount"
@@ -91,7 +91,8 @@ ActiveRecord::Schema.define(version: 20141108130337) do
     t.string   "firstname"
     t.string   "lastname"
     t.string   "email"
-    t.string   "password"
+    t.string   "password_digest"
+    t.string   "remember_digest"
     t.integer  "role"
     t.datetime "deleted_at"
     t.datetime "created_at"
