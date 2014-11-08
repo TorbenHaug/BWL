@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :news
+
   get 'search/search'
 
   resources :news
