@@ -1,3 +1,24 @@
+<%
+  def product_structure_output_list(article, parent_amount, accu)
+    lower_parts = ArticleStructure.where(upper_part: article)
+    if (!lower_parts.empty?)
+      accu.push("<ul>")
+    end
+
+    lower_parts.each {|item|
+      count = parent_amount * item.amount
+      accu.push("<li>" + count.to_s + "x " + item.lower_part.name.to_s + "</li>")
+      product_structure_output_list(item.lower_part, count, accu)
+    }
+
+    if (!lower_parts.empty?)
+      accu.push("<ul>")
+    end
+
+    return accu
+  end
+%>
+
 <h1 style="margin-bottom: 40px;"><%= @article.name %></h1>
 
 <div class="post">
@@ -13,12 +34,27 @@
 
     <p>
       <strong>Price:</strong>
-      <%= @article.price %>
+      <%= "#{format("%.2f", @article.price).sub('.', ',')}" %> EUR
+    </p>
+    
+    <p>
+      <strong>Created at:</strong>
+      <%= @article.created_at %>
     </p>
 
     <p>
       <strong>Deleted at:</strong>
       <%= @article.deleted_at %>
+    </p>
+    
+    <p>
+      <% product_structure_output = print_all_art(@article, 1, []) %>
+      <% if (!product_structure_output.empty?) %>
+        <strong>Strukturstückliste:</strong><br>
+        <% product_structure_output.each {|line| %>
+          <%= line.html_safe %> <br>
+        <%} %>
+      <% end %>
     </p>
     
     <% if ("ADMIN" == "ADMIN") %>
