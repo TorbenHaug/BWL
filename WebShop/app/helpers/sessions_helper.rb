@@ -1,4 +1,7 @@
 module SessionsHelper
+  def admin_user?
+    current_user.nil? ? false : current_user.role < 1
+  end
   def log_in(user)
     session[:user_id] = user.id
   end
