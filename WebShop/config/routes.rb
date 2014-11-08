@@ -33,8 +33,7 @@ Rails.application.routes.draw do
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
 
-  match '/search',      to: 'search#new',           via: 'get'
-  match '/search',      to: 'search#search',        via: 'post'
+  get 'search' => 'articles#search'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

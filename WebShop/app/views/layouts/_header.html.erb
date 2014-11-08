@@ -2,7 +2,7 @@
 <div id="header-wrapper">
   <div id="header" class="container">
     <div id="logo">
-      <%= form_tag({controller: "search", action: "new"}, method: "post") do %>
+      <%= form_tag(search_path , method: "get") do %>
           <%= text_field_tag :q, '', size: 44 %>
           &nbsp;&nbsp;
           <%= submit_tag("Suche") %>
