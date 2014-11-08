@@ -22,8 +22,10 @@ Rails.application.routes.draw do
   resources :tags
 
   resources :users
-  
-  root 'application#test'
+
+  get 'create_test_data' => 'application#create_tests'
+  get 'home' => 'news#index'
+  root 'news#index'
 
   get 'signup' => 'users#new'
 
