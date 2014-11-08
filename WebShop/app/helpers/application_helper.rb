@@ -1,5 +1,16 @@
 # coding: UTF-8
 module ApplicationHelper
+  def generate_admins
+    User.new(
+      :firstname => "Ad",
+      :lastname => "min",
+      :email => "ad@min.de",
+      :password => "ad@min",
+      :password_confirmation => "ad@min",
+      :role => 0
+    ).save
+  end
+  
   def generate_menu_with_tag(name)
     Tag.new(:name => name).save
     Menu.new(:name => name).save
@@ -104,6 +115,8 @@ module ApplicationHelper
         "[BUNDLE] Asus P9D WS Intel® C226 with Intel Xeon E3-1225 v3",
         "Crucial CT2KIT51264BA160B 8GB 4GB 240-pin DDR3 1600mhz non-ECC",
         2)
-
+      
+    # generate admins
+    generate_admins
   end
 end
