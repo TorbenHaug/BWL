@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141107235123) do
+ActiveRecord::Schema.define(version: 20141108130337) do
 
   create_table "article_structures", id: false, force: true do |t|
     t.integer  "amount"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20141107235123) do
 
   create_table "articles", force: true do |t|
     t.string   "name"
-    t.string   "description"
+    t.text     "description"
     t.float    "price",       limit: 24
     t.datetime "deleted_at"
     t.datetime "created_at"
