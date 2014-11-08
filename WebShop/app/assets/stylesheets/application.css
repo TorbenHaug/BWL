@@ -1,3 +1,6 @@
+@import url("reset.css");
+@import url("cssmenu.css");
+
 html, body {
 	height: 100%;
 }
@@ -89,7 +92,7 @@ hr {
 /** HEADER */
 
 #header {
-	overflow: hidden;
+	/*overflow: hidden;*/
 	height: 60px;
 }
 
