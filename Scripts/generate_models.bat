@@ -8,5 +8,5 @@ rails generate scaffold Bill --force
 rails generate scaffold BillEntry amount:integer unit_price:float --force
 rails generate scaffold MenuToTag --force
 rails generate scaffold ArticleToTag --force
-rails generate scaffold News title:string content:string --force
+rails generate scaffold News title:string content:text --force
 pause
