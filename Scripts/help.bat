@@ -4,3 +4,4 @@ echo ^| ^=^> Clean database and run migrations
 echo.
 echo ^| rails s
 echo ^| ^=^> Start rails server
+pause
