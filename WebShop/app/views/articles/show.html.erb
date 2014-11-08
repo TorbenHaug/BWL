@@ -27,6 +27,8 @@
       <%= @article.name %>
     </p>
 
+    <%= image_tag @article.photo.url(:small) %>
+
     <p>
       <strong>Description:</strong>
       <%= @article.description %>

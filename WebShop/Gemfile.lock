@@ -122,6 +122,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt
+  cocaine (~> 0.5.3)
   coffee-rails (~> 4.0.0)
   composite_primary_keys
   jbuilder (~> 2.0)
