@@ -27,14 +27,16 @@
     <%= f.label :password %><br>
     <%= f.text_field :password %>
   </div>
-  <div class="field">
-    <%= f.label :role %><br>
-    <%= f.number_field :role %>
-  </div>
-  <div class="field">
-    <%= f.label :deleted_at %><br>
-    <%= f.datetime_select :deleted_at %>
-  </div>
+    <div class="field">
+      <%= f.label :password_confirmation %><br>
+      <%= f.text_field :password_confirmation %>
+    </div>
+  <% if admin_user? %>
+      <div class="field">
+        <%= f.label :role %><br>
+        <%= f.number_field :role %>
+      </div>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

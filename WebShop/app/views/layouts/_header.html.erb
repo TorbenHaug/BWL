@@ -20,6 +20,7 @@
             <%= link_to "Admin", '#' %>
             <ul>
               <li><%= link_to "Edit Tags", :notyetimplemented %></li>
+              <li><%= link_to "Edit Users", users_path %></li>
               <li><%= link_to "Edit Menu", :notyetimplemented %></li>
             </ul>
           <% end %>
@@ -27,7 +28,7 @@
           <li>
             <%= link_to current_user.firstname + " " + current_user.lastname , current_user %>
             <ul>
-              <li><%= link_to "Edit Profile" , current_user, method: :edit%></li>
+              <li><%= link_to "Edit Profile" , edit_user_path(current_user)%></li>
               <li><%= link_to 'Logout', :logout, method: :delete %></li>
             </ul>
           </li>

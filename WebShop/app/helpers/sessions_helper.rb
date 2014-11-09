@@ -1,4 +1,13 @@
 module SessionsHelper
+  def check_rights(right)
+    if right
+      true
+    else
+      flash[:notice] = "Nicht genug rechte"
+      redirect_to :root
+      false
+    end
+  end
   def admin_user?
     current_user.nil? ? false : current_user.role < 1
   end
