@@ -2,6 +2,11 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
   Paperclip.options[:command_path] = 'C:\Program Files\ImageMagick-6.8.9-Q16'
 
+  def by_menu
+    set_menu_id(params[:menu_id])
+    @articles = Article.all
+    render template: 'articles/index'
+  end
   def search
     searchqueries = params[:q].split(' ')
     searchpattern = searchqueries.map { |obj| "(name like '%#{obj}%' OR description like '%#{obj}%')"}.join(" AND ")

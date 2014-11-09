@@ -12,24 +12,24 @@
     <div id='cssmenu'>
       <ul>
         <li><%= link_to "Home", :root %></li>
-        <li><%= link_to "Warenkorb", '#' %></li>
+        <li><%= link_to "Warenkorb", :notyetimplemented %></li>
         
         <% if logged_in? %>
           <li>
           <% if admin_user? %>
             <%= link_to "Admin", '#' %>
             <ul>
-              <li><a href='#'>Sub Product</a></li>
-              <li><a href='#'>Sub Product</a></li>
-              <li><a href='#'>Sub Product</a></li>
-              <li><a href='#'>Sub Product</a></li>
-              <li><a href='#'>Sub Product</a></li>
-              <li><a href='#'>Sub Product</a></li>
+              <li><%= link_to "Edit Tags", :notyetimplemented %></li>
+              <li><%= link_to "Edit Menu", :notyetimplemented %></li>
             </ul>
           <% end %>
           </li>
           <li>
-          <%= link_to "Logout(" + current_user.firstname + " " + current_user.lastname + ")", :logout, method: "delete" %>
+            <%= link_to current_user.firstname + " " + current_user.lastname , current_user %>
+            <ul>
+              <li><%= link_to "Edit Profile" , current_user, method: :edit%></li>
+              <li><%= link_to 'Logout', :logout, method: :delete %></li>
+            </ul>
           </li>
         <% else %>
           <li><%= link_to "Sign Up", :signup %></li>

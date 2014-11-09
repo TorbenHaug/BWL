@@ -255,8 +255,28 @@ hr {
 	float: left;
 	width: 350px;
 	padding-top: 5em;
-}
+    font-family: Montserrat, sans-serif;
+    background: #181818;
+    font-size: 12px;
 
+}
+#sidebar ul{
+    list-style: none;
+
+
+}
+#sidebar a{
+    padding: 17px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: #dddddd;
+    font-weight: 700;
+}
+#cssmenu a:hover {
+    color: #ffffff;
+}
+/*
 #sidebar ul {
 	margin: 0;
 	padding: 0;
@@ -315,6 +335,7 @@ hr {
 #sidebar a:hover {
 	text-decoration: underline;
 }
+*/
 /* Footer */
 
 #footer {

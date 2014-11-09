@@ -1,0 +1,33 @@
+<%
+    def get_menu(id)
+      if id.nil?
+        Menu.where("super_menu_id is null")
+      else
+        Menu.where("super_menu_id = #{id}")
+      end
+    end
+%>
+<% def generate_menu(id)
+        accu = ""
+        include_menu = false
+        menus = get_menu(id)
+        if !menus.empty?
+            menus.each{ |entry|
+                accu += "<li class=\"" + (get_menu_id == entry.id ? (include_menu = true; "chosenElement") : "unChosenElement") + "\">" + link_to(entry.name, by_menu_path(:menu_id => entry.id)).to_s + "</li>"
+                sub_menus = generate_menu(entry.id)
+                include_menu = include_menu || sub_menus[1]
+                if not(sub_menus[0].empty?)
+                  accu += sub_menus[0]
+                end
+            }
+        end
+        if !accu.empty? and (include_menu or id == get_menu_id)
+            accu = "<ul>" + accu + "</ul>"
+            [accu, include_menu]
+        else
+            ["",include_menu]
+        end
+
+ end %>
+
+<%= (generate_menu(nil)[0]).to_s.html_safe %>
