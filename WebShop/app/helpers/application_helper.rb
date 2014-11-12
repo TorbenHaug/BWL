@@ -9,7 +9,6 @@ module ApplicationHelper
   
   # CONVERTIONS
   def get_html_safe_string(string)
-    check_pre((string.string?))
     return string.gsub("\n", "<br/>").html_safe
   end
   
