@@ -2,7 +2,7 @@ class Menu < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
   
-  belongs_to :menu, :class_name => 'Menu'
+  belongs_to :super_menu, :class_name => 'Menu'
   
   has_many :menus, foreign_key: 'super_menu_id'
   has_many :menu_to_tags
