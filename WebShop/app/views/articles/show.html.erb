@@ -1,4 +1,3 @@
-<div class="post">
 <%
   def product_structure_output_list(article, parent_amount, accu)
     lower_parts = ArticleStructure.where(upper_part: article)
@@ -20,49 +19,55 @@
   end
 %>
 
-<h1 style="margin-bottom: 40px;"><%= @article.name %></h1>
+
 
 <div class="post">
-    <p>
-      <strong>Name:</strong>
-      <%= @article.name %>
-    </p>
+    <div style="height: 150px;">
+        <span style="float: right;"><%= image_tag @article.photo.url(:small) %></span>
+        <h1 style="padding-top: 30px; padding-right: 180px;"><%= @article.name %></h1>
+    </div>
 
-    <%= image_tag @article.photo.url(:small) %>
+    <div class="post">
+        <p>
+          <strong>Produktbezeichnung:<br/></strong>
+          <%= @article.name %>
+        </p>
 
-    <p>
-      <strong>Description:</strong>
-      <%= @article.description %>
-    </p>
+        <p>
+          <strong>Produktbeschreibung:<br/></strong>
+          <%= @article.description %>
+        </p>
 
-    <p>
-      <strong>Price:</strong>
-      <%= "#{format("%.2f", @article.price).sub('.', ',')}" %> EUR
-    </p>
-    
-    <p>
-      <strong>Created at:</strong>
-      <%= @article.created_at %>
-    </p>
+        <p>
+          <strong>Preis:</strong>
+          <%= float_to_euro_string(@article.price) %>
+        </p>
 
-    <p>
-      <strong>Deleted at:</strong>
-      <%= @article.deleted_at %>
-    </p>
-    
-    <p>
-      <% product_structure_output = product_structure_output_list(@article, 1, []) %>
-      <% if (!product_structure_output.empty?) %>
-        <strong>Strukturstückliste:</strong><br>
-        <% product_structure_output.each {|line| %>
-          <%= line.html_safe %> <br>
-        <%} %>
-      <% end %>
-    </p>
-    
-    <% if ("ADMIN" == "ADMIN") %>
-      <%= link_to 'Bearbeiten', edit_article_path(@article) %> |
-      <%= link_to 'Zurück', articles_path %>
-    <% end %>
-</div>
+        <% if (admin_user?) %>
+            <p>
+              <strong>Created at:<br/></strong>
+              <%= @article.created_at %>
+            </p>
+
+            <p>
+              <strong>Deleted at:<br/></strong>
+              <%= @article.deleted_at %>
+            </p>
+        <% end %>
+
+        <p>
+          <% product_structure_output = product_structure_output_list(@article, 1, []) %>
+          <% if (!product_structure_output.empty?) %>
+            <strong>Strukturstückliste:</strong><br/>
+            <% product_structure_output.each {|line| %>
+              <%= line.html_safe %> <br/>
+            <%} %>
+          <% end %>
+        </p>
+
+        <% if (admin_user?) %>
+            <%= link_to 'Bearbeiten', edit_article_path(@article) %> | 
+            <%= link_to 'Zurück', articles_path %>
+        <% end %>
+    </div>
 </div>

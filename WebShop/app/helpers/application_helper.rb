@@ -17,6 +17,10 @@ module ApplicationHelper
     return date.day.to_s + ". " + months[date.month - 1] + " " + date.year.to_s
   end
   
+  def float_to_euro_string(value)
+    return "#{format("%.2f", value).sub('.', ',')} EUR"
+  end
+  
   # TEST DATA
   def generate_admins
     User.new(
