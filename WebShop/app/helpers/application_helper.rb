@@ -1,5 +1,24 @@
 # coding: UTF-8
 module ApplicationHelper
+  # PRECONDITIONS
+  def check_pre(assertion)
+    if (!assertion)
+      raise(RuntimeError, 'Precondition violated!')
+    end
+  end
+  
+  # CONVERTIONS
+  def get_html_safe_string(string)
+    check_pre((string.string?))
+    return string.gsub("\n", "<br/>").html_safe
+  end
+  
+  def get_german_date(date)
+    months = ["Januar", "Feburar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
+    return date.day.to_s + ". " + months[date.month - 1] + " " + date.year.to_s
+  end
+  
+  # TEST DATA
   def generate_admins
     User.new(
       :firstname => "Ad",
