@@ -3,8 +3,10 @@
 
 <% @news.reverse.each do |news| %>
     <div class="post">
-        <h2 class="title"><a><%= news.title %></a></h2>
-        <p class="meta"><span class="date"></span><span class="posted"><%= get_german_date(news.created_at.to_date) %></span></p>
+        <p class="meta">
+            <span class="date"><%= news.title %></span>
+            <span class="posted"><%= get_german_date(news.created_at.to_date) %></span>
+        </p>
         <div style="clear: both;">&nbsp;</div>
         <div class="entry">
             <p><%= get_html_safe_string(news.content) %></p>
