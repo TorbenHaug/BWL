@@ -25,10 +25,16 @@
     <%= f.text_field :price %>
   </div>
   <div class="field">
-    <%= f.label :deleted_at %><br>
-    <%= f.datetime_select :deleted_at %>
+    <% Tag.all.each do |entry| %>
+        <label>
+          <%= check_box_tag "article[tag_ids][]", entry.id, @article.tags.include?(entry) %>
+          <%= entry.name %>
+        </label><br />
+    <% end %>
   </div>
-  <%= f.file_field :photo %>
+  <div class="field">
+    <%= f.file_field :photo %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -15,6 +15,7 @@ class Article < ActiveRecord::Base
   has_many :shopping_cart_entries
   has_many :users, :through => :shopping_cart_entries
   has_many :article_to_tags
+  has_many :tags, :through => :article_to_tags
   
   has_many :article_structure_to, :foreign_key => 'upper_part_id', :class_name => 'ArticleStructure'
   has_many :article_structure_from, :foreign_key => 'lower_part_id', :class_name => 'ArticleStructure'
