@@ -7,7 +7,7 @@
 
     lower_parts.each {|item|
       count = parent_amount * item.amount
-      accu.push("<li>" + count.to_s + "x <strong>" + item.lower_part.name.to_s + "</strong></li>")
+      accu.push("<li>" + count.to_s + "x " + link_to(item.lower_part.name, item.lower_part) + "</li>")
       product_structure_output_list(item.lower_part, count, accu)
     }
 
@@ -56,7 +56,9 @@
               <%= @article.deleted_at %>
             </p>
         <% end %>
-
+    </div>
+    
+    <div class="post" style="margin-top: -20px;">
         <p>
           <% product_structure_output = product_structure_output_list(@article, 1, []) %>
           <% if (!product_structure_output.empty?) %>
