@@ -177,6 +177,12 @@ hr {
 	background: #FFF;
 }
 
+.post ul
+{
+    margin-top: -20px;
+    margin-bottom: -20px;
+}
+
 .post a
 {
 	color: #262626;
