@@ -204,10 +204,18 @@ hr {
 }
 
 .post .meta .date {
+        border: none;
+	font-size: 2em;
+	letter-spacing: -2px;
+	text-decoration: none;
+	font-weight: 600;
+	color: #222222;
 	float: left;
 }
 
 .post .meta .posted {
+        font-weight: 600;
+	color: #222222;
 	float: right;
 }
 
