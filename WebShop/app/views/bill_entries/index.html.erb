@@ -13,9 +13,9 @@
     <% @bill_entries.each do |bill_entry| %>
       <tr>
         <td><%= bill_entry.amount %></td>
-        <td><%= link_to 'Show', bill_entry %></td>
-        <td><%= link_to 'Edit', edit_bill_entry_path(bill_entry) %></td>
-        <td><%= link_to 'Destroy', bill_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Anzeigen', bill_entry %></td>
+        <td><%= link_to 'Bearbeiten', edit_bill_entry_path(bill_entry) %></td>
+        <td><%= link_to 'Löschen', bill_entry, method: :delete, data: { confirm: 'Sind Sie sicher?' } %></td>
       </tr>
     <% end %>
   </tbody>

@@ -13,9 +13,9 @@
     <% @shopping_cart_entries.each do |shopping_cart_entry| %>
       <tr>
         <td><%= shopping_cart_entry.amount %></td>
-        <td><%= link_to 'Show', shopping_cart_entry %></td>
-        <td><%= link_to 'Edit', edit_shopping_cart_entry_path(shopping_cart_entry) %></td>
-        <td><%= link_to 'Destroy', shopping_cart_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Anzeigen', shopping_cart_entry %></td>
+        <td><%= link_to 'Bearbeiten', edit_shopping_cart_entry_path(shopping_cart_entry) %></td>
+        <td><%= link_to 'Löschen', shopping_cart_entry, method: :delete, data: { confirm: 'Sind Sie sicher?' } %></td>
       </tr>
     <% end %>
   </tbody>

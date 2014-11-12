@@ -13,9 +13,9 @@
     <!--<% @menus.each do |menu| %>-->
       <!--<tr>-->
         <!--<td><%= menu.name %></td>-->
-        <!--<td><%= link_to 'Show', menu %></td>-->
-        <!--<td><%= link_to 'Edit', edit_menu_path(menu) %></td>-->
-        <!--<td><%= link_to 'Destroy', menu, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
+        <!--<td><%= link_to 'Anzeigen', menu %></td>-->
+        <!--<td><%= link_to 'Bearbeiten', edit_menu_path(menu) %></td>-->
+        <!--<td><%= link_to 'Löschen', menu, method: :delete, data: { confirm: 'Sind Sie sicher?' } %></td>-->
       <!--</tr>-->
     <!--<% end %>-->
   <!--</tbody>-->
@@ -41,7 +41,7 @@
          accu += "<li >" +
                  entry.name + " " +
                  link_to('Edit', edit_menu_path(entry)).to_s + " " +
-         link_to('Destroy', entry, method: :delete, data: { confirm: 'Are you sure?' }).to_s + "</li>"
+         link_to('Destroy', entry, method: :delete, data: { confirm: 'Sind Sie sicher?' }).to_s + "</li>"
          sub_menus = generate_menu(entry.id)
          if not(sub_menus.empty?)
            accu += sub_menus

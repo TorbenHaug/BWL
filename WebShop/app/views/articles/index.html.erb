@@ -19,9 +19,9 @@
         <td><%= article.description %></td>
         <td><%= article.price %></td>
         <td><%= article.deleted_at %></td>
-        <td><%= link_to 'Show', article %></td>
-        <td><%= link_to 'Edit', edit_article_path(article) %></td>
-        <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Anzeigen', article %></td>
+        <td><%= link_to 'Bearbeiten', edit_article_path(article) %></td>
+        <td><%= link_to 'Löschen', article, method: :delete, data: { confirm: 'Sind Sie sicher?' } %></td>
       </tr>
     <% end %>
   </tbody>

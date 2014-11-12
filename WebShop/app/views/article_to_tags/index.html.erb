@@ -11,9 +11,9 @@
   <tbody>
     <% @article_to_tags.each do |article_to_tag| %>
       <tr>
-        <td><%= link_to 'Show', article_to_tag %></td>
-        <td><%= link_to 'Edit', edit_article_to_tag_path(article_to_tag) %></td>
-        <td><%= link_to 'Destroy', article_to_tag, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Anzeigen', article_to_tag %></td>
+        <td><%= link_to 'Bearbeiten', edit_article_to_tag_path(article_to_tag) %></td>
+        <td><%= link_to 'Löschen', article_to_tag, method: :delete, data: { confirm: 'Sind Sie sicher?' } %></td>
       </tr>
     <% end %>
   </tbody>
