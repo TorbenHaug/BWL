@@ -22,12 +22,14 @@
 
 
 <div class="post">
-    <div style="min-height: 150px;">
-        <span style="float: right; width: 150px;"><%= image_tag @article.photo.url(:small) %></span>
-        <h1 style="padding-top: 30px; padding-right: 180px;"><%= @article.name %></h1>
-    </div>
+    <table style="width: 100%;">
+        <tr>
+            <td><h1><%= @article.name %></h1></td>
+            <td width="180px" height="150px" align="right"><%= image_tag @article.photo.url(:small) %></td>
+        </tr>
+    </table>
 
-    <div class="post">
+    <div class="post" style="margin-top: 30px;">
         <p>
           <strong>Produktbezeichnung:<br/></strong>
           <%= @article.name %>
