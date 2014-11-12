@@ -17,12 +17,19 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
+    <strong>Tags:</strong><br />
     <% Tag.all.each do |entry| %>
       <label>
         <%= check_box_tag "menu[tag_ids][]", entry.id, @menu.tags.include?(entry) %>
         <%= entry.name %>
       </label><br />
   <% end %>
+  </div>
+  <div class="field">
+    <strong>Super Menu:</strong><br />
+    <label>
+      <%= collection_select(:menu, :super_menu_id, Menu.all, :id, :name, prompt: true, :include_blank => true) %>
+    </label>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -42,7 +42,9 @@ class MenusController < ApplicationController
   def update
     @menu = Menu.find(params[:id])
     @menu.tag_ids = params[:menu][:tag_ids].map { |obj| obj.to_i}
+    @menu.super_menu_id = params[:menu][:super_menu_id].to_i
     @menu.save
+    flash[:notice] = params.to_s
     respond_to do |format|
       if @menu.update(menu_params)
         format.html { redirect_to @menu}#, notice: 'Menu was successfully updated.' }
@@ -72,6 +74,6 @@ class MenusController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def menu_params
-      params.require(:menu).permit(:name, :tag_ids)
+      params.require(:menu).permit(:name, :tag_ids, :super_menu_id)
     end
 end
