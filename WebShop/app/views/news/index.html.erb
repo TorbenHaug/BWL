@@ -1,22 +1,22 @@
 <h1>Willkommen!</h1>
 <br/><br/>
 
-<div class="post">
-    <% @news.each do |news| %>
+<% @news.each do |news| %>
+    <div class="post">
         <h2 class="title"><a><%= news.title %></a></h2>
         <p class="meta"><span class="date"></span><span class="posted"><%= get_german_date(news.created_at.to_date) %></span></p>
         <div style="clear: both;">&nbsp;</div>
         <div class="entry">
             <p><%= get_html_safe_string(news.content) %></p>
         </div>
-        
+
         <% if (admin_user?) %>
             <%= link_to 'Show', news %> | 
             <%= link_to 'Edit', edit_news_path(news) %> | 
             <%= link_to 'Destroy', news, method: :delete, data: { confirm: 'Are you sure?' } %>
         <% end %>
-    <% end %>
-</div>
+    </div>
+<% end %>
 
 <br/><br/>
 
