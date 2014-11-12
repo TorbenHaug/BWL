@@ -40,7 +40,9 @@ class MenusController < ApplicationController
   # PATCH/PUT /menus/1
   # PATCH/PUT /menus/1.json
   def update
-    flash[:notice] = params.to_s
+    @menu = Menu.find(params[:id])
+    @menu.tag_ids = params[:menu][:tag_ids].map { |obj| obj.to_i}
+    @menu.save
     respond_to do |format|
       if @menu.update(menu_params)
         format.html { redirect_to @menu}#, notice: 'Menu was successfully updated.' }
