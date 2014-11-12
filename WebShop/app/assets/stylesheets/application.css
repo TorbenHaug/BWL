@@ -177,11 +177,11 @@ hr {
 	background: #FFF;
 }
 
-.post ul
-{
-    margin-top: -20px;
-    margin-bottom: -20px;
-}
+/*.post ul*/
+/*{*/
+    /*margin-top: -20px;*/
+    /*margin-bottom: -20px;*/
+/*}*/
 
 .post a
 {
@@ -365,3 +365,4 @@ hr {
 #footer a {
 	color: #6B6B6B;
 }
+
