@@ -31,18 +31,21 @@ Released   : 20130902
 %>
 
 <div id="page" class="container">
-	<div id="sidebar">
-	    <%= render 'layouts/menu' %>
-	</div>
-	<!-- end #sidebar -->
-    <% if !flash.empty? then %>
-        <div class="post">
-          <p id="notice"><%= notice %></p>
-        </div>
-    <% end %>
-
-    <%= yield %>
-    <!-- end #content -->
+    <div id="sidebar">
+        <%= render 'layouts/menu' %>
+    </div>
+    <!-- end #sidebar -->
+    
+    <div id="content">
+        <% if !flash.empty? then %>
+            <div class="post">
+                <p id="notice"><%= notice %></p>
+            </div>
+        <% end %>
+        
+        <%= yield %>
+    </div>
+    <!-- end #content -->    
 </div>
 <div id="footer" class="container">
 	<p>&copy; Untitled. All rights reserved. Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>. Photos by <a href="http://fotogrph.com/">Fotogrph</a>.</p>
