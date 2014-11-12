@@ -22,8 +22,8 @@
 
 
 <div class="post">
-    <div style="height: 150px;">
-        <span style="float: right;"><%= image_tag @article.photo.url(:small) %></span>
+    <div style="min-height: 150px;">
+        <span style="float: right; width: 150px;"><%= image_tag @article.photo.url(:small) %></span>
         <h1 style="padding-top: 30px; padding-right: 180px;"><%= @article.name %></h1>
     </div>
 
@@ -45,12 +45,12 @@
 
         <% if (admin_user?) %>
             <p>
-              <strong>Erstellt am:<br/></strong>
+              <strong>Erstellt am:</strong>
               <%= @article.created_at %>
             </p>
 
             <p>
-              <strong>Gelöscht am:<br/></strong>
+              <strong>Gelöscht am:</strong>
               <%= @article.deleted_at %>
             </p>
         <% end %>

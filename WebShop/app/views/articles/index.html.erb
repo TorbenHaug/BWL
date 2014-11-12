@@ -1,33 +1,26 @@
+<h1>Artikel</h1>
+<br/><br/>
+
 <div class="post">
-<h1>Listing articles</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Price</th>
-      <th>Deleted at</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
     <% @articles.each do |article| %>
-      <tr>
-        <td><%= article.name %></td>
-        <td><%= article.description %></td>
-        <td><%= article.price %></td>
-        <td><%= article.deleted_at %></td>
-        <td><%= link_to 'Anzeigen', article %></td>
-        <td><%= link_to 'Bearbeiten', edit_article_path(article) %></td>
-        <td><%= link_to 'Löschen', article, method: :delete, data: { confirm: 'Sind Sie sicher?' } %></td>
-      </tr>
+        <p style="min-height: 150px;">
+            <span style="margin-right: 30px; float: left; width: 150px;"><%= image_tag article.photo.url(:small) %></span>
+            <%= link_to article.name, article %><br/>
+            <strong>Preis:</strong>
+            <%= float_to_euro_string(article.price) %>
+            
+            <% if (admin_user?) %>
+                <br/>
+                <%= link_to 'Bearbeiten', edit_article_path(article) %> | 
+                <%= link_to 'Löschen', article, method: :delete, data: { confirm: 'Sind Sie sicher?' } %>
+            <% end %>
+        </p>
+        <hr style="display: block; height:1px; border:none; color:#333; background-color:#333;"/>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Article', new_article_path %>
+    
+    <br/>
+    
+    <% if (admin_user?) %>
+    <%= link_to 'Neuer Artikel', new_article_path %>
+    <% end %>
 </div>
