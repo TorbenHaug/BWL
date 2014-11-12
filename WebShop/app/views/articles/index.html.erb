@@ -4,7 +4,7 @@
 <div class="post">
     <% @articles.each do |article| %>
         <p style="min-height: 150px;">
-            <span style="margin-right: 30px; float: left; width: 150px;"><%= image_tag article.photo.url(:small) %></span>
+            <span style="margin-right: 30px; float: left; width: 150px; text-align: center;"><%= image_tag article.photo.url(:small) %></span>
             <%= link_to article.name, article %><br/>
             <strong>Preis:</strong>
             <%= float_to_euro_string(article.price) %>
