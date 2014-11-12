@@ -4,7 +4,8 @@ class ArticlesController < ApplicationController
 
   def by_menu
     set_menu_id(params[:menu_id])
-    @articles = Article.all
+    flash[:notice] = Menu.find(get_menu_id).all_tags.inject(""){|accu,obj| accu = accu + obj.name.to_s + ", "; accu}
+    @articles = Menu.find(get_menu_id).all_tags.inject(Set.new) { |accu, obj| accu + obj.articles }
     render template: 'articles/index'
   end
   def search
