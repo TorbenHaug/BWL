@@ -30,6 +30,13 @@ Released   : 20130902
     render 'layouts/header'
 %>
 
+<% 
+    no_redirect_to = ["/login", "/logout", "/signin"]
+    if (!request.original_url.nil? && no_redirect_to.all? {|item| !request.original_url.include?(item)})
+        session[:return_to] = request.original_url
+    end
+%>
+    
 <div id="page" class="container">
     <div id="sidebar">
         <%= render 'layouts/menu' %>
