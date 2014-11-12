@@ -17,6 +17,6 @@ class SessionsController < ApplicationController
   
   def destroy
     log_out if logged_in?
-    redirect_to ((session[:return_to].nil?) ? root_path : session[:return_to])
+    redirect_to root_path
   end
 end

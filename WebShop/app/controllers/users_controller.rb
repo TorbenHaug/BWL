@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     @user.role=100
     if @user.save
       flash[:notice] = "Danke für die Anmeldung!"
-      redirect_to @user
+      redirect_to root_path
     else
       render 'new'
     end
