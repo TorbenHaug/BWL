@@ -6,4 +6,6 @@ class Menu < ActiveRecord::Base
   
   has_many :menus
   has_many :menu_to_tags
+  has_many :tags, :through => :menu_to_tags
+  
 end

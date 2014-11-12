@@ -1,9 +1,17 @@
 <div class="post">
 <p id="notice"><%= notice %></p>
-
+<p>
+  <%= @menu.tag_ids %>
+</p>
 <p>
   <strong>Name:</strong>
   <%= @menu.name %>
+</p>
+<p>
+  <strong>Tags:</strong><br />
+  <% @menu.tags.each do |entry| %>
+    <%= entry.name %><br />
+  <% end %>
 </p>
 
 <%= link_to 'Bearbeiten', edit_menu_path(@menu) %> |
