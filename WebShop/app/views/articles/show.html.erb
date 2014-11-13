@@ -47,7 +47,7 @@
     
         <% product_structure_output = product_structure_output_list(@article, 1, []) %>
         <% if (!product_structure_output.empty?) %>
-            <hr style="display: block; height:1px; border:none; color:#d3d7d9; background-color:#d3d7d9; margin: 30px -50px 30px -50px;"/>
+            <%= viewtag_seperator %>
             <p>
                 <strong>Strukturstückliste:</strong><br/>
                 <% product_structure_output.each {|line| %>
@@ -57,7 +57,7 @@
         <% end %>
 
         <% if (admin_user?) %>
-            <hr style="display: block; height:1px; border:none; color:#d3d7d9; background-color:#d3d7d9; margin: 30px -50px 30px -50px;"/>
+            <%= viewtag_seperator %>
             <p>
               <strong>Erstellt am:</strong>
               <%= get_german_date_time_ordinal(@article.created_at.to_datetime) %>
@@ -71,6 +71,7 @@
             <% end %>
             
             <p>
+              <%= viewtag_admin %><br/>
               <%= link_to 'Bearbeiten', edit_article_path(@article) %> | 
               <%= link_to 'Zurück', articles_path %>
             </p>

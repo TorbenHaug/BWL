@@ -16,14 +16,15 @@
                 <%= link_to 'Löschen', article, method: :delete, data: { confirm: 'Sind Sie sicher?' } %>
             <% end %>
         </p>
-        <% if (index != selected_articles.size - 1) %>
-            <hr style="display: block; height:1px; border:none; color:#333; background-color:#333;"/>
+        <% if ((index != selected_articles.size - 1) || admin_user?) %>
+            <%= viewtag_seperator %>
         <% end %>
     <% end %>
     
-    <br/>
-    
     <% if (admin_user?) %>
-    <%= link_to 'Neuer Artikel', new_article_path %>
+        <p>
+            <%= viewtag_admin %><br/>
+            <%= link_to 'Neuer Artikel', new_article_path %>
+        </p>
     <% end %>
 </div>

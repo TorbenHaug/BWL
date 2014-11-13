@@ -29,6 +29,15 @@ module ApplicationHelper
     return "#{format("%.2f", value).sub('.', ',')} EUR"
   end
   
+  # VIEW
+  def viewtag_admin
+    return "<span style=\"color: #990000\"><strong>[ADMINISTRATION]</strong></span>".html_safe
+  end
+  
+  def viewtag_seperator
+    return "<hr style=\"display: block; height:1px; border:none; color:#d3d7d9; background-color:#d3d7d9; margin: 30px -50px 30px -50px;\"/>".html_safe
+  end
+  
   # TEST DATA
   def generate_admins
     User.new(

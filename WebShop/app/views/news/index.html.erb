@@ -20,8 +20,9 @@
     </div>
 <% end %>
 
-<br/><br/>
-
 <% if (admin_user?) %>
-<%= link_to 'Neuer Eintrag', new_news_path %>
+    <div class="post">
+        <%= viewtag_admin %><br/>
+        <%= link_to 'Neuer Eintrag', new_news_path %>
+    </div>
 <% end %>

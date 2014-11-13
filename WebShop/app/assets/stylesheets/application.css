@@ -264,21 +264,28 @@ hr {
 }
 
 /** SIDEBAR */
-
 #sidebar {
-	float: left;
-	width: 350px;
-	padding-top: 5em;
+    float: left;
+    width: 300px;
+    margin-right: 50px;
+    padding-bottom: 4em;
+    padding-top: 4em;
+    border: 1px solid #E7EBED;
+    border-radius: 8px;
     font-family: Montserrat, sans-serif;
     background: #181818;
     font-size: 12px;
 
 }
-#sidebar ul{
+
+#sidebar ul {
     list-style: none;
-
-
 }
+
+#sidebar ul li {
+    margin-bottom: 10px;
+}
+
 #sidebar a{
     font-size: 12px;
     letter-spacing: 1px;
