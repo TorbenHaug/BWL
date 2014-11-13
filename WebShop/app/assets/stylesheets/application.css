@@ -267,10 +267,10 @@ hr {
 #sidebar {
     float: left;
     width: 300px;
-    margin-right: 50px;
-    padding-bottom: 4em;
-    padding-top: 4em;
-    border: 1px solid #E7EBED;
+    margin-right: 48px;
+    padding-top: 50px;
+    padding-bottom: 38px;
+    border: 1px solid #D3D7D9;
     border-radius: 8px;
     font-family: Montserrat, sans-serif;
     background: #181818;
