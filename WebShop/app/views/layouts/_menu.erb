@@ -21,7 +21,7 @@
                 end
             }
         end
-        if !accu.empty? and (include_menu or id == get_menu_id)
+        if (!accu.empty? and (include_menu or id == get_menu_id)) or id == nil
             accu = "<ul>" + accu + "</ul>"
             [accu, include_menu]
         else
