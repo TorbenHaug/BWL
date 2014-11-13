@@ -25,7 +25,9 @@ class MenusController < ApplicationController
   # POST /menus.json
   def create
     @menu = Menu.new(menu_params)
-
+    @menu.save
+    @menu.tag_ids = params[:menu][:tag_ids].map { |obj| obj.to_i}
+    @menu.super_menu_id = params[:menu][:super_menu_id].to_i
     respond_to do |format|
       if @menu.save
         format.html { redirect_to @menu, notice: 'Menu was successfully created.' }
