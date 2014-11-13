@@ -12,7 +12,7 @@ class Menu < ActiveRecord::Base
     menus.inject(tags.to_set) { |accu, obj | accu + obj.all_tags}
   end
   def all_top_tags
-    if self.super_menu.nil?; return tags.to_set end
-    super_menu.all_top_tags + tags.to_set
+    if self.super_menu.nil?; return tags.nil? ? Set.new : tags.to_set end
+    super_menu.all_top_tags + (tags.nil? ? Set.new : tags.to_set)
   end
 end
