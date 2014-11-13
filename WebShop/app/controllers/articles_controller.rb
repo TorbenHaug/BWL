@@ -5,7 +5,8 @@ class ArticlesController < ApplicationController
   def by_menu
     set_menu_id(params[:menu_id])
     #flash[:notice] = Menu.find(get_menu_id).all_tags.inject(""){|accu,obj| accu = accu + obj.name.to_s + ", "; accu}
-    @articles = Menu.find(get_menu_id).all_tags.inject(Set.new) { |accu, obj| accu + obj.articles }
+    #@articles = Menu.find(get_menu_id).all_sub_tags.inject(Set.new) { |accu, obj| accu + obj.articles }
+    @articles = Menu.find(get_menu_id).all_top_tags.inject(Menu.find(get_menu_id).all_top_tags.first.articles.to_set) { |accu, obj| obj.articles.to_set & accu }
     render template: 'articles/index'
   end
   def search
