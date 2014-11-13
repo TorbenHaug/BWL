@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 12. Nov 2014 um 07:17
+-- Erstellungszeit: 13. Nov 2014 um 23:55
 -- Server Version: 5.5.39-MariaDB-0ubuntu0.14.04.1
--- PHP-Version: 5.5.9-1ubuntu4.4
+-- PHP-Version: 5.5.9-1ubuntu4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -38,22 +38,22 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `photo_content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `photo_file_size` int(11) DEFAULT NULL,
   `photo_updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Daten für Tabelle `articles`
 --
 
 INSERT INTO `articles` (`id`, `name`, `description`, `price`, `deleted_at`, `created_at`, `updated_at`, `photo_file_name`, `photo_content_type`, `photo_file_size`, `photo_updated_at`) VALUES
-(1, '[SET] DELL PowerEdge T20 Xeon E3-1225v3 Mini-Tower Server with Samsung S22D300H 54,61 cm (22 Zoll) LED-Monitor', 'Der PowerEdge T20 Server überzeugt mit umfangreicher interner Massenspeicherkapazität und starker Leistung. Sein Minitower-Gehäuse ist für einen leisen, effizienten und unterbrechungsfreien Betrieb ausgelegt. Mit dem T20 können Sie die Daten und Anwendungen mehrerer Desktop-PCs und Workstations auf einem einzigen Server konsolidieren und so nicht nur die Zusammenarbeit optimieren, sondern auch Ihre Produktivität steigern.', 379, '2014-11-08 19:00:00', '2014-11-08 19:00:13', '2014-11-08 19:00:45', 'Bild0-4990341517-024_250.JPG', 'image/jpeg', 5889, '2014-11-08 19:00:45'),
-(2, 'DELL PowerEdge T20 Xeon E3-1225v3 Mini-Tower Server', 'Der PowerEdge T20 Server überzeugt mit umfangreicher interner Massenspeicherkapazität und starker Leistung. Sein Minitower-Gehäuse ist für einen leisen, effizienten und unterbrechungsfreien Betrieb ausgelegt. Mit dem T20 können Sie die Daten und Anwendungen mehrerer Desktop-PCs und Workstations auf einem einzigen Server konsolidieren und so nicht nur die Zusammenarbeit optimieren, sondern auch Ihre Produktivität steigern.', 299, '2014-11-08 19:01:00', '2014-11-08 19:00:13', '2014-11-08 19:01:05', 'Bild0-4990341517-024_250.JPG', 'image/jpeg', 5889, '2014-11-08 19:01:05'),
-(3, 'Samsung S22D300H 54,61 cm (22 Zoll) LED-Monitor', 'Der neuen Samsung Monitore S22D300H überzeugen durch sein schlichtes, klassisches Design in schwarz-glänzender Klavierlack-Optik. Darüber hinaus verfügt er über einen HDMI- und VGA-Anschluss, sowie praktische Features: MagicUpscale ermöglicht durch einen intelligenten Algorithmus qualitativ hochwertiges Upscaling von Bildinhalten. Ist die Funktion aktiviert, sehen auch Bildinhalte in geringerer Auflösung nahezu so perfekt aus als würden sie in nativer Full-HD-Qualität zur Verfügung stehen. Die Eco Saving-Funktion ermöglicht Energiesparen auf Knopfdruck durch Anpassung der Bildhelligkeit. Selbstredend sind alle Modelle Windows 8 kompatibel.', 99, '2014-11-08 19:01:00', '2014-11-08 19:00:13', '2014-11-08 19:01:47', '51bN-tSYpKL.jpg', 'image/jpeg', 34770, '2014-11-08 19:01:46'),
-(4, 'Acer Aspire XC-605 DT.STEEG.084 PC i7-4790 8GB 1TB SSHD', 'Aufgaben erledigen, Programme ansehen, gelegentlich ein Spiel spielen und mit Freunden in Kontakt bleiben: All dies lässt sich ganz einfach mit einem Intel® Core™-Prozessor bis zur dritten Generation oder einem neuen AMD-Prozessor und Grafikprozessoren bewerkstelligen, die von integrierten Intel® HD-Grafikkarten bis hin zu diskreten NVIDIA® GeForce®- oder AMD Radeon™-Karten reichen.', 499, '2014-11-08 19:02:00', '2014-11-08 19:00:14', '2014-11-08 19:02:48', 'Bild0-5368541137-09N_250.JPG', 'image/jpeg', 4850, '2014-11-08 19:02:48'),
-(5, 'Lenovo IdeaCentre H500s 57324437 PC J1750 4GB 500GB', 'Der platzsparende und zuverlässige Lenovo H500s verbindet neueste Prozessortechnologie mit erstklassiger Multimedialeistung und großer Speicherkapazität – und ist so ideal für Heimcomputer-Anwendungen.', 159, '2014-11-08 19:03:00', '2014-11-08 19:00:14', '2014-11-08 19:03:19', 'middleH520s_right.jpg', 'image/jpeg', 6322, '2014-11-08 19:03:19'),
-(6, 'Asus P9D WS Intel® C226', 'Das Asus P9D WS-Mainboard ist mit dem neuen Intel C226-Chipsatz ausgestattet und unterstützt Intel Xeon E3-1200 v3- sowie Core-Prozessoren der vierten Generation. Das Asus P9D WS ist voll ISV-zertifiziert (Independent Software Vendor) und wurde speziell für Workstations sowie High-End-Desktop-PC-Systeme entwickelt und verfügt über eine breite Speicherkompatibilität. Es ist mit dem Asus Dr. Power-Dienstprogramm ausgestattet, welches den Status von Netzteilen überwacht, um plötzlichen Systemausfällen vorzubeugen. Außerdem verfügt es über eine Vielzahl an Schnittstellen inklusive mehrerer Schnittstellen für Monitore.', 0, '2014-11-08 19:03:00', '2014-11-08 19:00:14', '2014-11-08 19:04:02', 'P_500.jpg.png', 'image/png', 177454, '2014-11-08 19:04:02'),
-(7, 'Intel Xeon E3-1225 v3', 'Die Intel Xeon Prozessoren zeichnen sich durch neue, innovative Technologien wie die Hyper-Threading-Technologie und die Intel NetBurst Mikroarchitektur aus. Sie bieten hervorragende Leistungs- und Funktionseigenschaften mit genügend Spielraum für aktuelle und kommende Server- und Workstation-Plattformen. Bedeutende Weiterentwicklungen der Plattform, die besonderen Leistungseigenschaften und ein außergewöhnliches Preis-Leistungs-Verhältnis machen es gerade jetzt sinnvoll, von älteren Systemen auf die aktuelle Technologie aufzurüsten und damit Vorteile im Wettbewerb zu erzielen.', 0, '2014-11-08 19:04:00', '2014-11-08 19:00:14', '2014-11-08 19:04:47', '954066.jpg', 'image/jpeg', 30900, '2014-11-08 19:04:46'),
-(8, 'Crucial CT2KIT51264BA160B 8GB 4GB 240-pin DDR3 1600mhz non-ECC', 'Crucial 8GB KIT (4GBX2) DDR3 1600 MT/S, 4GB, 240-pin DIMM, DDR3 PC3-12800, 1600MHz, Non-ECC, CL11, 1.5V ', 0, '2014-11-08 19:04:00', '2014-11-08 19:00:14', '2014-11-08 19:05:33', '692374.jpg', 'image/jpeg', 42604, '2014-11-08 19:05:33'),
-(9, '[BUNDLE] Asus P9D WS Intel® C226 with Intel Xeon E3-1225 v3', 'Mainboard / CPU Bundles sind ideal als Grundgerüst für ein individuell gestaltetes PC-System geeignet. Darüber hinaus stellen Sie eine erstklassige Möglichkeit dar, um einem bestehenden PC-System ein Upgrade mit neuer, leistungsstarker Technik zu verschaffen. Unsere Mainboard / CPU Bundles werden mit den Komponenten CPU, passendem Kühler und Mainboard sowie dem notwendigen Zubehör wie Schrauben, Kabel und Bedienungsanleitung ausgeliefert!', 0, '2014-11-08 19:05:00', '2014-11-08 19:00:15', '2014-11-08 19:05:48', 'P_500.jpg.png', 'image/png', 177454, '2014-11-08 19:05:48');
+(1, '[SET] DELL PowerEdge T20 Xeon E3-1225v3 Mini-Tower Server with Samsung S22D300H 54,61 cm (22 Zoll) LED-Monitor', 'Der PowerEdge T20 Server überzeugt mit umfangreicher interner Massenspeicherkapazität und starker Leistung. Sein Minitower-Gehäuse ist für einen leisen, effizienten und unterbrechungsfreien Betrieb ausgelegt. Mit dem T20 können Sie die Daten und Anwendungen mehrerer Desktop-PCs und Workstations auf einem einzigen Server konsolidieren und so nicht nur die Zusammenarbeit optimieren, sondern auch Ihre Produktivität steigern.', 379, NULL, '2014-11-08 19:00:13', '2014-11-08 19:00:13', 'Bild0-4990341517-024_250.JPG', 'image/jpeg', 5889, '2014-11-08 19:00:45'),
+(2, 'DELL PowerEdge T20 Xeon E3-1225v3 Mini-Tower Server', 'Der PowerEdge T20 Server überzeugt mit umfangreicher interner Massenspeicherkapazität und starker Leistung. Sein Minitower-Gehäuse ist für einen leisen, effizienten und unterbrechungsfreien Betrieb ausgelegt. Mit dem T20 können Sie die Daten und Anwendungen mehrerer Desktop-PCs und Workstations auf einem einzigen Server konsolidieren und so nicht nur die Zusammenarbeit optimieren, sondern auch Ihre Produktivität steigern.', 299, NULL, '2014-11-08 19:00:13', '2014-11-08 19:00:13', 'Bild0-4990341517-024_250.JPG', 'image/jpeg', 5889, '2014-11-08 19:01:05'),
+(3, 'Samsung S22D300H 54,61 cm (22 Zoll) LED-Monitor', 'Der neuen Samsung Monitore S22D300H überzeugen durch sein schlichtes, klassisches Design in schwarz-glänzender Klavierlack-Optik. Darüber hinaus verfügt er über einen HDMI- und VGA-Anschluss, sowie praktische Features: MagicUpscale ermöglicht durch einen intelligenten Algorithmus qualitativ hochwertiges Upscaling von Bildinhalten. Ist die Funktion aktiviert, sehen auch Bildinhalte in geringerer Auflösung nahezu so perfekt aus als würden sie in nativer Full-HD-Qualität zur Verfügung stehen. Die Eco Saving-Funktion ermöglicht Energiesparen auf Knopfdruck durch Anpassung der Bildhelligkeit. Selbstredend sind alle Modelle Windows 8 kompatibel.', 99, NULL, '2014-11-08 19:00:13', '2014-11-08 19:00:13', '51bN-tSYpKL.jpg', 'image/jpeg', 34770, '2014-11-08 19:01:46'),
+(4, 'Acer Aspire XC-605 DT.STEEG.084 PC i7-4790 8GB 1TB SSHD', 'Aufgaben erledigen, Programme ansehen, gelegentlich ein Spiel spielen und mit Freunden in Kontakt bleiben: All dies lässt sich ganz einfach mit einem Intel® Core™-Prozessor bis zur dritten Generation oder einem neuen AMD-Prozessor und Grafikprozessoren bewerkstelligen, die von integrierten Intel® HD-Grafikkarten bis hin zu diskreten NVIDIA® GeForce®- oder AMD Radeon™-Karten reichen.', 499, NULL, '2014-11-08 19:00:14', '2014-11-08 19:00:14', 'Bild0-5368541137-09N_250.JPG', 'image/jpeg', 4850, '2014-11-08 19:02:48'),
+(5, 'Lenovo IdeaCentre H500s 57324437 PC J1750 4GB 500GB', 'Der platzsparende und zuverlässige Lenovo H500s verbindet neueste Prozessortechnologie mit erstklassiger Multimedialeistung und großer Speicherkapazität – und ist so ideal für Heimcomputer-Anwendungen.', 159, NULL, '2014-11-08 19:00:14', '2014-11-08 19:00:14', 'middleH520s_right.jpg', 'image/jpeg', 6322, '2014-11-08 19:03:19'),
+(6, 'Asus P9D WS Intel® C226', 'Das Asus P9D WS-Mainboard ist mit dem neuen Intel C226-Chipsatz ausgestattet und unterstützt Intel Xeon E3-1200 v3- sowie Core-Prozessoren der vierten Generation. Das Asus P9D WS ist voll ISV-zertifiziert (Independent Software Vendor) und wurde speziell für Workstations sowie High-End-Desktop-PC-Systeme entwickelt und verfügt über eine breite Speicherkompatibilität. Es ist mit dem Asus Dr. Power-Dienstprogramm ausgestattet, welches den Status von Netzteilen überwacht, um plötzlichen Systemausfällen vorzubeugen. Außerdem verfügt es über eine Vielzahl an Schnittstellen inklusive mehrerer Schnittstellen für Monitore.', 0, NULL, '2014-11-08 19:00:14', '2014-11-08 19:00:14', 'P_500.jpg.png', 'image/png', 177454, '2014-11-08 19:04:02'),
+(7, 'Intel Xeon E3-1225 v3', 'Die Intel Xeon Prozessoren zeichnen sich durch neue, innovative Technologien wie die Hyper-Threading-Technologie und die Intel NetBurst Mikroarchitektur aus. Sie bieten hervorragende Leistungs- und Funktionseigenschaften mit genügend Spielraum für aktuelle und kommende Server- und Workstation-Plattformen. Bedeutende Weiterentwicklungen der Plattform, die besonderen Leistungseigenschaften und ein außergewöhnliches Preis-Leistungs-Verhältnis machen es gerade jetzt sinnvoll, von älteren Systemen auf die aktuelle Technologie aufzurüsten und damit Vorteile im Wettbewerb zu erzielen.', 0, NULL, '2014-11-08 19:00:14', '2014-11-08 19:00:14', '954066.jpg', 'image/jpeg', 30900, '2014-11-08 19:04:46'),
+(8, 'Crucial CT2KIT51264BA160B 8GB 4GB 240-pin DDR3 1600mhz non-ECC', 'Crucial 8GB KIT (4GBX2) DDR3 1600 MT/S, 4GB, 240-pin DIMM, DDR3 PC3-12800, 1600MHz, Non-ECC, CL11, 1.5V ', 0, NULL, '2014-11-08 19:00:14', '2014-11-08 19:00:14', '692374.jpg', 'image/jpeg', 42604, '2014-11-08 19:05:33'),
+(9, '[BUNDLE] Asus P9D WS Intel® C226 with Intel Xeon E3-1225 v3', 'Mainboard / CPU Bundles sind ideal als Grundgerüst für ein individuell gestaltetes PC-System geeignet. Darüber hinaus stellen Sie eine erstklassige Möglichkeit dar, um einem bestehenden PC-System ein Upgrade mit neuer, leistungsstarker Technik zu verschaffen. Unsere Mainboard / CPU Bundles werden mit den Komponenten CPU, passendem Kühler und Mainboard sowie dem notwendigen Zubehör wie Schrauben, Kabel und Bedienungsanleitung ausgeliefert!', 0, NULL, '2014-11-08 19:00:14', '2014-11-08 19:00:14', 'P_500.jpg.png', 'image/png', 177454, '2014-11-08 19:05:48');
 
 -- --------------------------------------------------------
 
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `article_to_tags` (
   `tag_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Daten für Tabelle `article_to_tags`
@@ -102,14 +102,21 @@ CREATE TABLE IF NOT EXISTS `article_to_tags` (
 
 INSERT INTO `article_to_tags` (`id`, `article_id`, `tag_id`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, '2014-11-08 19:00:13', '2014-11-08 19:00:13'),
-(2, 2, 2, '2014-11-08 19:00:13', '2014-11-08 19:00:13'),
 (3, 3, 3, '2014-11-08 19:00:13', '2014-11-08 19:00:13'),
 (4, 4, 2, '2014-11-08 19:00:14', '2014-11-08 19:00:14'),
 (5, 5, 2, '2014-11-08 19:00:14', '2014-11-08 19:00:14'),
 (6, 6, 5, '2014-11-08 19:00:14', '2014-11-08 19:00:14'),
 (7, 7, 6, '2014-11-08 19:00:14', '2014-11-08 19:00:14'),
 (8, 8, 7, '2014-11-08 19:00:15', '2014-11-08 19:00:15'),
-(9, 9, 4, '2014-11-08 19:00:15', '2014-11-08 19:00:15');
+(9, 9, 4, '2014-11-08 19:00:15', '2014-11-08 19:00:15'),
+(15, 9, 9, '2014-11-13 08:59:23', '2014-11-13 08:59:23'),
+(16, 6, 9, '2014-11-13 08:59:53', '2014-11-13 08:59:53'),
+(17, 7, 9, '2014-11-13 09:00:12', '2014-11-13 09:00:12'),
+(18, 8, 9, '2014-11-13 09:00:19', '2014-11-13 09:00:19'),
+(19, 2, 10, '2014-11-13 09:01:05', '2014-11-13 09:01:05'),
+(20, 4, 10, '2014-11-13 09:01:44', '2014-11-13 09:01:44'),
+(21, 2, 8, '2014-11-13 09:01:58', '2014-11-13 09:01:58'),
+(22, 5, 10, '2014-11-13 09:02:10', '2014-11-13 09:02:10');
 
 -- --------------------------------------------------------
 
@@ -150,20 +157,23 @@ CREATE TABLE IF NOT EXISTS `menus` (
   `super_menu_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Daten für Tabelle `menus`
 --
 
 INSERT INTO `menus` (`id`, `name`, `super_menu_id`, `created_at`, `updated_at`) VALUES
-(1, 'Komplettpakete', NULL, '2014-11-08 19:00:10', '2014-11-08 19:00:10'),
-(2, 'Desktop-PCs', 1, '2014-11-08 19:00:11', '2014-11-08 19:00:11'),
+(1, ' Komplettpakete', NULL, '2014-11-08 19:00:10', '2014-11-12 18:40:54'),
+(2, 'Desktop-PCs', 10, '2014-11-08 19:00:11', '2014-11-13 08:44:16'),
 (3, 'Monitore', NULL, '2014-11-08 19:00:11', '2014-11-08 19:00:11'),
-(4, 'Mainboard-Bundles', 5, '2014-11-08 19:00:11', '2014-11-08 19:00:11'),
-(5, 'Mainboards', NULL, '2014-11-08 19:00:12', '2014-11-08 19:00:12'),
-(6, 'CPUs', NULL, '2014-11-08 19:00:12', '2014-11-08 19:00:12'),
-(7, 'Arbeitsspeicher', NULL, '2014-11-08 19:00:12', '2014-11-08 19:00:12');
+(4, 'Mainboard-Bundles', 12, '2014-11-08 19:00:11', '2014-11-13 08:47:13'),
+(5, 'Mainboards', 12, '2014-11-08 19:00:12', '2014-11-13 08:46:56'),
+(6, 'CPUs', 12, '2014-11-08 19:00:12', '2014-11-13 08:45:56'),
+(7, 'Arbeitsspeicher', 12, '2014-11-08 19:00:12', '2014-11-13 08:46:20'),
+(10, 'PC-Systeme', NULL, '2014-11-13 08:41:51', '2014-11-13 08:58:10'),
+(11, 'Server', 10, '2014-11-13 08:42:40', '2014-11-13 08:44:56'),
+(12, 'PC-Zubehör', NULL, '2014-11-13 08:45:34', '2014-11-13 08:57:51');
 
 -- --------------------------------------------------------
 
@@ -177,20 +187,28 @@ CREATE TABLE IF NOT EXISTS `menu_to_tags` (
   `tag_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Daten für Tabelle `menu_to_tags`
 --
 
 INSERT INTO `menu_to_tags` (`id`, `menu_id`, `tag_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '2014-11-08 19:00:11', '2014-11-08 19:00:11'),
 (2, 2, 2, '2014-11-08 19:00:11', '2014-11-08 19:00:11'),
 (3, 3, 3, '2014-11-08 19:00:11', '2014-11-08 19:00:11'),
 (4, 4, 4, '2014-11-08 19:00:12', '2014-11-08 19:00:12'),
 (5, 5, 5, '2014-11-08 19:00:12', '2014-11-08 19:00:12'),
 (6, 6, 6, '2014-11-08 19:00:12', '2014-11-08 19:00:12'),
-(7, 7, 7, '2014-11-08 19:00:13', '2014-11-08 19:00:13');
+(7, 7, 7, '2014-11-08 19:00:13', '2014-11-08 19:00:13'),
+(8, 1, 1, '2014-11-12 17:46:59', '2014-11-12 17:46:59'),
+(15, 9, 4, '2014-11-13 07:26:40', '2014-11-13 07:26:40'),
+(16, 11, 8, '2014-11-13 08:44:55', '2014-11-13 08:44:55'),
+(17, 12, 9, '2014-11-13 08:57:51', '2014-11-13 08:57:51'),
+(18, 10, 10, '2014-11-13 08:58:10', '2014-11-13 08:58:10'),
+(19, 13, 1, '2014-11-13 18:13:49', '2014-11-13 18:13:49'),
+(20, 13, 2, '2014-11-13 18:13:49', '2014-11-13 18:13:49'),
+(21, 13, 4, '2014-11-13 18:13:49', '2014-11-13 18:13:49'),
+(22, 17, 1, '2014-11-13 18:45:23', '2014-11-13 18:45:23');
 
 -- --------------------------------------------------------
 
@@ -270,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `tags` (
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Daten für Tabelle `tags`
@@ -283,7 +301,10 @@ INSERT INTO `tags` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (4, 'Mainboard-Bundles', '2014-11-08 19:00:11', '2014-11-08 19:00:11'),
 (5, 'Mainboards', '2014-11-08 19:00:12', '2014-11-08 19:00:12'),
 (6, 'CPUs', '2014-11-08 19:00:12', '2014-11-08 19:00:12'),
-(7, 'Arbeitsspeicher', '2014-11-08 19:00:12', '2014-11-08 19:00:12');
+(7, 'Arbeitsspeicher', '2014-11-08 19:00:12', '2014-11-08 19:00:12'),
+(8, 'Server', '2014-11-13 08:39:59', '2014-11-13 08:39:59'),
+(9, 'PC-Zubehör', '2014-11-13 08:57:03', '2014-11-13 08:57:03'),
+(10, 'PC-Systeme', '2014-11-13 08:57:22', '2014-11-13 08:57:22');
 
 -- --------------------------------------------------------
 
@@ -302,14 +323,17 @@ CREATE TABLE IF NOT EXISTS `users` (
   `deleted_at` datetime DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Daten für Tabelle `users`
 --
 
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `password_digest`, `remember_digest`, `role`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'Ad', 'min', 'ad@min.de', '$2a$10$fi89k1seSk6RZnkXva.FcOGTIXpQ8ggkKCdgEHjw/u8cizp2BjBfW', NULL, 0, NULL, '2014-11-08 19:00:16', '2014-11-12 02:04:05');
+(1, 'Ad', 'min', 'ad@min.de', '$2a$10$fi89k1seSk6RZnkXva.FcOGTIXpQ8ggkKCdgEHjw/u8cizp2BjBfW', NULL, 0, NULL, '2014-11-08 19:00:16', '2014-11-12 02:04:05'),
+(4, 'Torben', 'Haug', 'torbenhaug@freenet.de', '$2a$10$ffcHO.Xxv8MPIt2MOYzM7OR4NZDlZuusZVZHTkziWCbYB6LPEPDyy', NULL, 100, NULL, '2014-11-12 11:53:47', '2014-11-12 11:55:07'),
+(5, 'Torben', 'Haug', 'claustorben.haug@haw-hamburg.de', '$2a$10$WG9MFpEj8hZIt1eiIg1MT.QQlUUP6XHyGr0/Nxn3FIaOSTbGDiim.', NULL, 100, NULL, '2014-11-12 11:56:20', '2014-11-12 11:56:20'),
+(6, 'Andreas', 'Berks', 'andreas.berks@haw-hamburg.de', '$2a$10$IgCZPanvP6fSpp.75YcWZ.ouOReox/y47BEmpHQuEBUnFRx94.ZF.', NULL, 100, NULL, '2014-11-13 22:54:03', '2014-11-13 22:54:03');
 
 --
 -- Indizes der exportierten Tabellen
@@ -395,12 +419,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT für Tabelle `articles`
 --
 ALTER TABLE `articles`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT für Tabelle `article_to_tags`
 --
 ALTER TABLE `article_to_tags`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT für Tabelle `bills`
 --
@@ -410,12 +434,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT für Tabelle `menus`
 --
 ALTER TABLE `menus`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT für Tabelle `menu_to_tags`
 --
 ALTER TABLE `menu_to_tags`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT für Tabelle `news`
 --
@@ -425,12 +449,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT für Tabelle `tags`
 --
 ALTER TABLE `tags`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
