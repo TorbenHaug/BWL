@@ -7,7 +7,7 @@
 
     lower_parts.each {|item|
       count = parent_amount * item.amount
-      accu.push("<li>" + count.to_s + "x " + link_to(item.lower_part.name, item.lower_part) + "</li>")
+      accu.push("<li style=\"margin-bottom: 10px;\">" + count.to_s + "x " + link_to(item.lower_part.name, item.lower_part) + "</li>")
       product_structure_output_list(item.lower_part, count, accu)
     }
 
@@ -58,20 +58,20 @@
         <% end %>
     </div>
     
-    <div class="post" style="margin-top: -20px;">
+    <% product_structure_output = product_structure_output_list(@article, 1, []) %>
+    <% if (!product_structure_output.empty?) %>
+      <div class="post" style="margin-top: -20px;">
         <p>
-          <% product_structure_output = product_structure_output_list(@article, 1, []) %>
-          <% if (!product_structure_output.empty?) %>
-            <strong>Strukturstückliste:</strong><br/>
-            <% product_structure_output.each {|line| %>
-              <%= line.html_safe %>
-            <%} %>
-          <% end %>
+          <strong>Strukturstückliste:</strong><br/>
+          <% product_structure_output.each {|line| %>
+            <%= line.html_safe %>
+          <%} %>
         </p>
-
-        <% if (admin_user?) %>
-            <%= link_to 'Bearbeiten', edit_article_path(@article) %> | 
-            <%= link_to 'Zurück', articles_path %>
-        <% end %>
-    </div>
+      </div>
+    <% end %>
+    
+    <% if (admin_user?) %>
+      <%= link_to 'Bearbeiten', edit_article_path(@article) %> | 
+      <%= link_to 'Zurück', articles_path %>
+    <% end %>
 </div>
