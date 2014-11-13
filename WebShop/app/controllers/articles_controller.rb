@@ -14,6 +14,7 @@ class ArticlesController < ApplicationController
     end
     render template: 'articles/index'
   end
+  
   def search
     searchqueries = params[:q].split(' ')
     searchpattern = searchqueries.map { |obj| "(name like '%#{obj}%' OR description like '%#{obj}%')"}.join(" AND ")
@@ -78,7 +79,9 @@ class ArticlesController < ApplicationController
   # DELETE /articles/1
   # DELETE /articles/1.json
   def destroy
-    @article.destroy
+    @article.deleted_at = Time.zone.now
+    @article.save
+    
     respond_to do |format|
       format.html { redirect_to articles_url, notice: 'Article was successfully destroyed.' }
       format.json { head :no_content }
