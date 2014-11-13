@@ -2,7 +2,7 @@
 <br/><br/>
 
 <div class="post">
-    <% selected_articles = @articles.select{|item| admin_user? || item.deleted_at.nil?} %> 
+    <% selected_articles = (admin_user?) ? (@articles) : (@articles.select{|item| item.deleted_at.nil?}) %> 
     <% selected_articles.each_with_index do |article, index| %>
         <p style="min-height: 150px;">
             <span style="margin-right: 30px; float: left; width: 150px; text-align: center;"><%= image_tag article.photo.url(:small) %></span>

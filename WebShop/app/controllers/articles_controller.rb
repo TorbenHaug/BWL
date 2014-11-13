@@ -79,12 +79,19 @@ class ArticlesController < ApplicationController
   # DELETE /articles/1
   # DELETE /articles/1.json
   def destroy
-    @article.deleted_at = Time.zone.now
-    @article.save
-    
-    respond_to do |format|
-      format.html { redirect_to articles_url, notice: 'Article was successfully destroyed.' }
-      format.json { head :no_content }
+    if (@article.deleted_at.nil?)
+      @article.deleted_at = Time.zone.now
+      @article.save
+
+      respond_to do |format|
+        format.html { redirect_to articles_url, notice: 'Article was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to articles_url, notice: 'WARNING: Article was already destroyed!' }
+        format.json { head :no_content }
+      end
     end
   end
 
