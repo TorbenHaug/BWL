@@ -78,12 +78,16 @@
 })(jQuery);
 
 (function($){
-$(document).ready(function(){
+var processor
+processor = function(){
 
 $("#cssmenu").menumaker({
    title: "Menu",
    format: "multitoggle"
 });
 
-});
+}
+
+$(document).ready(processor);
+$(document).on('page:load', processor);
 })(jQuery);
