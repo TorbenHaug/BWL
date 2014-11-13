@@ -44,34 +44,36 @@
           <strong>Preis:</strong>
           <%= float_to_euro_string(@article.price) %>
         </p>
-
-        <% if (admin_user?) %>
+    
+        <% product_structure_output = product_structure_output_list(@article, 1, []) %>
+        <% if (!product_structure_output.empty?) %>
+            <hr style="display: block; height:1px; border:none; color:#d3d7d9; background-color:#d3d7d9; margin: 30px -50px 30px -50px;"/>
             <p>
-              <strong>Erstellt am:</strong>
-              <%= @article.created_at %>
-            </p>
-
-            <p>
-              <strong>Gelöscht am:</strong>
-              <%= @article.deleted_at %>
+                <strong>Strukturstückliste:</strong><br/>
+                <% product_structure_output.each {|line| %>
+                    <%= line.html_safe %>
+                <%} %>
             </p>
         <% end %>
+
+        <% if (admin_user?) %>
+            <hr style="display: block; height:1px; border:none; color:#d3d7d9; background-color:#d3d7d9; margin: 30px -50px 30px -50px;"/>
+            <p>
+              <strong>Erstellt am:</strong>
+              <%= get_german_date_time_ordinal(@article.created_at.to_datetime) %>
+            </p>
+
+            <% if (!@article.deleted_at.nil?) %>
+              <p>
+                <strong>Gelöscht am:</strong>
+                <%= get_german_date_time_ordinal(@article.deleted_at.to_datetime) %>
+              </p>
+            <% end %>
+            
+            <p>
+              <%= link_to 'Bearbeiten', edit_article_path(@article) %> | 
+              <%= link_to 'Zurück', articles_path %>
+            </p>
+        <% end %>    
     </div>
-    
-    <% product_structure_output = product_structure_output_list(@article, 1, []) %>
-    <% if (!product_structure_output.empty?) %>
-      <div class="post" style="margin-top: -20px;">
-        <p>
-          <strong>Strukturstückliste:</strong><br/>
-          <% product_structure_output.each {|line| %>
-            <%= line.html_safe %>
-          <%} %>
-        </p>
-      </div>
-    <% end %>
-    
-    <% if (admin_user?) %>
-      <%= link_to 'Bearbeiten', edit_article_path(@article) %> | 
-      <%= link_to 'Zurück', articles_path %>
-    <% end %>
 </div>

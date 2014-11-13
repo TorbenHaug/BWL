@@ -17,6 +17,14 @@ module ApplicationHelper
     return date.day.to_s + ". " + months[date.month - 1] + " " + date.year.to_s
   end
   
+  def get_german_date_ordinal(date)
+    return date.day.to_s + ". " + date.month.to_s + " " + date.year.to_s
+  end
+  
+  def get_german_date_time_ordinal(datetime)
+    return datetime.strftime("%d.%m.%Y %H:%M:%S")
+  end
+  
   def float_to_euro_string(value)
     return "#{format("%.2f", value).sub('.', ',')} EUR"
   end
