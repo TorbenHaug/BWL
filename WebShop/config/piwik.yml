@@ -21,7 +21,7 @@ development:
     id_site: 1
     url: piwik.haug-dev.de
     disabled: false
-    use_async: false
+    use_async: true
     hostname: 127.0.0.1:3000
 
 test:
