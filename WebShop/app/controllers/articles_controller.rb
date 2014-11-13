@@ -41,7 +41,7 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
     @article.save
-    @article.tag_ids = params[:article][:tag_ids].map { |obj| obj.to_i}
+    @article.tag_ids = params[:article][:tag_ids].nil? or params[:article][:tag_ids].empty? ? nil : params[:article][:tag_ids].map { |obj| obj.to_i}
     respond_to do |format|
       if @article.save
         format.html { redirect_to @article, notice: 'Article was successfully created.' }
@@ -57,7 +57,7 @@ class ArticlesController < ApplicationController
   # PATCH/PUT /articles/1.json
   def update
     @article = Article.find(params[:id])
-    @article.tag_ids = params[:article][:tag_ids].map { |obj| obj.to_i}
+    @article.tag_ids = params[:article][:tag_ids].nil? or params[:article][:tag_ids].empty? ? nil : params[:article][:tag_ids].map { |obj| obj.to_i}
     @article.save
     respond_to do |format|
       if @article.update(article_params)

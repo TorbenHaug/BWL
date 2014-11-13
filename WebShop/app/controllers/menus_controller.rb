@@ -26,11 +26,12 @@ class MenusController < ApplicationController
   def create
     @menu = Menu.new(menu_params)
     @menu.save
-    @menu.tag_ids = params[:menu][:tag_ids].map { |obj| obj.to_i}
-    @menu.super_menu_id = params[:menu][:super_menu_id].to_i
+    @menu.tag_ids = params[:menu][:tag_ids].nil? ? [] : params[:menu][:tag_ids].map { |obj| obj.to_i}
+    @menu.super_menu_id = params[:menu][:super_menu_id].nil? or params[:menu][:super_menu_id].empty? ? nil : params[:menu][:super_menu_id].to_i
+    flash[:notice] = params.to_s
     respond_to do |format|
       if @menu.save
-        format.html { redirect_to @menu, notice: 'Menu was successfully created.' }
+        format.html { redirect_to @menu}#, notice: 'Menu was successfully created.' }
         format.json { render :show, status: :created, location: @menu }
       else
         format.html { render :new }
@@ -43,10 +44,9 @@ class MenusController < ApplicationController
   # PATCH/PUT /menus/1.json
   def update
     @menu = Menu.find(params[:id])
-    @menu.tag_ids = params[:menu][:tag_ids].map { |obj| obj.to_i}
-    @menu.super_menu_id = params[:menu][:super_menu_id].to_i
+    @menu.tag_ids = params[:menu][:tag_ids].nil? ? [] : params[:menu][:tag_ids].map { |obj| obj.to_i}
+    @menu.super_menu_id = params[:menu][:super_menu_id].nil? or params[:menu][:super_menu_id].empty? ? nil : params[:menu][:super_menu_id].to_i
     @menu.save
-    flash[:notice] = params.to_s
     respond_to do |format|
       if @menu.update(menu_params)
         format.html { redirect_to @menu}#, notice: 'Menu was successfully updated.' }
