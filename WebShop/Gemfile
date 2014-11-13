@@ -47,3 +47,6 @@ gem "composite_primary_keys"
 
 # crpting gem for passwords
 gem 'bcrypt'
+
+#piwik gem for helping piwik tracking
+gem 'piwik_analytics', '~> 1.0.1'

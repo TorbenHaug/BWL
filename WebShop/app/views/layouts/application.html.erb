@@ -57,7 +57,8 @@ Released   : 20130902
 <div id="footer" class="container">
     <p>&copy; 2014 Torben Haug, Andreas Berks. Alle Rechte vorbehalten.<br/>Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</p>
 </div>
-
 <%= debug(params) if Rails.env.development? %>
+
+<%= piwik_tracking_tag %>
 </body>
 </html>

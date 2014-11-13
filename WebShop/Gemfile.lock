@@ -65,6 +65,10 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
+    piwik_analytics (1.0.2)
+      actionpack
+      activesupport
+      rails (>= 3.0.0)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -129,6 +133,7 @@ DEPENDENCIES
   jquery-rails
   mysql2
   paperclip (~> 4.2)
+  piwik_analytics (~> 1.0.1)
   rails (= 4.1.6)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
