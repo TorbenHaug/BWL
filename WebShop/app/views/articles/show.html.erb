@@ -104,16 +104,25 @@
         
         <%= viewtag_seperator %>
         <p>
-            <%= form_tag(add_to_shopping_card_path, method: "post") do %>
-                <div style="margin-bottom: 10px">
-                    Menge:&nbsp;&nbsp;&nbsp;
-                    <%= select_tag :amount, options_for_select((1..10).step(1)) %>
+            <div style="width: 596px;">
+                <div style="width: 396px; float: left;">
+                    <strong>Bestseller-Rang:</strong><br/>
+                    NOT YET IMPLEMENTED
                 </div>
-                <div style="display: none;">
-                    <%= text_field_tag :article_id, @article.id %>
+                <div style="width: 200px; float: right;">
+                    <%= form_tag(add_to_shopping_card_path, method: "post") do %>
+                        <div style="margin-bottom: 10px">
+                            Menge:&nbsp;&nbsp;&nbsp;
+                            <%= select_tag :amount, options_for_select((1..10).step(1)) %>
+                        </div>
+                        <div style="display: none;">
+                            <%= text_field_tag :article_id, @article.id %>
+                        </div>
+                        <%= submit_tag("Zum Warenkorb hinzufügen") %>
+                    <% end %>
                 </div>
-                <%= submit_tag("Zum Warenkorb hinzufügen") %>
-            <% end %>
+                <div style="clear: both;"></div>
+            </div>
         </p>
         
         <% association_rule_learning_data = get_association_rule_learning_data %>
