@@ -1,5 +1,10 @@
 # coding: UTF-8
 module ApplicationHelper
+  # SETTINGS
+  def print_debug
+    return false
+  end
+  
   # PRECONDITIONS
   def check_pre(assertion)
     if (!assertion)

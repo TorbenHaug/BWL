@@ -360,7 +360,10 @@ hr {
 
 #footer {
 	overflow: hidden;
-	padding: 3em 0em;
+	padding-left: 0px;
+        padding-right: 0px;
+        padding-top: 30px;
+        padding-bottom: 10px;
 	border-top: 1px solid #282A2B;
 }
 
