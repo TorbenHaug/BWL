@@ -1,19 +1,33 @@
-<div class="post">
-<%= render 'users/usererrors' %>
-<div class="post">
-  <%= form_for(@user) do |f| %>
-      <%= f.label :vorname %>
-      <%= f.text_field :firstname %><br />
-      <%= f.label :nachname %>
-      <%= f.text_field :lastname %><br />
-      <%= f.label :email %>
-      <%= f.text_field :email %><br />
-      <%= f.label :password %>
-      <%= f.password_field :password %><br />
-      <%= f.label :password_confirmation, "Password Bestätigung" %>
-      <%= f.password_field :password_confirmation %><br />
-      <%= f.submit "Account Erstellen" %>
-  <% end %>
+<h1>Registrieren</h1>
+<br/><br/>
 
-</div>
+<div class="post">
+    <p>
+        <%= form_for(@user) do |f| %>
+            <table>
+                <tr>
+                    <td>Vorname:</td>
+                    <td><%= f.text_field :firstname %></td>
+                </tr>
+                <tr>
+                    <td>Nachname:</td>
+                    <td><%= f.text_field :lastname %></td>
+                </tr>
+                <tr>
+                    <td>E-Mail-Adresse:</td>
+                    <td><%= f.text_field :email %></td>
+                </tr>
+                <tr>
+                    <td>Passwort:</td>
+                    <td><%= f.password_field :password %></td>
+                </tr>
+                <tr>
+                    <td>Passwort wiederholen:&nbsp;&nbsp;&nbsp;</td>
+                    <td><%= f.password_field :password_confirmation %></td>
+                </tr>
+            </table>
+            <br/>
+            <%= f.submit "Registrieren" %>
+        <% end %>
+    </p>
 </div>
