@@ -18,7 +18,33 @@
     return accu
   end
 
-  def get_association_rule_learning_data()
+  def get_association_rule_learning_data
+    bills = BillEntry.where(:article => @article).map{|item| item.bill}
+    
+    association_articles = {}
+    self_amount = 0
+    bills.each{|item| bill_entry = BillEntry.where(:bill => item)
+      bill_entry.each{|item_inner|
+        if (item_inner.article != @article)
+          association_articles.merge!({item_inner.article => item_inner.amount})\
+            {|key, oldval, newval| newval + oldval}
+        else
+          self_amount = self_amount + item_inner.amount
+        end
+      }
+    }
+  
+    result = ["Dieser Artikel wurde #{self_amount} mal gekauft, zusammen mit folgenden Artikeln:", "<br/><br/>",
+      "<table style=\"margin-left: 20px;\">", "<tr>",
+        "<td><strong>Artikelbezeichnung</strong></td>",
+        "<td style=\"text-align: center; width: 75px;\"><strong>Menge</strong></td>",
+        "<td style=\"text-align: center; width: 75px;\"><strong>Prozent</strong></td>", "</tr>"]
+    result.concat(association_articles.map{|key, val|
+        "<tr><td>#{key.name.to_s}</td>" +
+        "<td style=\"text-align: center;\">#{val}</td>" +
+        "<td style=\"text-align: center;\">#{(100.0*val/self_amount).round(2)}%</td></tr>"})
+    result.push("</table>")
+    return result
   end
 
   def association_rule_learning_admin(association_rule_learning_data)
@@ -66,23 +92,19 @@
             <% end %>
         </p>
         
-        <% association_rule_learning_data = [] %>
+        <% association_rule_learning_data = get_association_rule_learning_data %>
         <% if (!association_rule_learning_data.empty?) %>
             <%= viewtag_seperator %>
             <% if (admin_user?) %>
-                <strong>Assoziationsanalyse:</strong>
-                <table>
-                    <% association_rule_learning_admin(association_rule_learning_data).each {|line| %>
-                        <%= line.html_safe %>
-                    <%} %>
-                </table>
+                <strong>Assoziationsanalyse:</strong><br/>
+                <% association_rule_learning_admin(association_rule_learning_data).each {|line| %>
+                    <%= line.html_safe %>
+                <%} %>
             <% else %>
                 <strong>Kunden, die diesen Artikel gekauft haben, kauften auch:</strong>
-                <table>
-                    <% association_rule_learning_user(association_rule_learning_data).each {|line| %>
-                        <%= line.html_safe %>
-                    <%} %>
-                </table>
+                <% association_rule_learning_user(association_rule_learning_data).each {|line| %>
+                    <%= line.html_safe %>
+                <%} %>
             <% end %>
         <% end %>
         
