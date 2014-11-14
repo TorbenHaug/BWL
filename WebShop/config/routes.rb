@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
   resources :users
 
+  get 'shoppingcard' => 'users#shoppingcard'
   get 'create_test_data' => 'application#create_tests'
   get 'home' => 'news#index'
   root 'news#index'
