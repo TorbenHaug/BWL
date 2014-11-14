@@ -37,6 +37,8 @@ Rails.application.routes.draw do
 
   get 'search' => 'articles#search'
   get 'by_menu' => 'articles#by_menu'
+  
+  post 'add_to_shopping_card' => 'articles#search'
 
   get 'notyetimplemented' => 'static_pages#notyetimpemented'
   # The priority is based upon order of creation: first created -> highest priority.

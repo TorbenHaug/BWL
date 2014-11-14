@@ -18,6 +18,9 @@
     return accu
   end
 
+  def get_association_rule_learning_data()
+  end
+
   def association_rule_learning_admin(association_rule_learning_data)
     return association_rule_learning_data
   end
@@ -51,6 +54,16 @@
         <p>
           <strong>Preis:</strong>
           <%= float_to_euro_string(@article.price) %>
+        </p>
+        
+        <%= viewtag_seperator %>
+        <p>
+            <%= form_tag(add_to_shopping_card_path, method: "post") do %>
+                Menge:&nbsp;&nbsp;&nbsp;
+                <%= text_field_tag :amount, '', size: 5 %><br/>
+                <div style="display: none;"><%= text_field_tag :article_id, @article.id %></div>
+                <%= submit_tag("Dem Warenkorb hinzufügen") %>
+            <% end %>
         </p>
         
         <% association_rule_learning_data = [] %>
