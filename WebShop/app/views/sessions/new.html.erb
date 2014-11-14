@@ -1,18 +1,30 @@
+<h1>Anmelden</h1>
+<br/><br/>
+
 <div class="post">
-<h1>Log in</h1>
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <%= form_for(:session, url: login_path) do |f| %>
-        <%= f.label :email %>
-        <%= f.text_field :email %>
-        <%= f.label :password %>
-        <%= f.password_field :password %>
-        <%= f.label :remember_me do %>
+    <p>
+        <%= form_for(:session, url: login_path) do |f| %>
+            <table>
+                <tr>
+                    <td>E-Mail-Adresse:&nbsp;&nbsp;&nbsp;</td>
+                    <td><%= f.text_field :email %></td>
+                </tr>
+                <tr>
+                    <td>Passwort:</td>
+                    <td><%= f.password_field :password %></td>
+                </tr>
+            </table>
+            <%= f.label :remember_me do %>
             <%= f.check_box :remember_me %>
-            <span>Remember me on this computer</span>
+            Angemeldet bleiben?<br/><br/>
+            <% end %>
+            <%= f.submit "Anmelden" %>
         <% end %>
-        <%= f.submit "Log in" %>
-    <% end %>
-    <p>New user? <%= link_to "Sign up now!", :signup %></p>
-  </div>
-</div></div>
+    </p>
+    
+    <%= viewtag_seperator %>
+    
+    <p>
+        Neuer Kunde? <%= link_to "Hier registrieren!", :signup %>
+    </p>
+</div>
