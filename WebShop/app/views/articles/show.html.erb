@@ -61,7 +61,16 @@
   end
 
   def association_rule_learning_user(association_rule_learning_data)
-    return association_rule_learning_data
+    result = []
+    
+    association_rule_learning_data.shift
+    result.push("<table style=\"width: 150px;\"><tr>")
+    result.concat(association_rule_learning_data.map{|key, val|
+        "<td><table><tr><td>#{image_tag key.photo.url(:small)}</td></tr>" + 
+        "<tr><td>#{key.name}</td></tr></table></td>"})
+    result.push("</tr></table>")
+    
+    return result
   end
 %>
 
