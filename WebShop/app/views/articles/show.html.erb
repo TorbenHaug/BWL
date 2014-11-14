@@ -105,10 +105,14 @@
         <%= viewtag_seperator %>
         <p>
             <%= form_tag(add_to_shopping_card_path, method: "post") do %>
-                Menge:&nbsp;&nbsp;&nbsp;
-                <%= text_field_tag :amount, '', size: 5 %><br/>
-                <div style="display: none;"><%= text_field_tag :article_id, @article.id %></div>
-                <%= submit_tag("Dem Warenkorb hinzufügen") %>
+                <div style="margin-bottom: 10px">
+                    Menge:&nbsp;&nbsp;&nbsp;
+                    <%= select_tag :amount, options_for_select((1..10).step(1)) %>
+                </div>
+                <div style="display: none;">
+                    <%= text_field_tag :article_id, @article.id %>
+                </div>
+                <%= submit_tag("Zum Warenkorb hinzufügen") %>
             <% end %>
         </p>
         
