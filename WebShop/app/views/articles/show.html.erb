@@ -17,6 +17,14 @@
 
     return accu
   end
+
+  def association_rule_learning_admin(association_rule_learning_data)
+    return association_rule_learning_data
+  end
+
+  def association_rule_learning_user(association_rule_learning_data)
+    return association_rule_learning_data
+  end
 %>
 
 
@@ -44,7 +52,27 @@
           <strong>Preis:</strong>
           <%= float_to_euro_string(@article.price) %>
         </p>
-    
+        
+        <% association_rule_learning_data = [] %>
+        <% if (!association_rule_learning_data.empty?) %>
+            <%= viewtag_seperator %>
+            <% if (admin_user?) %>
+                <strong>Assoziationsanalyse:</strong>
+                <table>
+                    <% association_rule_learning_admin(association_rule_learning_data).each {|line| %>
+                        <%= line.html_safe %>
+                    <%} %>
+                </table>
+            <% else %>
+                <strong>Kunden, die diesen Artikel gekauft haben, kauften auch:</strong>
+                <table>
+                    <% association_rule_learning_user(association_rule_learning_data).each {|line| %>
+                        <%= line.html_safe %>
+                    <%} %>
+                </table>
+            <% end %>
+        <% end %>
+        
         <% product_structure_output = product_structure_output_list(@article, 1, []) %>
         <% if (!product_structure_output.empty?) %>
             <%= viewtag_seperator %>
