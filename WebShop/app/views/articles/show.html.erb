@@ -64,10 +64,12 @@
     result = []
     
     association_rule_learning_data.shift
-    result.push("<table style=\"width: 150px;\"><tr>")
+    result.push("<table><tr>")
     result.concat(association_rule_learning_data.map{|key, val|
-        "<td><table><tr><td>#{image_tag key.photo.url(:small)}</td></tr>" + 
-        "<tr><td>#{key.name}</td></tr></table></td>"})
+        "<td>#{image_tag key.photo.url(:small)}</td>"})
+    result.push("</tr><tr>")
+    result.concat(association_rule_learning_data.map{|key, val|
+        "<td style=\"width: 150px;\" valign=\"top\">#{key.name}</td>"})
     result.push("</tr></table>")
     
     return result
