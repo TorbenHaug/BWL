@@ -34,21 +34,30 @@
       }
     }
   
+    temp = association_articles.map{|key, val| [key, val]}
+    temp.sort!{|a, b| b[1] <=> a[1]}
+ 
+    result = []
+    result.push([@article, self_amount])
+    result.concat(temp)
+    return result
+  end
+
+  def association_rule_learning_admin(association_rule_learning_data)
+    self_amount = association_rule_learning_data.shift[1];
+    
     result = ["Dieser Artikel wurde #{self_amount} mal gekauft, zusammen mit folgenden Artikeln:", "<br/><br/>",
       "<table style=\"margin-left: 20px;\">", "<tr>",
         "<td><strong>Artikelbezeichnung</strong></td>",
         "<td style=\"text-align: center; width: 75px;\"><strong>Menge</strong></td>",
         "<td style=\"text-align: center; width: 75px;\"><strong>Prozent</strong></td>", "</tr>"]
-    result.concat(association_articles.map{|key, val|
+    result.concat(association_rule_learning_data.map{|key, val|
         "<tr><td>#{key.name.to_s}</td>" +
         "<td style=\"text-align: center;\">#{val}</td>" +
         "<td style=\"text-align: center;\">#{(100.0*val/self_amount).round(2)}%</td></tr>"})
     result.push("</table>")
+    
     return result
-  end
-
-  def association_rule_learning_admin(association_rule_learning_data)
-    return association_rule_learning_data
   end
 
   def association_rule_learning_user(association_rule_learning_data)
