@@ -117,7 +117,7 @@
         </p>
         
         <% association_rule_learning_data = get_association_rule_learning_data %>
-        <% if (!association_rule_learning_data.empty?) %>
+        <% if (association_rule_learning_data.size > 1) %>
             <%= viewtag_seperator %>
             <% if (admin_user?) %>
                 <strong>Assoziationsanalyse:</strong><br/>
