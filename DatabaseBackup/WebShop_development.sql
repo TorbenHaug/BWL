@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 13. Nov 2014 um 23:55
+-- Erstellungszeit: 14. Nov 2014 um 15:34
 -- Server Version: 5.5.39-MariaDB-0ubuntu0.14.04.1
 -- PHP-Version: 5.5.9-1ubuntu4.5
 
@@ -129,7 +129,15 @@ CREATE TABLE IF NOT EXISTS `bills` (
   `user_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Daten für Tabelle `bills`
+--
+
+INSERT INTO `bills` (`id`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 1, '2014-09-12 03:32:18', '2014-09-12 03:40:46'),
+(2, 1, '2014-09-12 03:32:18', '2014-09-12 03:40:46');
 
 -- --------------------------------------------------------
 
@@ -144,6 +152,16 @@ CREATE TABLE IF NOT EXISTS `bill_entries` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Daten für Tabelle `bill_entries`
+--
+
+INSERT INTO `bill_entries` (`amount`, `bill_id`, `article_id`, `created_at`, `updated_at`) VALUES
+(2, 1, 1, '2014-09-12 03:32:18', '2014-09-12 03:40:46'),
+(3, 1, 2, '2014-09-12 03:32:18', '2014-09-12 03:40:46'),
+(3, 1, 3, '2014-09-12 03:32:18', '2014-09-12 03:40:46'),
+(5, 2, 3, '2014-09-12 03:32:18', '2014-09-12 03:40:46');
 
 -- --------------------------------------------------------
 
@@ -429,7 +447,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 -- AUTO_INCREMENT für Tabelle `bills`
 --
 ALTER TABLE `bills`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT für Tabelle `menus`
 --
