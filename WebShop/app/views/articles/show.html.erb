@@ -113,7 +113,7 @@
     
     menus_data = get_menus_data
     menus_data.each{|item| place, size = get_place_at_menu_and_size_of_menu(item)
-      result.push("Platz #{place} von #{size} in " + 
+      result.push("Platz #{place} (von #{size}) in " + 
       link_to(item.name, by_menu_path(:menu_id => item.id)).to_s)}
     
     return result.flat_map{|item| [item, "<br/>"]}[0...-1]
