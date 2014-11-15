@@ -74,14 +74,14 @@
         result = ["Insgesamt wurden #{Bill.count} Verkaufstransaktionen getätigt.<br/>" +
             "Der aktuelle Artikel kommt in #{count_with_self} dieser Verkaufstransaktionen vor.<br/>" +
             "Folgende Artikel kamen ebenfalls in diesen Verkaufstransaktionen vor:", "<br/><br/>",
-            "<table style=\"margin-left: 20px;\">", "<tr>",
-            "<td><strong>Artikelbezeichnung</strong></td>",
-            "<td style=\"text-align: center; width: 75px;\"><strong>Konfidenz</strong></td>",
-            "<td style=\"text-align: center; width: 75px;\"><strong>Support</strong></td>", "</tr>"]
+            "<table border=\"1px\" bordercolor=\"#d3d7d9\" frame=\"void\" rules=\"rows\" style=\"margin-left: 20px; border: solid 1px #d3d7d9\">", "<tr>",
+            "<td style=\"padding: 5px;\"><strong>Artikelbezeichnung</strong></td>",
+            "<td style=\"text-align: center; width: 65px; padding: 5px;\"><strong>Konfidenz</strong></td>",
+            "<td style=\"text-align: center; width: 60px; padding: 5px;\"><strong>Support</strong></td>", "</tr>"]
         result.concat(association_rule_learning_data.map{|article, support, confidence|
-            "<tr><td>#{link_to article.name, article}</td>" +
-            "<td style=\"text-align: center;\">#{confidence.round(2)}%</td>" +
-            "<td style=\"text-align: center;\">#{support.round(2)}%</td></tr>"})
+            "<tr><td style=\"padding: 5px;\">#{link_to article.name, article}</td>" +
+            "<td style=\"text-align: center; padding: 5px;\">#{confidence.round(2)}%</td>" +
+            "<td style=\"text-align: center; padding: 5px;\">#{support.round(2)}%</td></tr>"})
         result.push("</table>")
     else
         result = ["Insgesamt wurden #{Bill.count} Verkaufstransaktionen getätigt.<br/>" +
