@@ -17,29 +17,16 @@
 
     return accu
   end
-
-  def get_bill_count_with_articles(articles)
-    bills = articles.map{|article|
-      BillEntry.where(:article => article).map{|entry| entry.bill}.uniq
-    }
-  
-    accu = nil
-    bills.each{|bill|
-      (accu.nil?) ? (accu = bill) : (accu = accu & bill)
-    }
-  
-    return (accu.nil?) ? (0) : (accu.size)
-  end
   
   def get_association_rule_learning_data
     bc_all = Bill.count
-    bc_self = get_bill_count_with_articles([@article])
+    bc_self = get_bill_count([@article])
     
     result = []
     self_data = nil
     Article.all.each{|article|
-      bc_other = get_bill_count_with_articles([article])
-      bc_both = get_bill_count_with_articles([@article, article])
+      bc_other = get_bill_count([article])
+      bc_both = get_bill_count([@article, article])
 
       support = (bc_all != 0) ? (100.0 * bc_both / bc_all) : (0.0)
       confidence = (bc_self != 0) ? (100.0 * bc_both / bc_self) : (0.0)
@@ -69,7 +56,7 @@
     }
     
     result = []
-    count_with_self = get_bill_count_with_articles([@article])
+    count_with_self = get_bill_count([@article])
     if (count_with_self > 0)
         result = ["Insgesamt wurden #{Bill.count} Verkaufstransaktionen getätigt.<br/>" +
             "Der aktuelle Artikel kommt in #{count_with_self} dieser Verkaufstransaktionen vor.<br/>" +
@@ -106,44 +93,11 @@
     return result
   end
 
-  def get_menus_data
-    result = []
-    ArticleToTag.where(:article => @article).each{|item|
-      MenuToTag.where(:tag => item.tag).each{|inner_item|
-        result.push(inner_item.menu)}}
-    result.delete(nil)
-    
-    return result
-  end
-
-  def get_products_of_menu(menu)
-    result = []
-    MenuToTag.where(:menu => menu).each{|item|
-      ArticleToTag.where(:tag => item.tag).each{|inner_item|
-        result.push(inner_item.article)}}
-    result.delete(nil)
-    
-    return result
-  end
-
-  def get_place_at_menu_and_size_of_menu(menu)
-    buyed_count = {}
-    get_products_of_menu(menu).each{|item| buyed_count[item] = 0;
-      BillEntry.where(:article => item).each{|inner_item|
-        buyed_count[item] = buyed_count[item] + inner_item.amount}}
-    
-    temp = buyed_count.map{|key, val| [key, val]}
-    temp.sort!{|a, b| b[1] <=> a[1]}
-    
-    temp.each_with_index{|item, index|
-      (item[0] == @article) ? (return [index + 1, temp.size]) : (nil)}
-  end
-
   def best_list_output
     result = []
     
-    menus_data = get_menus_data
-    menus_data.each{|item| place, size = get_place_at_menu_and_size_of_menu(item)
+    menus_data = get_menus_of_article(@article)
+    menus_data.each{|item| place, size = get_place_at_menu(@article, item)
       result.push("Platz #{place} (von #{size}) in " + 
       link_to(item.name, by_menu_path(:menu_id => item.id)).to_s)}
     
