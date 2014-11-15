@@ -6,6 +6,7 @@ module MenusHelper
         result.push(menu_item.menu) if (!result.include?(menu_item.menu))
       }
     }
+    result.delete(nil)
     return result
   end
   
@@ -16,6 +17,7 @@ module MenusHelper
         result.push(article_item.article) if (!result.include?(article_item.article))
       }
     }
+    result.delete(nil)
     return result
   end
   
