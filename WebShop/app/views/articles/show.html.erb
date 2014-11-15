@@ -102,14 +102,14 @@
           <%= float_to_euro_string(@article.price) %>
         </p>
         
-        <%= viewtag_seperator %>
+        <%= viewtag_seperator_without_space_bottom %>
         <p>
             <div style="width: 596px;">
-                <div style="width: 396px; float: left;">
+                <div style="min-height: 100px; width: 375px; padding-top: 30px; margin-top: -13px; margin-bottom: -14px; border-right: solid 1px #d3d7d9; float: left;">
                     <strong>Bestseller-Rang:</strong><br/>
                     NOT YET IMPLEMENTED
                 </div>
-                <div style="width: 200px; float: right;">
+                <div style="width: 200px; padding-top: 17px; float: right;">
                     <%= form_tag(add_to_shopping_card_path, method: "post") do %>
                         <div style="margin-bottom: 10px">
                             Menge:&nbsp;&nbsp;&nbsp;

@@ -43,6 +43,14 @@ module ApplicationHelper
     return "<hr style=\"display: block; height:1px; border:none; color:#d3d7d9; background-color:#d3d7d9; margin: 30px -50px 30px -50px;\"/>".html_safe
   end
   
+  def viewtag_seperator_without_space_top
+    return "<hr style=\"display: block; height:1px; border:none; color:#d3d7d9; background-color:#d3d7d9; margin: 0px -50px 30px -50px;\"/>".html_safe
+  end
+  
+  def viewtag_seperator_without_space_bottom
+    return "<hr style=\"display: block; height:1px; border:none; color:#d3d7d9; background-color:#d3d7d9; margin: 30px -50px 0px -50px;\"/>".html_safe
+  end
+  
   # TEST DATA
   def generate_admins
     User.new(
