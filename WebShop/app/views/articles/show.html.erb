@@ -39,7 +39,7 @@
             "<td style=\"text-align: center; width: 60px; padding: 5px;\"><strong>Support</strong></td>", "</tr>"]
         result.concat(association_analysis_data.map{
             |entry, bill_count_other, bill_count_both, confidence, support|
-            "<tr><td style=\"padding: 5px;\">#{link_to article.name, article}</td>" +
+            "<tr><td style=\"padding: 5px;\">#{link_to entry.name, entry}</td>" +
             "<td style=\"text-align: center; padding: 5px;\">#{confidence.round(2)}%</td>" +
             "<td style=\"text-align: center; padding: 5px;\">#{support.round(2)}%</td></tr>"})
         result.push("</table>")
@@ -133,22 +133,22 @@
         <%= viewtag_seperator_without_space_top %>
         <% if (admin_user?) %>
             <strong>Assoziationsanalyse:</strong><br/>
-            <% association_rule_learning_admin(get_association_rule_learning_data).each {|line| %>
+            <% get_association_analysis_output_admin(get_association_analysis_data(@article)).each {|line| %>
                 <%= line.html_safe %>
             <%} %>
         <% else %>
             <strong>Kunden, die diesen Artikel gekauft haben, kauften auch:</strong>
-            <% association_rule_learning_user(get_association_rule_learning_data).each {|line| %>
+            <% get_association_analysis_output_user(get_association_analysis_data(@article)).each {|line| %>
                 <%= line.html_safe %>
             <%} %>
         <% end %>
         
-        <% product_structure_output = product_structure_output_list(@article, 1, []) %>
-        <% if (!product_structure_output.empty?) %>
+        <% product_structure_output_list = product_structure_output(@article, 1, []) %>
+        <% if (product_structure_output_list.empty?) %>
             <%= viewtag_seperator %>
             <p>
                 <strong>Strukturstückliste:</strong><br/>
-                <% product_structure_output.each {|line| %>
+                <% product_structure_output_list.each {|line| %>
                     <%= line.html_safe %>
                 <%} %>
             </p>
