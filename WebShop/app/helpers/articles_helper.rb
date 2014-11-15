@@ -28,14 +28,14 @@ module ArticlesHelper
     return result
   end
   
-  # Returns primary requirements analysis data in following order:
-  #   1. first day of following month
+  # Returns primary requirements analysis for passed month data in following order:
+  #   1. first days of previous months
   #   2. actual sales of previous months
   #   3. target sales of previous month
   #   4. result of exponential smoothing
   #   5. result of moving average
-  # get_primary_requirements_analysis_data ::= (Article, Date) -> (Date, Array[Int, Int, Int], Float, Float, Float) ::
+  # get_primary_requirements_analysis_data ::= (Article, Date) -> (Array[Date, Date, Date], Array[Int, Int, Int], Float, Float, Float) ::
   def get_primary_requirements_analysis_data(article, first_day)
-    return [Date.new(2014,12,1), [1, 2, 3], 4.0, 5.0, 6.0]
+    return [[Date.new(2014,9,1), Date.new(2014,10,1), Date.new(2014,11,1)], [1, 2, 3], 4.0, 5.0, 6.0]
   end
 end

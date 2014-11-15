@@ -68,8 +68,15 @@
   end
 
   def get_primary_requirements_analysis_output
-    analysis_data = get_primary_requirements_analysis_data(@article, Date.new(2014,11,1))
-    return []
+    target_date = Date.new(2014,11,1)
+    analysis_data = get_primary_requirements_analysis_data(@article, target_date)
+    return ["Ist-Absätze für die vorhergenden Monate:<br/>",
+        "&nbsp;&nbsp;&nbsp;#{get_german_month_from_date(analysis_data[0][0])}: #{analysis_data[1][0]}<br/>",
+        "&nbsp;&nbsp;&nbsp;#{get_german_month_from_date(analysis_data[0][1])}: #{analysis_data[1][1]}<br/>",
+        "&nbsp;&nbsp;&nbsp;#{get_german_month_from_date(analysis_data[0][2])}: #{analysis_data[1][2]}<br/>",
+        "Soll-Absatz für den Monat #{get_german_month_from_date(analysis_data[0][2])}: #{analysis_data[2]}<br/><br/>",
+        "Exponentielle Glättung für den Monat #{get_german_month_from_date(target_date)}: #{analysis_data[3]}<br/>",
+        "Gleitender Durchschnitt für den Monat #{get_german_month_from_date(target_date)}: #{analysis_data[4]}"]
   end
 
   def best_list_output
