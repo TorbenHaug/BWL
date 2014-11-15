@@ -1,5 +1,5 @@
 <%
-  def product_structure_output_list(article, parent_amount, accu)
+  def product_structure_output(article, parent_amount, accu)
     lower_parts = ArticleStructure.where(upper_part: article)
     if (!lower_parts.empty?)
       accu.push("<ul>")
@@ -8,7 +8,7 @@
     lower_parts.each {|item|
       count = parent_amount * item.amount
       accu.push("<li style=\"margin-bottom: 10px;\">" + count.to_s + "x " + link_to(item.lower_part.name, item.lower_part) + "</li>")
-      product_structure_output_list(item.lower_part, count, accu)
+      product_structure_output(item.lower_part, count, accu)
     }
 
     if (!lower_parts.empty?)
@@ -17,42 +17,14 @@
 
     return accu
   end
-  
-  def get_association_rule_learning_data
-    bc_all = Bill.count
-    bc_self = get_bill_count([@article])
-    
-    result = []
-    self_data = nil
-    Article.all.each{|article|
-      bc_other = get_bill_count([article])
-      bc_both = get_bill_count([@article, article])
 
-      support = (bc_all != 0) ? (100.0 * bc_both / bc_all) : (0.0)
-      confidence = (bc_self != 0) ? (100.0 * bc_both / bc_self) : (0.0)
-      
-      data = [article, support, confidence]
-      if (article != @article)
-        result.push(data)
-      else
-        self_data = data
-      end
-    }
-    
-    result.sort!{|a, b|
-      temp = b[2] <=> a[2]
-      (temp == 0) ? (b[1] <=> a[1]) : temp}
-    result.unshift(self_data)
-    return result
-  end
-
-  def association_rule_learning_admin(association_rule_learning_data)
-    min_support = 0.00001
+  def get_association_analysis_output_admin(association_analysis_data)
     min_confidence = 0.00001
+    min_support = 0.00001
     
-    association_rule_learning_data.shift
-    association_rule_learning_data = association_rule_learning_data.reject{|article, support, confidence|
-      (support < min_support) || (confidence < min_confidence)
+    association_analysis_data = association_analysis_data.reject{
+        |entry, bill_count_other, bill_count_both, confidence, support|
+        (confidence < min_confidence) || (support < min_support)
     }
     
     result = []
@@ -65,7 +37,8 @@
             "<td style=\"padding: 5px;\"><strong>Artikelbezeichnung</strong></td>",
             "<td style=\"text-align: center; width: 65px; padding: 5px;\"><strong>Konfidenz</strong></td>",
             "<td style=\"text-align: center; width: 60px; padding: 5px;\"><strong>Support</strong></td>", "</tr>"]
-        result.concat(association_rule_learning_data.map{|article, support, confidence|
+        result.concat(association_analysis_data.map{
+            |entry, bill_count_other, bill_count_both, confidence, support|
             "<tr><td style=\"padding: 5px;\">#{link_to article.name, article}</td>" +
             "<td style=\"text-align: center; padding: 5px;\">#{confidence.round(2)}%</td>" +
             "<td style=\"text-align: center; padding: 5px;\">#{support.round(2)}%</td></tr>"})
@@ -78,16 +51,17 @@
     return result
   end
 
-  def association_rule_learning_user(association_rule_learning_data)
+  def get_association_analysis_output_user(association_analysis_data)
     result = []
     
-    association_rule_learning_data = association_rule_learning_data[1..4]
+    association_analysis_data = association_analysis_data[0..3]
     result.push("<div style=\"margin-top: 20px; margin-left: 1px;\">")
-    result.concat(association_rule_learning_data.map{|key, val|
+    result.concat(association_analysis_data.map{
+        |entry, bill_count_other, bill_count_both, confidence, support|
         "<div style=\"width: 146px; display: inline-block; vertical-align: top;\">" +
         "<div style=\"width: 125px;\">" + 
-        "#{image_tag key.photo.url(:small), size: "125"}" + 
-        "#{link_to key.name, key}</div></div>"})
+        "#{image_tag entry.photo.url(:small), size: "125"}" + 
+        "#{link_to entry.name, entry}</div></div>"})
     result.push("</div>")
     
     return result
