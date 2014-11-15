@@ -147,7 +147,7 @@
         <% end %>
         
         <% product_structure_output_list = product_structure_output(@article, 1, []) %>
-        <% if (product_structure_output_list.empty?) %>
+        <% if (!product_structure_output_list.empty?) %>
             <%= viewtag_seperator %>
             <p>
                 <strong>Strukturstückliste:</strong><br/>
