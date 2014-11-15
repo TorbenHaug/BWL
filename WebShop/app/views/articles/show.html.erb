@@ -109,7 +109,7 @@
                     <strong>Bestseller-Rang:</strong><br/>
                     NOT YET IMPLEMENTED
                 </div>
-                <div style="width: 200px; padding-top: 17px; float: right;">
+                <div style="width: 178px; padding-top: 17px; float: right;">
                     <%= form_tag(add_to_shopping_card_path, method: "post") do %>
                         <div style="margin-bottom: 10px">
                             Menge:&nbsp;&nbsp;&nbsp;
@@ -125,9 +125,10 @@
             </div>
         </p>
         
+        <% already_seperated = false %>
         <% association_rule_learning_data = get_association_rule_learning_data %>
         <% if (association_rule_learning_data.size > 1) %>
-            <%= viewtag_seperator %>
+            <%= (already_seperated) ? (viewtag_seperator) : (already_seperated = true; viewtag_seperator_without_space_top) %>
             <% if (admin_user?) %>
                 <strong>Assoziationsanalyse:</strong><br/>
                 <% association_rule_learning_admin(association_rule_learning_data).each {|line| %>
@@ -143,7 +144,7 @@
         
         <% product_structure_output = product_structure_output_list(@article, 1, []) %>
         <% if (!product_structure_output.empty?) %>
-            <%= viewtag_seperator %>
+            <%= (already_seperated) ? (viewtag_seperator) : (already_seperated = true; viewtag_seperator_without_space_top) %>
             <p>
                 <strong>Strukturstückliste:</strong><br/>
                 <% product_structure_output.each {|line| %>
@@ -153,7 +154,7 @@
         <% end %>
 
         <% if (admin_user?) %>
-            <%= viewtag_seperator %>
+            <%= (already_seperated) ? (viewtag_seperator) : (already_seperated = true; viewtag_seperator_without_space_top) %>
             <p>
               <strong>Erstellt am:</strong>
               <%= get_german_date_time_ordinal(@article.created_at.to_datetime) %>
