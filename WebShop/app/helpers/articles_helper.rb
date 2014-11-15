@@ -34,16 +34,14 @@ module ArticlesHelper
   #   3. target sales of previous month
   #   4. result of exponential smoothing
   #   5. result of moving average
-  # get_primary_requirements_analysis_data ::= (Article, Date, Int) -> (Array[Date, Date, Date], Array[Int, Int, Int], Float, Float, Float) ::
-  def get_primary_requirements_analysis_data(article, first_day, exponential_smoothing_factor)
+  # get_primary_requirements_analysis_data ::= (Article, Date, Float, Int) -> (Array[Date, Date, Date], Array[Int, Int, Int], Float, Float, Float) ::
+  def get_primary_requirements_analysis_data(article, first_day, target_sales_of_previous_month, exponential_smoothing_factor)
     previous_month_count = 3
     previous_months = (1..previous_month_count).map{|index| first_day - index.month}.reverse
     
     actual_sales_of_previous_months = previous_months.map{|month|
       get_buyed_amount_in_month(article, month)
     }
-    
-    target_sales_of_previous_month = 4.0
     
     exponential_smoothing =
       1.0 * target_sales_of_previous_month +

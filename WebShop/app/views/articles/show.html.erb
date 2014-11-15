@@ -33,13 +33,13 @@
         result = ["Insgesamt wurden #{Bill.count} Verkaufstransaktionen getätigt.<br/>" +
             "Der aktuelle Artikel kommt in #{count_with_self} dieser Verkaufstransaktionen vor.<br/>" +
             "Folgende Artikel kamen ebenfalls in diesen Verkaufstransaktionen vor:", "<br/><br/>",
-            "<table border=\"1px\" bordercolor=\"#d3d7d9\" frame=\"void\" rules=\"rows\" style=\"margin-left: 20px; border: solid 1px #d3d7d9\">", "<tr>",
+            "<table border=\"1px\" bordercolor=\"#d3d7d9\" frame=\"void\" rules=\"rows\" style=\"margin-left: 20px; width: 580px; border: solid 1px #d3d7d9\">", "<tr>",
             "<td style=\"padding: 5px;\"><strong>Artikelbezeichnung</strong></td>",
             "<td style=\"text-align: center; width: 65px; padding: 5px;\"><strong>Konfidenz</strong></td>",
             "<td style=\"text-align: center; width: 60px; padding: 5px;\"><strong>Support</strong></td>", "</tr>"]
         result.concat(association_analysis_data.map{
             |entry, bill_count_other, bill_count_both, confidence, support|
-            "<tr><td style=\"padding: 5px;\">#{link_to ((entry.name.size > 50) ? entry.name[0..50].to_s + "..." : entry.name), entry, title: entry.name, rel: entry.name}</td>" +
+            "<tr><td style=\"padding: 5px;\">#{link_to ((entry.name.size > 55) ? entry.name[0..55].to_s + "..." : entry.name), entry, title: entry.name, rel: entry.name}</td>" +
             "<td style=\"text-align: center; padding: 5px;\">#{confidence.round(2).to_s.sub(".", ",")}%</td>" +
             "<td style=\"text-align: center; padding: 5px;\">#{support.round(2).to_s.sub(".", ",")}%</td></tr>"})
         result.push("</table>")
@@ -69,16 +69,24 @@
 
   def get_primary_requirements_analysis_output
     target_date = Date.current
+    target_sales_of_previous_month = 4.0
     exponential_smoothing_factor = 0.1
     
-    analysis_data = get_primary_requirements_analysis_data(@article, target_date, exponential_smoothing_factor)
-    return ["Ist-Absätze für die vorhergenden Monate:<br/>",
-        "&nbsp;&nbsp;&nbsp;#{get_german_month_from_date(analysis_data[0][0])}: #{analysis_data[1][0]}<br/>",
-        "&nbsp;&nbsp;&nbsp;#{get_german_month_from_date(analysis_data[0][1])}: #{analysis_data[1][1]}<br/>",
-        "&nbsp;&nbsp;&nbsp;#{get_german_month_from_date(analysis_data[0][2])}: #{analysis_data[1][2]}<br/>",
-        "Soll-Absatz für den Monat #{get_german_month_from_date(analysis_data[0][2])}: #{analysis_data[2].round(2).to_s.sub(".", ",")}<br/><br/>",
-        "Exponentielle Glättung für den Monat #{get_german_month_from_date(target_date)}: #{analysis_data[3].round(2).to_s.sub(".", ",")}<br/>",
-        "Gleitender Durchschnitt für den Monat #{get_german_month_from_date(target_date)}: #{analysis_data[4].round(2).to_s.sub(".", ",")}"]
+    analysis_data = get_primary_requirements_analysis_data(@article, target_date, target_sales_of_previous_month, exponential_smoothing_factor)
+    
+    
+    return ["<table border=\"1px\" bordercolor=\"#d3d7d9\" frame=\"void\" rules=\"rows\" style=\"margin-left: 20px; width: 580px; border: solid 1px #d3d7d9\">",
+        "<tr><td style=\"padding: 5px;\">Ist-Absätze für die vorhergenden Monate:</td><td></td style=\"width: 100px, padding: 5px;\"></tr>",
+        "<tr><td style=\"padding: 5px;\">&nbsp;&nbsp;&nbsp;#{get_german_month_from_date(analysis_data[0][0])}:</td><td style=\"padding: 5px;\">#{analysis_data[1][0]},0 Stück</td></tr>",
+        "<tr><td style=\"padding: 5px;\">&nbsp;&nbsp;&nbsp;#{get_german_month_from_date(analysis_data[0][1])}:</td><td style=\"padding: 5px;\">#{analysis_data[1][1]},0 Stück</td></tr>",
+        "<tr><td style=\"padding: 5px;\">&nbsp;&nbsp;&nbsp;#{get_german_month_from_date(analysis_data[0][2])}:</td><td style=\"padding: 5px;\">#{analysis_data[1][2]},0 Stück</td></tr>",
+        "<tr><td></td><td></td></tr>",
+        "<tr><td style=\"padding: 5px;\">Soll-Absatz für den Monat #{get_german_month_from_date(analysis_data[0][2])}:</td><td style=\"padding: 5px;\">#{analysis_data[2].round(2).to_s.sub(".", ",")} Stück</td></tr>",
+        "<tr><td></td><td></td></tr>",
+        "<tr><td style=\"padding: 5px;\">Glättungsfaktor für die exponentielle Glättung:</td><td style=\"padding: 5px;\">#{exponential_smoothing_factor}<br/></td></tr>",
+        "<tr><td style=\"padding: 5px;\">Exponentielle Glättung für den Monat #{get_german_month_from_date(target_date)}:</td><td style=\"padding: 5px;\">#{analysis_data[3].round(2).to_s.sub(".", ",")} Stück</td></tr>",
+        "<tr><td></td><td></td></tr>",
+        "<tr><td style=\"padding: 5px;\">Gleitender Durchschnitt für den Monat #{get_german_month_from_date(target_date)}:</td><td style=\"padding: 5px;\">#{analysis_data[4].round(2).to_s.sub(".", ",")} Stück</td></tr></table>"]
   end
 
   def best_list_output
