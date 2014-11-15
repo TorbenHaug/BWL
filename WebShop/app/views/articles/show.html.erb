@@ -40,8 +40,8 @@
         result.concat(association_analysis_data.map{
             |entry, bill_count_other, bill_count_both, confidence, support|
             "<tr><td style=\"padding: 5px;\">#{link_to ((entry.name.size > 50) ? entry.name[0..50].to_s + "..." : entry.name), entry, title: entry.name, rel: entry.name}</td>" +
-            "<td style=\"text-align: center; padding: 5px;\">#{confidence.round(2)}%</td>" +
-            "<td style=\"text-align: center; padding: 5px;\">#{support.round(2)}%</td></tr>"})
+            "<td style=\"text-align: center; padding: 5px;\">#{confidence.round(2).to_s.sub(".", ",")}%</td>" +
+            "<td style=\"text-align: center; padding: 5px;\">#{support.round(2).to_s.sub(".", ",")}%</td></tr>"})
         result.push("</table>")
     else
         result = ["Insgesamt wurden #{Bill.count} Verkaufstransaktionen getätigt.<br/>" +
@@ -68,15 +68,17 @@
   end
 
   def get_primary_requirements_analysis_output
-    target_date = Date.new(2014,11,1)
-    analysis_data = get_primary_requirements_analysis_data(@article, target_date)
+    target_date = Date.current
+    exponential_smoothing_factor = 0.1
+    
+    analysis_data = get_primary_requirements_analysis_data(@article, target_date, exponential_smoothing_factor)
     return ["Ist-Absätze für die vorhergenden Monate:<br/>",
         "&nbsp;&nbsp;&nbsp;#{get_german_month_from_date(analysis_data[0][0])}: #{analysis_data[1][0]}<br/>",
         "&nbsp;&nbsp;&nbsp;#{get_german_month_from_date(analysis_data[0][1])}: #{analysis_data[1][1]}<br/>",
         "&nbsp;&nbsp;&nbsp;#{get_german_month_from_date(analysis_data[0][2])}: #{analysis_data[1][2]}<br/>",
-        "Soll-Absatz für den Monat #{get_german_month_from_date(analysis_data[0][2])}: #{analysis_data[2]}<br/><br/>",
-        "Exponentielle Glättung für den Monat #{get_german_month_from_date(target_date)}: #{analysis_data[3]}<br/>",
-        "Gleitender Durchschnitt für den Monat #{get_german_month_from_date(target_date)}: #{analysis_data[4]}"]
+        "Soll-Absatz für den Monat #{get_german_month_from_date(analysis_data[0][2])}: #{analysis_data[2].round(2).to_s.sub(".", ",")}<br/><br/>",
+        "Exponentielle Glättung für den Monat #{get_german_month_from_date(target_date)}: #{analysis_data[3].round(2).to_s.sub(".", ",")}<br/>",
+        "Gleitender Durchschnitt für den Monat #{get_german_month_from_date(target_date)}: #{analysis_data[4].round(2).to_s.sub(".", ",")}"]
   end
 
   def best_list_output
