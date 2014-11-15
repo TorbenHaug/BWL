@@ -39,7 +39,7 @@
             "<td style=\"text-align: center; width: 60px; padding: 5px;\"><strong>Support</strong></td>", "</tr>"]
         result.concat(association_analysis_data.map{
             |entry, bill_count_other, bill_count_both, confidence, support|
-            "<tr><td style=\"padding: 5px;\">#{link_to entry.name, entry}</td>" +
+            "<tr><td style=\"padding: 5px;\">#{link_to ((entry.name.size > 50) ? entry.name[0..50].to_s + "..." : entry.name), entry, title: entry.name, rel: entry.name}</td>" +
             "<td style=\"text-align: center; padding: 5px;\">#{confidence.round(2)}%</td>" +
             "<td style=\"text-align: center; padding: 5px;\">#{support.round(2)}%</td></tr>"})
         result.push("</table>")
@@ -61,7 +61,7 @@
         "<div style=\"width: 146px; display: inline-block; vertical-align: top;\">" +
         "<div style=\"width: 125px;\">" + 
         "#{image_tag entry.photo.url(:small), size: "125"}" + 
-        "#{link_to entry.name, entry}</div></div>"})
+        "#{link_to ((entry.name.size > 50) ? entry.name[0..50].to_s + "..." : entry.name), entry, title: entry.name, rel: entry.name}</div></div>"})
     result.push("</div>")
     
     return result
