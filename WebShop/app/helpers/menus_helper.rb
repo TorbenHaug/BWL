@@ -21,13 +21,21 @@ module MenusHelper
     return result
   end
   
-  def get_place_at_menu(article, menu)
-    buyed_amounts = get_articles_of_menu(menu).map{|entry|
+  def get_place_in(article, articles)
+    buyed_amounts = articles.map{|entry|
       [entry, get_buyed_amount(entry)]}
     buyed_amounts.sort!{|a, b| b[1] <=> a[1]}
     
     buyed_amounts.each_with_index{|item, index|
       (return [index + 1, buyed_amounts.size]) if (item[0] == article)
     }
+  end
+  
+  def get_place(article)
+    return get_place_in(article, Article.all)
+  end
+  
+  def get_place_at_menu(article, menu)
+    return get_place_in(article, get_articles_of_menu(menu))
   end
 end

@@ -73,7 +73,10 @@
     menus_data = get_menus_of_article(@article)
     menus_data.each{|item| place, size = get_place_at_menu(@article, item)
       result.push("Platz #{place} (von #{size}) in " + 
-      link_to(item.name, by_menu_path(:menu_id => item.id)).to_s)}
+        link_to(item.name, by_menu_path(:menu_id => item.id)).to_s)}
+
+    place, size = get_place(@article)
+    result.push("Platz #{place} (von #{size}) in allen Artikeln")
     
     return result.flat_map{|item| [item, "<br/>"]}[0...-1]
   end
