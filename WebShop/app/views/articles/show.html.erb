@@ -67,6 +67,11 @@
     return result
   end
 
+  def get_primary_requirements_analysis_output
+    analysis_data = get_primary_requirements_analysis_data(@article, Date.new(2014,11,1))
+    return []
+  end
+
   def best_list_output
     result = []
     
@@ -144,6 +149,16 @@
             <% get_association_analysis_output_user(get_association_analysis_data(@article)).each {|line| %>
                 <%= line.html_safe %>
             <%} %>
+        <% end %>
+            
+        <% if (admin_user?) %>
+            <%= viewtag_seperator %>
+            <p>
+                <strong>Primärbedarfsanalyse:</strong><br/>
+                <% get_primary_requirements_analysis_output.each {|line| %>
+                    <%= line.html_safe %>
+                <%} %>
+            </p>
         <% end %>
         
         <% product_structure_output_list = product_structure_output(@article, 1, []) %>
