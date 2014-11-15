@@ -15,4 +15,8 @@ module BillsHelper
       accu + entry.amount
     }
   end
+  
+  def get_buyed_amount_in_month(article, month)
+    return month.month
+  end
 end

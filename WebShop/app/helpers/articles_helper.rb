@@ -36,6 +36,24 @@ module ArticlesHelper
   #   5. result of moving average
   # get_primary_requirements_analysis_data ::= (Article, Date) -> (Array[Date, Date, Date], Array[Int, Int, Int], Float, Float, Float) ::
   def get_primary_requirements_analysis_data(article, first_day)
-    return [[Date.new(2014,9,1), Date.new(2014,10,1), Date.new(2014,11,1)], [1, 2, 3], 4.0, 5.0, 6.0]
+    previous_month_count = 3
+    previous_months = (1..previous_month_count).map{|index| first_day - index.month}.reverse
+    
+    actual_sales_of_previous_months = previous_months.map{|month|
+      get_buyed_amount_in_month(article, month)
+    }
+    
+    target_sales_of_previous_month = 4.0
+    exponential_smoothing_factor = 0.1
+    
+    exponential_smoothing =
+      1.0 * target_sales_of_previous_month +
+      exponential_smoothing_factor *
+      (actual_sales_of_previous_months[0] - target_sales_of_previous_month)
+    
+    moving_average =
+      1.0 * actual_sales_of_previous_months.reduce(:+) / previous_month_count
+    
+    return [previous_months, actual_sales_of_previous_months, target_sales_of_previous_month, exponential_smoothing, moving_average]
   end
 end
