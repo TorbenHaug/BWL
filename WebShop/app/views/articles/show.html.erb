@@ -18,45 +18,76 @@
     return accu
   end
 
-  def get_association_rule_learning_data
-    bills = BillEntry.where(:article => @article).map{|item| item.bill}
-    
-    association_articles = {}
-    self_amount = 0
-    bills.each{|item| bill_entry = BillEntry.where(:bill => item)
-      bill_entry.each{|item_inner|
-        if (item_inner.article != @article)
-          association_articles.merge!({item_inner.article => item_inner.amount})\
-            {|key, oldval, newval| newval + oldval}
-        else
-          self_amount = self_amount + item_inner.amount
-        end
-      }
+  def get_bill_count_with_articles(articles)
+    bills = articles.map{|article|
+      BillEntry.where(:article => article).map{|entry| entry.bill}.uniq
     }
   
-    temp = association_articles.map{|key, val| [key, val]}
-    temp.sort!{|a, b| b[1] <=> a[1]}
- 
+    accu = nil
+    bills.each{|bill|
+      (accu.nil?) ? (accu = bill) : (accu = accu & bill)
+    }
+  
+    return (accu.nil?) ? (0) : (accu.size)
+  end
+  
+  def get_association_rule_learning_data
+    bc_all = Bill.count
+    bc_self = get_bill_count_with_articles([@article])
+    
     result = []
-    result.push([@article, self_amount])
-    result.concat(temp)
+    self_data = nil
+    Article.all.each{|article|
+      bc_other = get_bill_count_with_articles([article])
+      bc_both = get_bill_count_with_articles([@article, article])
+
+      support = (bc_all != 0) ? (100.0 * bc_both / bc_all) : (0.0)
+      confidence = (bc_self != 0) ? (100.0 * bc_both / bc_self) : (0.0)
+      
+      data = [article, support, confidence]
+      if (article != @article)
+        result.push(data)
+      else
+        self_data = data
+      end
+    }
+    
+    result.sort!{|a, b|
+      temp = b[2] <=> a[2]
+      (temp == 0) ? (b[1] <=> a[1]) : temp}
+    result.unshift(self_data)
     return result
   end
 
   def association_rule_learning_admin(association_rule_learning_data)
-    self_amount = association_rule_learning_data.shift[1];
+    min_support = 0.00001
+    min_confidence = 0.00001
     
-    result = ["Dieser Artikel wurde #{self_amount} mal gekauft, zusammen mit folgenden Artikeln:", "<br/><br/>",
-      "<table style=\"margin-left: 20px;\">", "<tr>",
-        "<td><strong>Artikelbezeichnung</strong></td>",
-        "<td style=\"text-align: center; width: 75px;\"><strong>Menge</strong></td>",
-        "<td style=\"text-align: center; width: 75px;\"><strong>Prozent</strong></td>", "</tr>"]
-    result.concat(association_rule_learning_data.map{|key, val|
-        "<tr><td>#{key.name.to_s}</td>" +
-        "<td style=\"text-align: center;\">#{val}</td>" +
-        "<td style=\"text-align: center;\">#{(100.0*val/self_amount).round(2)}%</td></tr>"})
-    result.push("</table>")
+    association_rule_learning_data.shift
+    association_rule_learning_data = association_rule_learning_data.reject{|article, support, confidence|
+      (support < min_support) || (confidence < min_confidence)
+    }
     
+    result = []
+    count_with_self = get_bill_count_with_articles([@article])
+    if (count_with_self > 0)
+        result = ["Insgesamt wurden #{Bill.count} Verkaufstransaktionen getätigt.<br/>" +
+            "Der aktuelle Artikel kommt in #{count_with_self} dieser Verkaufstransaktionen vor.<br/>" +
+            "Folgende Artikel kamen ebenfalls in diesen Verkaufstransaktionen vor:", "<br/><br/>",
+            "<table style=\"margin-left: 20px;\">", "<tr>",
+            "<td><strong>Artikelbezeichnung</strong></td>",
+            "<td style=\"text-align: center; width: 75px;\"><strong>Konfidenz</strong></td>",
+            "<td style=\"text-align: center; width: 75px;\"><strong>Support</strong></td>", "</tr>"]
+        result.concat(association_rule_learning_data.map{|article, support, confidence|
+            "<tr><td>#{link_to article.name, article}</td>" +
+            "<td style=\"text-align: center;\">#{confidence.round(2)}%</td>" +
+            "<td style=\"text-align: center;\">#{support.round(2)}%</td></tr>"})
+        result.push("</table>")
+    else
+        result = ["Insgesamt wurden #{Bill.count} Verkaufstransaktionen getätigt.<br/>" +
+            "Der aktuelle Artikel kommt in keiner dieser Verkaufstransaktionen vor."]
+    end
+  
     return result
   end
 
@@ -171,26 +202,22 @@
             </div>
         </p>
         
-        <% already_seperated = false %>
-        <% association_rule_learning_data = get_association_rule_learning_data %>
-        <% if (association_rule_learning_data.size > 1) %>
-            <%= (already_seperated) ? (viewtag_seperator) : (already_seperated = true; viewtag_seperator_without_space_top) %>
-            <% if (admin_user?) %>
-                <strong>Assoziationsanalyse:</strong><br/>
-                <% association_rule_learning_admin(association_rule_learning_data).each {|line| %>
-                    <%= line.html_safe %>
-                <%} %>
-            <% else %>
-                <strong>Kunden, die diesen Artikel gekauft haben, kauften auch:</strong>
-                <% association_rule_learning_user(association_rule_learning_data).each {|line| %>
-                    <%= line.html_safe %>
-                <%} %>
-            <% end %>
+        <%= viewtag_seperator_without_space_top %>
+        <% if (admin_user?) %>
+            <strong>Assoziationsanalyse:</strong><br/>
+            <% association_rule_learning_admin(get_association_rule_learning_data).each {|line| %>
+                <%= line.html_safe %>
+            <%} %>
+        <% else %>
+            <strong>Kunden, die diesen Artikel gekauft haben, kauften auch:</strong>
+            <% association_rule_learning_user(get_association_rule_learning_data).each {|line| %>
+                <%= line.html_safe %>
+            <%} %>
         <% end %>
         
         <% product_structure_output = product_structure_output_list(@article, 1, []) %>
         <% if (!product_structure_output.empty?) %>
-            <%= (already_seperated) ? (viewtag_seperator) : (already_seperated = true; viewtag_seperator_without_space_top) %>
+            <%= viewtag_seperator %>
             <p>
                 <strong>Strukturstückliste:</strong><br/>
                 <% product_structure_output.each {|line| %>
@@ -200,7 +227,7 @@
         <% end %>
 
         <% if (admin_user?) %>
-            <%= (already_seperated) ? (viewtag_seperator) : (already_seperated = true; viewtag_seperator_without_space_top) %>
+            <%= viewtag_seperator %>
             <p>
               <strong>Erstellt am:</strong>
               <%= get_german_date_time_ordinal(@article.created_at.to_datetime) %>
