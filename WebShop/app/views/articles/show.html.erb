@@ -69,10 +69,9 @@
 
   def get_primary_requirements_analysis_output
     target_date = Date.current
-    target_sales_of_previous_month = 4.0
     exponential_smoothing_factor = 0.1
     
-    analysis_data = get_primary_requirements_analysis_data(@article, target_date, target_sales_of_previous_month, exponential_smoothing_factor)
+    analysis_data = get_primary_requirements_analysis_data(@article, target_date, exponential_smoothing_factor)
     
     
     return ["<table border=\"1px\" bordercolor=\"#d3d7d9\" frame=\"void\" rules=\"rows\" style=\"margin-left: 20px; width: 580px; border: solid 1px #d3d7d9\">",
