@@ -5,7 +5,7 @@ module ArticlesHelper
   #   3. bill count of other article and passed article
   #   4. indicator: confidence
   #   5. indicator: support
-  # get_association_analysis_data ::= (Article) -> (Article, Int, Int, Float, Float) ::
+  # get_association_analysis_data ::= (Article) -> Array[Article, Int, Int, Float, Float] ::
   def get_association_analysis_data(article)
     bc_all = Bill.count
     bc_self = get_bill_count([article])
@@ -34,7 +34,7 @@ module ArticlesHelper
   #   3. target sales of previous month
   #   4. result of exponential smoothing
   #   5. result of moving average
-  # get_primary_requirements_analysis_data ::= (Article, Date, Float, Int) -> (Array[Date, Date, Date], Array[Int, Int, Int], Float, Float, Float) ::
+  # get_primary_requirements_analysis_data ::= (Article, Date, Float) -> (Array[Date, Date, Date], Array[Int, Int, Int], Float, Float, Float) ::
   def get_primary_requirements_analysis_data(article, first_day, exponential_smoothing_factor)
     previous_month_count = 3
     previous_months = (1..previous_month_count).map{|index| first_day - index.month}.reverse
