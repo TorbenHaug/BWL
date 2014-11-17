@@ -51,7 +51,7 @@ module ArticlesHelper
     exponential_smoothing =
       1.0 * target_sales_of_previous_month +
       exponential_smoothing_factor *
-      (actual_sales_of_previous_months[0] - target_sales_of_previous_month)
+      (actual_sales_of_previous_months[-1] - target_sales_of_previous_month)
     
     return [previous_months, actual_sales_of_previous_months, target_sales_of_previous_month, exponential_smoothing, moving_average]
   end
