@@ -31,6 +31,15 @@ module ApplicationHelper
     return months[date.month - 1] + " " + date.year.to_s
   end
   
+  def get_german_month_from_date_ordinal(date)
+    return date.strftime("%m.%Y")
+  end
+  
+  def get_date_from_german_month_ordinal(str)
+    date = str.split(".")
+    return Time.local(date[1].to_i, date[0].to_i, 1)
+  end
+  
   def get_german_date_time_ordinal(datetime)
     return datetime.strftime("%d.%m.%Y %H:%M:%S")
   end
