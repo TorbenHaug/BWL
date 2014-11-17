@@ -68,20 +68,26 @@
   end
 
   def get_primary_requirements_analysis_output
+    # default values
     target_date = Date.current
     exponential_smoothing_factor = 0.1
     
+    # get parameters if passed
     if (request.GET.include? "target_date")
       target_date = get_date_from_german_month_ordinal(params[:target_date].to_s)
     end
-  
     if (request.GET.include? "exponential_smoothing_factor")
       exponential_smoothing_factor = params[:exponential_smoothing_factor].to_s.sub(",", ".").to_f
-      exponential_smoothing_factor = exponential_smoothing_factor.round(2)
     end
+  
+    # correct values of parameters
+    target_date = get_date_from_german_month_ordinal(get_german_month_from_date_ordinal(target_date).to_s)
+    exponential_smoothing_factor = exponential_smoothing_factor.round(2)
     
+    # generate analysis data
     analysis_data = get_primary_requirements_analysis_data(@article, target_date, exponential_smoothing_factor)
     
+    # return html output
     return ["<table style=\"margin-left: 20px; margin-top: 6px; margin-bottom: 20px;\"><tr><td><strong><em>Parameter für die Berechnung:</em></strong>&nbsp;&nbsp;&nbsp;</td><td></td></tr>",
         "<tr><td>Glättungsfaktor für die exponentielle Glättung:</td><td style=\"text-align: center\">#{text_field_tag :exponential_smoothing_factor, format("%.2f", exponential_smoothing_factor).to_s.sub(".", ","), size: 7}</td></tr>",
         "<tr><td>Schätzung für den Monat:</td><td style=\"text-align: center\">#{text_field_tag :target_date, get_german_month_from_date_ordinal(target_date).to_s, size: 7}</td></tr>",
