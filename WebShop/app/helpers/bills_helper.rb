@@ -2,7 +2,8 @@ module BillsHelper
   def get_bills(articles)
     article_bills = articles.map{|article|
       BillEntry.where(:article => article).map{|entry| entry.bill}.uniq}
-    result = article_bills.reduce([]){|accu, entry| accu & entry}
+    result = article_bills.reduce(:&)
+    result = (result.nil?) ? ([]) : (result.to_a)
     return result
   end
   
