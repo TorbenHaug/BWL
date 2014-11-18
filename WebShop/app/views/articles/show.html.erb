@@ -198,12 +198,12 @@
         <%= viewtag_seperator_without_space_top %>
         <% if (admin_user?) %>
             <strong>Assoziationsanalyse:</strong><br/>
-            <% get_association_analysis_output_admin(get_association_analysis_data(@article)).each {|line| %>
+            <% get_association_analysis_output_admin(get_association_analysis_data_of(@article)).each {|line| %>
                 <%= line.html_safe %>
             <%} %>
         <% else %>
             <strong>Kunden, die diesen Artikel gekauft haben, kauften auch:</strong>
-            <% get_association_analysis_output_user(get_association_analysis_data(@article)).each {|line| %>
+            <% get_association_analysis_output_user(get_association_analysis_data_of(@article)).each {|line| %>
                 <%= line.html_safe %>
             <%} %>
         <% end %>

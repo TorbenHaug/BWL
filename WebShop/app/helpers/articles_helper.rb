@@ -1,30 +1,43 @@
 module ArticlesHelper
   # Returns association analysis data in following order:
+  #   1. bill count of antecedent articles
+  #   1. bill count of consequent articles
+  #   2. bill count of antecedent articles and consequent articles
+  #   3. indicator: confidence
+  #   4. indicator: support
+  # get_association_analysis_data ::= (Array[Article], Array[Article]) -> Array[Int, Int, Int, Float, Float] ::
+  def get_association_analysis_data(articles_antecedent, articles_consequent)
+    bc_all = Bill.count
+    
+    bc_antecedent = get_bill_count(articles_antecedent)
+    bc_consequent = get_bill_count(articles_consequent)
+    
+    bc_both = get_bill_count(articles_antecedent | articles_consequent)
+    
+    confidence = (bc_antecedent != 0) ? (100.0 * bc_both / bc_antecedent) : (0.0)
+    support = (bc_all != 0) ? (100.0 * bc_both / bc_all) : (0.0)
+
+    return [bc_antecedent, bc_consequent, bc_both, confidence, support]
+  end
+  
+  # Returns association analysis data in following order:
   #   1. other article
   #   2. bill count of other article
   #   3. bill count of other article and passed article
   #   4. indicator: confidence
   #   5. indicator: support
   # get_association_analysis_data ::= (Article) -> Array[Article, Int, Int, Float, Float] ::
-  def get_association_analysis_data(article)
-    bc_all = Bill.count
-    bc_self = get_bill_count([article])
-    
+  def get_association_analysis_data_of(article)
     result = []
     Article.all.each{|entry|
-      bc_other = get_bill_count([entry])
-      bc_both = get_bill_count([article, entry])
-
-      confidence = (bc_self != 0) ? (100.0 * bc_both / bc_self) : (0.0)
-      support = (bc_all != 0) ? (100.0 * bc_both / bc_all) : (0.0)
-      
-      data = [entry, bc_other, bc_both, confidence, support]
-      result.push(data) if (entry != @article)
+      data = get_association_analysis_data([article], [entry])
+      data = [entry, data[1], data[2], data[3], data[4]]
+      result.push(data) if (entry != article)
     }
     
     result.sort!{|a, b|
-      temp = b[3] <=> a[3]
-      (temp == 0) ? (b[4] <=> a[4]) : temp}
+      temp = b[4] <=> a[4]
+      (temp == 0) ? (b[5] <=> a[5]) : temp}
     return result
   end
   
