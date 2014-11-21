@@ -1,5 +1,84 @@
+<%
+def get_article_sets(min_support)
+  # Generate array with articles which fit min_support
+  articles = Article.all.map{|article| article}
+  articles = articles.reject{|item| get_support([item]) < min_support}
+  
+  # Generate sets with one elements
+  results = articles.map{|article| [article]}
+  
+  # Generate sets with at least two elements
+  results.each{|result|
+    articles.each{|article|
+      if (!result.include?(article))
+        new_result = (result | [article]).to_set
+        
+        if (!results.include?(new_result) && get_support(new_result) >= min_support)
+          results.push(new_result)
+        end
+      end
+    }
+  }
+end
+
+# Source code taken from:
+# http://stackoverflow.com/questions/2037327/translating-function-for-finding-all-partitions-of-a-set-from-python-to-ruby
+def get_partitions(set)
+  yield [] if set.empty?
+  (0 ... 2 ** set.size / 2).each do |i|
+    parts = [[], []]
+    set.each do |item|
+      parts[i & 1] << item
+      i >>= 1
+    end
+    get_partitions(parts[1]) do |b|
+      result = [parts[0]] + b
+      result = result.reject do |e|
+        e.empty?
+      end
+      yield result
+    end
+  end
+end
+
+def get_association_rules(min_support, min_confidence)
+  article_sets = get_article_sets(min_support)
+  bc_all = Bill.count
+  
+  result = []
+  article_sets.each{|item|
+    get_partitions(item.to_set){|partition|
+      if (partition.size == 2)
+        left = partition[0]
+        right = partition[1]
+        
+        bc_left = get_bill_count(left)
+        bc_right = get_bill_count(right)
+        
+        bc_both = get_bill_count(left | right)
+        support = (bc_all != 0) ? (100.0 * bc_both / bc_all) : (0.0)
+        
+        left_to_right_confidence = (bc_left != 0) ? (100.0 * bc_both / bc_left) : (0.0)
+        if (left_to_right_confidence >= min_confidence)
+          result.push([left, right, left_to_right_confidence, support])
+        end
+      
+        right_to_left_confidence = (bc_right != 0) ? (100.0 * bc_both / bc_right) : (0.0)
+        if (right_to_left_confidence >= min_confidence)
+          result.push([right, left, right_to_left_confidence, support])
+        end
+      end
+    }
+  }
+
+  result = result.sort
+  return result
+end
+%>
+
+
 <div class="post">
-    <% @association_data.each{|(item, support)| %>
-        <p><%= item.name %>: <%= support %></p>
+    <% get_association_rules(0.5, 0.5).each{|(from, to, support, confidence)| %>
+        <p><%= from.map{|item| item.id}.to_s %> -> <%= to.map{|item| item.id}.to_s %>: <%= support %>, <%= confidence %></p>
     <% } %>    
 </div>

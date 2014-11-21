@@ -2,13 +2,7 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
   Paperclip.options[:command_path] = 'C:\Program Files\ImageMagick-6.8.9-Q16'
   
-  include ArticlesHelper
-  include BillsHelper
-  
   def association_analysis
-    # TODO: Insert logic here
-    @association_data = Article.all.map{|item| [item, get_support([item])]}
-    
     render template: 'articles/associations'
   end
 
