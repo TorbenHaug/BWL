@@ -1,6 +1,12 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
   Paperclip.options[:command_path] = 'C:\Program Files\ImageMagick-6.8.9-Q16'
+  
+  def association_analysis
+    # TODO: Insert logic here
+    
+    render template: 'articles/associations'
+  end
 
   def by_menu
     set_menu_id(params[:menu_id])
