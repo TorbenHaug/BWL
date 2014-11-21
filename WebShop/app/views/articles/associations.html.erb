@@ -1,1 +1,5 @@
-<p>TODO: Insert view here</p>
+<div class="post">
+    <% @association_data.each{|(item, support)| %>
+        <p><%= item.name %>: <%= support %></p>
+    <% } %>    
+</div>

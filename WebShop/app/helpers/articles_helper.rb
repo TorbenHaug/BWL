@@ -1,4 +1,14 @@
 module ArticlesHelper
+  # Returns support of association analysis data
+  # get_support ::= (Array[Article]) -> Float ::
+  def get_support(articles)
+    bc_all = Bill.count
+    bc_articles = get_bill_count(articles)
+    
+    support = (bc_all != 0) ? (100.0 * bc_articles / bc_all) : (0.0)
+    return support
+  end
+  
   # Returns association analysis data in following order:
   #   1. bill count of antecedent articles
   #   1. bill count of consequent articles
