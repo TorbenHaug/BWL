@@ -60,25 +60,59 @@ def get_association_rules(min_support, min_confidence)
         
         left_to_right_confidence = (bc_left != 0) ? (100.0 * bc_both / bc_left) : (0.0)
         if (left_to_right_confidence >= min_confidence)
-          result.push([left, right, left_to_right_confidence, support])
+          result.push([left, right, bc_left, bc_right, bc_both, left_to_right_confidence, support])
         end
       
         right_to_left_confidence = (bc_right != 0) ? (100.0 * bc_both / bc_right) : (0.0)
         if (right_to_left_confidence >= min_confidence)
-          result.push([right, left, right_to_left_confidence, support])
+          result.push([right, left, bc_right, bc_left, bc_both, right_to_left_confidence, support])
         end
       end
     }
   }
 
-  result = result.sort
+  # Sort by articles
+  result.sort!
+  
+  # Sort by confidence and support
+  result.sort!{|a, b|
+      temp = b[5] <=> a[5]
+      (temp == 0) ? (b[6] <=> a[6]) : temp}
   return result
 end
 %>
 
+<% if (admin_user?) %>
+    <h1>Assoziationsanalyse</h1>
+    <br/><br/>
 
-<div class="post">
-    <% get_association_rules(0.5, 0.5).each{|(from, to, support, confidence)| %>
-        <p><%= from.map{|item| item.id}.to_s %> -> <%= to.map{|item| item.id}.to_s %>: <%= support %>, <%= confidence %></p>
-    <% } %>    
-</div>
+    <div class="post">
+        <%= "Insgesamt wurden #{Bill.count} Verkaufstransaktionen getätigt.".html_safe %><br/><br/>
+        
+        <table border="1px" bordercolor="#d3d7d9" frame="void" rules="rows" style="width: 580px; border: solid 1px #d3d7d9">
+            <tr>
+                <td style="padding: 5px;"><strong>Artikelbezeichnung</strong></td>
+                <td style="padding: 5px;"></td>
+                <td style="padding: 5px;"><strong>Artikelbezeichnung</strong></td>
+                <td style="text-align: center; width: 65px; padding: 5px;"><strong>Konfidenz</strong></td>
+                <td style="text-align: center; width: 60px; padding: 5px;"><strong>Support</strong></td>
+            </tr>
+            
+            <% get_association_rules(0.5, 0.5).each{|data| %>
+                <tr>
+                    <td style="padding: 5px;">
+                        <% data[0].each{|article| %>
+                            <%= link_to article.id, article %>, 
+                        <%  } %></td>
+                    <td style="padding: 5px;">&rarr;</td>
+                    <td style="padding: 5px;">
+                        <% data[1].each{|article| %>
+                            <%= link_to article.id, article %>, 
+                        <%  } %></td>
+                    <td style="text-align: center; padding: 5px;"><%= data[5] %></td>
+                    <td style="text-align: center; padding: 5px;"><%= data[6] %></td>
+                </tr>
+            <%} %>
+        </table>
+    </div>
+<% end %>
