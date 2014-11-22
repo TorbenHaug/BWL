@@ -12,9 +12,7 @@ module BillsHelper
   end
   
   def get_buyed_amount(article)
-    BillEntry.where(:article => article).reduce(0){|accu, entry|
-      accu + entry.amount
-    }
+    BillEntry.sum(:amount, :conditions => {:article => article})
   end
   
   def get_buyed_amount_in_month(article, first_day)
