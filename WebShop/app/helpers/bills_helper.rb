@@ -12,15 +12,16 @@ module BillsHelper
   end
   
   def get_buyed_amount(article)
-    BillEntry.sum(:amount, :conditions => {:article => article})
+    BillEntry.where(
+        :article => article).sum(:amount)
   end
   
-  def get_buyed_amount_in_month(article, first_day)
-    last_day = first_day.end_of_month
+  def get_buyed_amount_in_month(article, day)
+    first_day = day.beginning_of_month
+    last_day = day.end_of_month
     
-    BillEntry.where(:article => article).reduce(0){|accu, entry|
-      is_in_month = (first_day.to_date..last_day.to_date).include?(entry.updated_at.to_date)
-      (is_in_month) ? (accu + entry.amount) : (accu)
-    }
+    BillEntry.where(
+        :updated_at => first_day.beginning_of_day..last_day.end_of_day).where(
+        :article => article).sum(:amount)
   end
 end
