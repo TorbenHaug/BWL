@@ -113,12 +113,45 @@ def TEST_get_association_rules(min_support, min_confidence)
   return result
 end
 
-TEST_get_association_rules(0.5, 0.5).each{|item|
-  puts item.to_a.inspect
+def TEST_get_association_rules_of(left, min_support, min_confidence)
+  bc_all = @bills.size
+  left = [left]
+  
+  result = []
+  @articles.values.each{|right|
+    right = [right]
+
+    bc_left = TEST_get_bills(left).size
+    bc_right = TEST_get_bills(right).size
+
+    bc_both = TEST_get_bills(left | right).size
+    support = (bc_all != 0) ? (100.0 * bc_both / bc_all) : (0.0)
+
+    left_to_right_confidence = (bc_left != 0) ? (100.0 * bc_both / bc_left) : (0.0)
+    if ((left != right) && (left_to_right_confidence >= min_confidence))
+      result.push([left, right, bc_left, bc_right, bc_both, left_to_right_confidence, support])
+    end
   }
+  
+  # Sort by articles
+  result.sort!
+  
+  # Sort by confidence and support
+  result.sort!{|a, b|
+      temp = b[5] <=> a[5]
+      (temp == 0) ? (b[6] <=> a[6]) : temp}
+  return result
+end
 
+TEST_get_association_rules(0.5, 0.5).each{|item|
+  puts item.inspect
+}
 
+puts "-------------------------------------------------------------------------"
 
+TEST_get_association_rules_of(@articles[1], 0.0, 0.0).each{|item|
+  puts item.inspect
+}
 %>
 <!-- TEST CODE END -->
 
