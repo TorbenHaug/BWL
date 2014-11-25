@@ -1,1 +1,13 @@
-<h1>test_area_2</h1>
+<% @output = []; def puts(line); @output.push(line.to_s + "<br/>"); end; def print(line); @output.push(line.to_s); end %>
+<h1>Test area of TorbenHaug</h1><br/><br/><div class="post">
+
+<!-- TEST CODE BEGINNING -->
+<%
+# You can use #puts and #print in accustomed manner here!
+%>
+<!-- TEST CODE END -->
+
+
+
+<!-- GENERATE OUTPUT -->
+<% @output.each{|line| %> <%= line.html_safe %> <% } %></div>

@@ -186,3 +186,62 @@ module ApplicationHelper
     generate_admins
   end
 end
+
+class BillData
+  def initialize(id, user_id)
+    @id = id
+    @user_id = user_id
+    @entry_data = []
+  end
+  
+  attr_reader :id
+  attr_reader :user_id
+  attr_reader :entry_data
+  
+  def add_entry(entry_data)
+    @entry_data.push(entry_data)
+  end
+  
+  def to_s
+    return "B" + @id.to_s
+  end
+  
+  def <=>(o)
+    return self.id <=> o.id
+  end
+end
+
+class BillEntryData
+  def initialize(bill_data, article_data, amount)
+    @bill_data = bill_data
+    @article_data = article_data
+    @amount = amount
+  end
+  
+  attr_reader :bill_data
+  attr_reader :article_data
+  attr_reader :amount
+end
+
+class ArticleData
+  def initialize(id, name, link_to)
+    @id = id
+    @name = name
+    @link_to = link_to
+  end
+  
+  attr_reader :id
+  attr_reader :name
+  
+  def link_to(description)
+    return @link.sub("LINK_DESCRIPTION", description)
+  end
+  
+  def to_s
+    return "A" + @id.to_s
+  end
+  
+  def <=>(o)
+    return self.id <=> o.id
+  end
+end
