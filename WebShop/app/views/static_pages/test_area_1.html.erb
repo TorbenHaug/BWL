@@ -1,0 +1,37 @@
+<div class="post">
+    <% day = Date.today %>
+  <%
+    beginning_time = Time.now
+    10.times {
+    Article.all.each{|article|
+      
+     first_day = day.beginning_of_month
+    last_day = day.end_of_month
+    
+    BillEntry.where(
+        :updated_at => first_day.beginning_of_day..last_day.end_of_day).sum(:amount, :conditions => {
+        :article => article})
+    
+    }}
+    
+    end_time = Time.now
+  %>
+    
+  <%= "Time elapsed #{(end_time - beginning_time)*1000} milliseconds" %>
+    
+  <%
+    beginning_time = Time.now
+    10.times {
+    Article.all.each{|article|
+      
+      last_day = day.end_of_month
+    
+    BillEntry.sum(:amount, :conditions => [{
+        :article => article}, {:updated_at => first_day.beginning_of_day..last_day.end_of_day}])
+      
+    }}
+    end_time = Time.now
+  %>
+    
+  <%= "Time elapsed #{(end_time - beginning_time)*1000} milliseconds" %>
+</div>

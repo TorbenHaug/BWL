@@ -42,6 +42,12 @@ Rails.application.routes.draw do
   post 'add_to_shopping_card' => 'articles#search'
   
   get 'associations' => 'articles#association_analysis'
+  
+  get 'test_area_1' => 'application#test_area_1'
+  get 'test_area_2' => 'application#test_area_2'
+  get 'legal_information' => 'application#legal_information'
+  get 'disclaimer' => 'application#disclaimer'
+  get 'privacy_policy' => 'application#privacy_policy'
 
   get 'notyetimplemented' => 'static_pages#notyetimpemented'
   # The priority is based upon order of creation: first created -> highest priority.
