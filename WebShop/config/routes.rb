@@ -39,7 +39,7 @@ Rails.application.routes.draw do
   get 'search' => 'articles#search'
   get 'by_menu' => 'articles#by_menu'
   
-  post 'add_to_shopping_card' => 'articles#search'
+  post 'add_to_shopping_card' => 'articles#add_to_shopping_card'
   
   get 'associations' => 'articles#association_analysis'
   

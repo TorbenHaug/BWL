@@ -6,6 +6,20 @@ class ArticlesController < ApplicationController
     render template: 'articles/associations'
   end
 
+  def add_to_shopping_card
+    article = Article.find(params[:article_id].to_i)
+    entry = ShoppingCartEntry.where(user: current_user, article: article)
+    if(entry.empty?)
+      ShoppingCartEntry.new(user: current_user, amount: params[:amount].to_i, article: Article.find(params[:article_id].to_i)).save
+    else
+      entry.first.amount += params[:amount].to_i
+      entry.first.save
+    end
+
+    redirect_to(:back)
+    #render text: params.to_s
+  end
+
   def by_menu
     set_menu_id(params[:menu_id])
     #flash[:notice] = Menu.find(get_menu_id).all_tags.inject(""){|accu,obj| accu = accu + obj.name.to_s + ", "; accu}
