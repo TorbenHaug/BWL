@@ -12,9 +12,10 @@
     <div id='cssmenu'>
       <ul>
         <li><%= link_to "Home", :root %></li>
-        <li><%= link_to "Warenkorb", shoppingcard_path %></li>
+
         
         <% if logged_in? %>
+          <li><%= link_to "Warenkorb", shoppingcard_path %></li>
           <li>
           <% if admin_user? %>
             <%= link_to "Admin", '#' %>

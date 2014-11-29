@@ -1,27 +1,42 @@
 <div class="post">
-<h1>Listing shopping_cart_entries</h1>
+<h1>Warenkorb</h1>
+    <% if !@shopping_cart_entries.empty? %>
+        <% all_price = 0.0 %>
+        <% @shopping_cart_entries.each_with_index do |shopping_cart_entry, index|
+            article = shopping_cart_entry.article
+        %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Amount</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+            <%= form_for(shopping_cart_entry) do |f| %>
+                <% if shopping_cart_entry.errors.any? %>
+                    <div id="error_explanation">
+                        <h2><%= pluralize(shopping_cart_entry.errors.count, "error") %> prohibited this shopping_cart_entry from being saved:</h2>
+                        <ul>
+                            <% shopping_cart_entry.errors.full_messages.each do |message| %>
+                                <li><%= message %></li>
+                            <% end %>
+                        </ul>
+                    </div>
+                <% end %>
+                <% all_price += article.price * shopping_cart_entry.amount%>
+                <p style="min-height: 150px;">
+                  <span style="margin-right: 30px; float: left; width: 150px; text-align: center;"><%= image_tag article.photo.url(:small) %></span>
+                  <%= link_to article.name, article %><br/>
+                  <strong>Einzelpreis:</strong> <%= float_to_euro_string(article.price) %><br />
+                  <strong>Anzahl: </strong><%= f.number_field :amount %> <%= f.submit "Ändern"%> <br />
+                  <strong>Gesamtpreis:</strong> <%= float_to_euro_string(article.price * shopping_cart_entry.amount) %><br />
 
-  <tbody>
-    <% @shopping_cart_entries.each do |shopping_cart_entry| %>
-      <tr>
-        <td><%= shopping_cart_entry.amount %></td>
-        <td><%= link_to 'Anzeigen', shopping_cart_entry %></td>
-        <td><%= link_to 'Bearbeiten', edit_shopping_cart_entry_path(shopping_cart_entry) %></td>
-        <td><%= link_to 'Löschen', shopping_cart_entry, method: :delete, data: { confirm: 'Sind Sie sicher?' } %></td>
-      </tr>
+                  <%= link_to 'Entfernen', shopping_cart_entry, method: :delete, data: { confirm: 'Sind Sie sicher?' } %>
+
+                </p>
+                <%= viewtag_seperator %>
+            <% end %>
+        <% end %>
+        <%= form_tag(buy_path , method: "post") do %>
+            <%= submit_tag("Kaufen für " + float_to_euro_string(all_price)) %>
+        <% end %>
+    <% else %>
+        Keine Artikel vorhanden
     <% end %>
-  </tbody>
-</table>
 
 <br>
-
-<%= link_to 'New Shopping cart entry', new_shopping_cart_entry_path %>
 </div>

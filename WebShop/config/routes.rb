@@ -25,7 +25,7 @@ Rails.application.routes.draw do
 
   resources :users
 
-  get 'shoppingcard' => 'users#shoppingcard'
+  get 'shoppingcard' => 'shopping_cart_entries#index'
   get 'create_test_data' => 'application#create_tests'
   get 'home' => 'news#index'
   root 'news#index'
@@ -40,7 +40,7 @@ Rails.application.routes.draw do
   get 'by_menu' => 'articles#by_menu'
   
   post 'add_to_shopping_card' => 'articles#add_to_shopping_card'
-  
+  post 'buy' => 'shopping_cart_entries#buy'
   get 'associations' => 'articles#association_analysis'
   
   get 'test_area_1' => 'application#test_area_1'
