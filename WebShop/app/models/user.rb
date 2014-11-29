@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
 
   has_many :shopping_cart_entries
   has_many :articles, :through => :shopping_cart_entries
-  has_many :bill
+  has_many :bills
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
         BCrypt::Engine.cost

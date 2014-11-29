@@ -8,7 +8,15 @@ class ShoppingCartEntriesController < ApplicationController
   end
 
   def buy
-    render text: "bought"
+    my_bill = Bill.new(user: current_user)
+    my_bill.save
+    @shopping_cart_entries = ShoppingCartEntry.where(user: current_user)
+    @shopping_cart_entries.each do |entry|
+      BillEntry.new(bill: my_bill, article: entry.article, amount: entry.amount).save
+      entry.destroy
+    end
+
+    redirect_to shoppingcard_path
   end
   # # GET /shopping_cart_entries/1
   # # GET /shopping_cart_entries/1.json
