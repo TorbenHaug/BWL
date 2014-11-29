@@ -78,4 +78,16 @@ module ArticlesHelper
     
     return [previous_months, actual_sales_of_previous_months, target_sales_of_previous_month, exponential_smoothing, moving_average]
   end
+  def add_to_shopping_card_helper(article_id, amount)
+    article = Article.find(article_id)
+    entry = ShoppingCartEntry.where(user: current_user, article: article)
+    if(entry.empty?)
+      ShoppingCartEntry.new(user: current_user, amount: amount, article: article).save
+    else
+      entry.first.amount += amount
+      entry.first.save
+    end
+    session[:not_insert_shopping_card_entry] = nil
+    redirect_to(article)
+  end
 end

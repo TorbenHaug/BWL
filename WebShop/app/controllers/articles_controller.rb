@@ -7,16 +7,14 @@ class ArticlesController < ApplicationController
   end
 
   def add_to_shopping_card
-    article = Article.find(params[:article_id].to_i)
-    entry = ShoppingCartEntry.where(user: current_user, article: article)
-    if(entry.empty?)
-      ShoppingCartEntry.new(user: current_user, amount: params[:amount].to_i, article: Article.find(params[:article_id].to_i)).save
+    article_id = params[:article_id].to_i
+    amount = params[:amount].to_i
+    if(!current_user.nil?)
+      add_to_shopping_card_helper(article_id,amount)
     else
-      entry.first.amount += params[:amount].to_i
-      entry.first.save
+      session[:not_insert_shopping_card_entry] = [article_id,amount]
+      redirect_to login_path
     end
-
-    redirect_to(:back)
     #render text: params.to_s
   end
 

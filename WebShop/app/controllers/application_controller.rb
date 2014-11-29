@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   include SessionsHelper
   include ApplicationHelper
+  include ArticlesHelper
 
   def create_tests
     test
