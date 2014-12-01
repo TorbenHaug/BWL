@@ -42,47 +42,6 @@
     return accu
   end
 
-  def get_association_analysis_output_admin(association_analysis_data)
-    result = []
-    count_with_self = get_bill_count([@article])
-    if (count_with_self > 0)
-        result = ["Insgesamt wurden #{Bill.count} Verkaufstransaktionen getätigt.<br/>" +
-            "Der aktuelle Artikel kommt in #{count_with_self} dieser Verkaufstransaktionen vor.<br/>" +
-            "Folgende Artikel kamen ebenfalls in diesen Verkaufstransaktionen vor:", "<br/><br/>",
-            "<table border=\"1px\" bordercolor=\"#d3d7d9\" frame=\"void\" rules=\"rows\" style=\"margin-left: 20px; width: 580px; border: solid 1px #d3d7d9\">", "<tr>",
-            "<td style=\"padding: 5px;\"><strong>Artikelbezeichnung</strong></td>",
-            "<td style=\"text-align: center; width: 65px; padding: 5px;\"><strong>Konfidenz</strong></td>",
-            "<td style=\"text-align: center; width: 60px; padding: 5px;\"><strong>Support</strong></td>", "</tr>"]
-        result.concat(association_analysis_data.map{
-            |entry, bill_count_other, bill_count_both, confidence, support|
-            "<tr><td style=\"padding: 5px;\">#{link_to ((entry.name.size > 55) ? entry.name[0..55].to_s + "..." : entry.name), entry, title: entry.name, rel: entry.name}</td>" +
-            "<td style=\"text-align: center; padding: 5px;\">#{format("%.2f", confidence).to_s.sub(".", ",")}%</td>" +
-            "<td style=\"text-align: center; padding: 5px;\">#{format("%.2f", support).to_s.sub(".", ",")}%</td></tr>"})
-        result.push("</table>")
-    else
-        result = ["Insgesamt wurden #{Bill.count} Verkaufstransaktionen getätigt.<br/>" +
-            "Der aktuelle Artikel kommt in keiner dieser Verkaufstransaktionen vor."]
-    end
-  
-    return result
-  end
-
-  def get_association_analysis_output_user(association_analysis_data)
-    result = []
-    
-    association_analysis_data = association_analysis_data[0..3]
-    result.push("<div style=\"margin-top: 20px; margin-left: 1px;\">")
-    result.concat(association_analysis_data.map{
-        |entry, bill_count_other, bill_count_both, confidence, support|
-        "<div style=\"width: 146px; display: inline-block; vertical-align: top;\">" +
-        "<div style=\"width: 125px;\">" + 
-        "#{image_tag entry.photo.url(:small), size: "125"}" + 
-        "#{link_to ((entry.name.size > 50) ? entry.name[0..50].to_s + "..." : entry.name), entry, title: entry.name, rel: entry.name}</div></div>"})
-    result.push("</div>")
-    
-    return result
-  end
-
   def get_primary_requirements_analysis_output
     # default values
     target_date = Date.current
@@ -188,27 +147,49 @@
         </p>
         
         <%= viewtag_seperator_without_space_top %>
-        <%
-            force_refresh = true
-            
-            @bills = {}
-            @articles = {}
-            if (force_refresh || @articles.empty?)             
-              cache_articles_and_bills(@bills, @articles)
-            end
-          
+        <% 
+            cache_articles_and_bills(true)
             association_data = association_analysis_data_of(@article, 0.5, 0.5, @articles, @bills)
         %>
         <% if (admin_user?) %>
             <strong>Assoziationsanalyse:</strong><br/>
-            <% get_association_analysis_output_admin(association_data).each {|line| %>
-                <%= line.html_safe %>
-            <%} %>
+            <% bill_count_self = get_bill_count([@article]) %>
+            <% if (count_with_self > 0) %>
+                Insgesamt wurden <%= get_bill_count_all %> Verkaufstransaktionen getätigt.<br/>
+                Der aktuelle Artikel kommt in <%= bill_count_self %> dieser Verkaufstransaktionen vor.<br/>
+                Folgende Artikel kamen ebenfalls in diesen Verkaufstransaktionen vor:
+                <br/><br/>
+                <table border="1px" bordercolor="#d3d7d9" frame="void" rules="rows" style="margin-left: 20px; width: 580px; border: solid 1px #d3d7d9">
+                    <tr>
+                        <td style="padding: 5px;"><strong>Artikelbezeichnung</strong></td>
+                        <td style="text-align: center; width: 65px; padding: 5px;"><strong>Konfidenz</strong></td>
+                        <td style="text-align: center; width: 60px; padding: 5px;"><strong>Support</strong></td>
+                    </tr>
+                    <% association_data.each{|left, right, bc_left, bc_right, bc_both, left2right_confidence, support| %>
+                        <tr>
+                            <td style="padding: 5px;"><%= right[0].link_to((right[0].name.size > 55) ? (right[0].name[0..55].to_s + "...") : right[0].name) %></td>
+                            <td style="text-align: center; padding: 5px;"><%= format("%.2f", left2right_confidence).to_s.sub(".", ",")% %></td>
+                            <td style="text-align: center; padding: 5px;"><%= format("%.2f", support).to_s.sub(".", ",")% %></td>
+                        </tr>
+                    <% } %>
+                </table>
+            <% else %>
+                Insgesamt wurden <%= get_bill_count_all %> Verkaufstransaktionen getätigt.<br/>
+                Der aktuelle Artikel kommt in keiner dieser Verkaufstransaktionen vor.
+            <% end %>
         <% else %>
+            <% association_data = association_data[0..3] %>
             <strong>Kunden, die diesen Artikel gekauft haben, kauften auch:</strong>
-            <% get_association_analysis_output_user(association_data).each {|line| %>
-                <%= line.html_safe %>
-            <%} %>
+            <div style="margin-top: 20px; margin-left: 1px;">
+                <div style="width: 146px; display: inline-block; vertical-align: top;">
+                    <% association_data.each{|left, right, bc_left, bc_right, bc_both, left2right_confidence, support| %>
+                        <div style="width: 125px;">
+                            <%= image_tag entry.photo.url(:small), size: "125" %>
+                            <%= right[0].link_to((right[0].name.size > 55) ? (right[0].name[0..55].to_s + "...") : right[0].name) %>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
         <% end %>
             
         <% if (admin_user?) %>

@@ -27,16 +27,30 @@ module ArticlesHelper
     return [previous_months, actual_sales_of_previous_months, target_sales_of_previous_month, exponential_smoothing, moving_average]
   end
   
-  def cache_articles_and_bills(articles, bills)
-    if (articles.empty?)
-      Article.all.each{|item| articles[item.id] = CachedArticle.new(item.id, item.name, nil)}
-      Bill.all.each{|item| bills[item.id] = CachedBill.new(item.id, item.user_id)}
-      BillEntry.all.each{|item| bills[item.bill_id].add_entry(CachedBillEntry.new(bills[item.bill_id], articles[item.article_id], item.amount))}
+  @@articles = {}
+  @@bills = {}
+  
+  def cache_articles_and_bills(force)
+    if (@@articles.empty? || force)
+      @@articles = {}
+      @@bills = {}
+      
+      Article.all.each{|item| @@articles[item.id] = CachedArticle.new(item.id, item.name, nil)}
+      Bill.all.each{|item| @@bills[item.id] = CachedBill.new(item.id, item.user_id)}
+      BillEntry.all.each{|item| @@bills[item.bill_id].add_entry(CachedBillEntry.new(@@bills[item.bill_id], @@articles[item.article_id], item.amount))}
     end
   end
   
+  def get_bill_count_all
+    return @@bills.size
+  end
+  
+  def get_bill_count(articles)
+    return 0
+  end
+  
   def association_analysis_data(min_support, min_confidence, articles, bills)
-    # [left, right, bc_left, bc_right, bc_both, left2right_confidence, support]
+    # [left, right, bc_left, bc_right, bc_both, left2right_confidence, right2left_confidence, support]
     
     return []
   end
