@@ -1,56 +1,4 @@
 module ArticlesHelper
-  # Returns support of association analysis data
-  # get_support ::= (Array[Article]) -> Float ::
-  def get_support(articles)
-    bc_all = Bill.count
-    bc_articles = get_bill_count(articles)
-    
-    support = (bc_all != 0) ? (100.0 * bc_articles / bc_all) : (0.0)
-    return support
-  end
-  
-  # Returns association analysis data in following order:
-  #   1. bill count of antecedent articles
-  #   1. bill count of consequent articles
-  #   2. bill count of antecedent articles and consequent articles
-  #   3. indicator: confidence
-  #   4. indicator: support
-  # get_association_analysis_data ::= (Array[Article], Array[Article]) -> Array[Int, Int, Int, Float, Float] ::
-  def get_association_analysis_data(articles_antecedent, articles_consequent)
-    bc_all = Bill.count
-    
-    bc_antecedent = get_bill_count(articles_antecedent)
-    bc_consequent = get_bill_count(articles_consequent)
-    
-    bc_both = get_bill_count(articles_antecedent | articles_consequent)
-    
-    confidence = (bc_antecedent != 0) ? (100.0 * bc_both / bc_antecedent) : (0.0)
-    support = (bc_all != 0) ? (100.0 * bc_both / bc_all) : (0.0)
-
-    return [bc_antecedent, bc_consequent, bc_both, confidence, support]
-  end
-  
-  # Returns association analysis data in following order:
-  #   1. other article
-  #   2. bill count of other article
-  #   3. bill count of other article and passed article
-  #   4. indicator: confidence
-  #   5. indicator: support
-  # get_association_analysis_data ::= (Article) -> Array[Article, Int, Int, Float, Float] ::
-  def get_association_analysis_data_of(article)
-    result = []
-    Article.all.each{|entry|
-      data = get_association_analysis_data([article], [entry])
-      data = [entry, data[1], data[2], data[3], data[4]]
-      result.push(data) if (entry != article)
-    }
-    
-    result.sort!{|a, b|
-      temp = b[4] <=> a[4]
-      (temp == 0) ? (b[5] <=> a[5]) : temp}
-    return result
-  end
-  
   # Returns primary requirements analysis for passed month data in following order:
   #   1. first days of previous months
   #   2. actual sales of previous months
@@ -78,6 +26,27 @@ module ArticlesHelper
     
     return [previous_months, actual_sales_of_previous_months, target_sales_of_previous_month, exponential_smoothing, moving_average]
   end
+  
+  def cache_articles_and_bills(articles, bills)
+    if (articles.empty?)
+      Article.all.each{|item| articles[item.id] = CachedArticle.new(item.id, item.name, nil)}
+      Bill.all.each{|item| bills[item.id] = CachedBill.new(item.id, item.user_id)}
+      BillEntry.all.each{|item| bills[item.bill_id].add_entry(CachedBillEntry.new(bills[item.bill_id], articles[item.article_id], item.amount))}
+    end
+  end
+  
+  def association_analysis_data(min_support, min_confidence, articles, bills)
+    # [left, right, bc_left, bc_right, bc_both, left2right_confidence, support]
+    
+    return []
+  end
+  
+  def association_analysis_data_of(article, min_support, min_confidence, articles, bills)
+    # [left, right, bc_left, bc_right, bc_both, left2right_confidence, support]
+    
+    return []
+  end
+  
   def add_to_shopping_card_helper(article_id, amount)
     article = Article.find(article_id)
     entry = ShoppingCartEntry.where(user: current_user, article: article)

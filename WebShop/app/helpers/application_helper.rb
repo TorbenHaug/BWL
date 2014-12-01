@@ -187,7 +187,7 @@ module ApplicationHelper
   end
 end
 
-class BillData
+class CachedBill
   def initialize(id, user_id)
     @id = id
     @user_id = user_id
@@ -211,7 +211,7 @@ class BillData
   end
 end
 
-class BillEntryData
+class CachedBillEntry
   def initialize(bill_data, article_data, amount)
     @bill_data = bill_data
     @article_data = article_data
@@ -223,7 +223,7 @@ class BillEntryData
   attr_reader :amount
 end
 
-class ArticleData
+class CachedArticle
   def initialize(id, name, link_to)
     @id = id
     @name = name

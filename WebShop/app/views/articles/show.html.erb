@@ -43,14 +43,6 @@
   end
 
   def get_association_analysis_output_admin(association_analysis_data)
-    min_confidence = 0.00001
-    min_support = 0.00001
-    
-    association_analysis_data = association_analysis_data.reject{
-        |entry, bill_count_other, bill_count_both, confidence, support|
-        (confidence < min_confidence) || (support < min_support)
-    }
-    
     result = []
     count_with_self = get_bill_count([@article])
     if (count_with_self > 0)
@@ -196,14 +188,25 @@
         </p>
         
         <%= viewtag_seperator_without_space_top %>
+        <%
+            force_refresh = true
+            
+            @bills = {}
+            @articles = {}
+            if (force_refresh || @articles.empty?)             
+              cache_articles_and_bills(@bills, @articles)
+            end
+          
+            association_data = association_analysis_data_of(@article, 0.5, 0.5, @articles, @bills)
+        %>
         <% if (admin_user?) %>
             <strong>Assoziationsanalyse:</strong><br/>
-            <% get_association_analysis_output_admin(get_association_analysis_data_of(@article)).each {|line| %>
+            <% get_association_analysis_output_admin(association_data).each {|line| %>
                 <%= line.html_safe %>
             <%} %>
         <% else %>
             <strong>Kunden, die diesen Artikel gekauft haben, kauften auch:</strong>
-            <% get_association_analysis_output_user(get_association_analysis_data_of(@article)).each {|line| %>
+            <% get_association_analysis_output_user(association_data).each {|line| %>
                 <%= line.html_safe %>
             <%} %>
         <% end %>
