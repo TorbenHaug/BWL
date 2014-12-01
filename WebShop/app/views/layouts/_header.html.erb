@@ -12,17 +12,22 @@
     <div id='cssmenu'>
       <ul>
         <li><%= link_to "Home", :root %></li>
-
         
         <% if logged_in? %>
-          <li><%= link_to "Warenkorb", shoppingcard_path %></li>
+            <li><%= link_to "Warenkorb", shoppingcard_path %></li>
+        <% else %>
+            <li><%= link_to "Warenkorb", :login %></li>
+        <% end %>
+        
+        <% if logged_in? %>
           <li>
           <% if admin_user? %>
             <%= link_to "Admin", '#' %>
             <ul>
-              <li><%= link_to "Edit Tags", tags_path %></li>
-              <li><%= link_to "Edit Users", users_path %></li>
-              <li><%= link_to "Edit Menu", menus_path %></li>
+              <li><%= link_to "Assoziationsanalyse", associations_path %></li>
+              <li><%= link_to "Tags bearbeiten", tags_path %></li>
+              <li><%= link_to "Benutzer bearbeiten", users_path %></li>
+              <li><%= link_to "Menü bearbeiten", menus_path %></li>
             </ul>
           <% end %>
           </li>

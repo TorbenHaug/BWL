@@ -29,7 +29,10 @@
     <br/><br/>
 
     <div class="post">
+        <strong><em>Allgemeine Daten:</em></strong><br/>
         <%= "Insgesamt wurden #{get_bill_count_all} Verkaufstransaktionen getätigt.".html_safe %><br/><br/>
+        
+        <%= viewtag_seperator %>
         
         <%
           # default values
@@ -50,7 +53,7 @@
         %>
         
         <%= form_tag('' , method: "get") do %>
-            <table style="margin-left: 20px; margin-top: 6px; margin-bottom: 20px;">
+            <table style="margin-top: 6px; margin-bottom: 20px;">
                 <tr>
                     <td><strong><em>Parameter für die Berechnung:</em></strong>&nbsp;&nbsp;&nbsp;</td>
                     <td></td>
@@ -70,12 +73,16 @@
             </table>
         <% end %>
         
+        <%= viewtag_seperator %>
+        
         <% 
             cache_articles_and_bills(true)
             association_data = association_analysis_data(min_support, min_confidence)
         %>
         
-        <table border="1px" bordercolor="#d3d7d9" frame="void" rules="rows" style="width: 580px; border: solid 1px #d3d7d9">
+        <strong><em>Ergebnisse der Berechnung:</em></strong>
+        
+        <table border="1px" bordercolor="#d3d7d9" frame="void" rules="rows" style="margin-top: 6px; width: 580px; border: solid 1px #d3d7d9">
             <tr>
                 <td style="padding: 5px;"><strong>Artikelbezeichnung</strong></td>
                 <td style="padding: 5px;"></td>

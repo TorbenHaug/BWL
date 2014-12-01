@@ -1,11 +1,11 @@
 <div class="post">
-<h1>Warenkorb</h1>
+    <h1>Warenkorb</h1>
+    <br/><br/>
     <% if !@shopping_cart_entries.empty? %>
         <% all_price = 0.0 %>
-        <% @shopping_cart_entries.each_with_index do |shopping_cart_entry, index|
-            article = shopping_cart_entry.article
-        %>
-
+        <% @shopping_cart_entries.each_with_index do |shopping_cart_entry, index| %>
+            <% article = shopping_cart_entry.article %>
+    
             <%= form_for(shopping_cart_entry) do |f| %>
                 <% if shopping_cart_entry.errors.any? %>
                     <div id="error_explanation">
@@ -17,16 +17,16 @@
                         </ul>
                     </div>
                 <% end %>
+
                 <% all_price += article.price * shopping_cart_entry.amount%>
                 <p style="min-height: 150px;">
-                  <span style="margin-right: 30px; float: left; width: 150px; text-align: center;"><%= image_tag article.photo.url(:small) %></span>
-                  <%= link_to article.name, article %><br/>
-                  <strong>Einzelpreis:</strong> <%= float_to_euro_string(article.price) %><br />
-                  <strong>Anzahl: </strong><%= f.number_field :amount %> <%= f.submit "Ändern"%> <br />
-                  <strong>Gesamtpreis:</strong> <%= float_to_euro_string(article.price * shopping_cart_entry.amount) %><br />
+                    <span style="margin-right: 30px; float: left; width: 150px; text-align: center;"><%= image_tag article.photo.url(:small) %></span>
+                    <%= link_to article.name, article %><br/>
+                    <strong>Einzelpreis:</strong> <%= float_to_euro_string(article.price) %><br />
+                    <strong>Anzahl: </strong><%= f.number_field :amount %> <%= f.submit "Ändern"%> <br />
+                    <strong>Gesamtpreis:</strong> <%= float_to_euro_string(article.price * shopping_cart_entry.amount) %><br />
 
-                  <%= link_to 'Entfernen', shopping_cart_entry, method: :delete, data: { confirm: 'Sind Sie sicher?' } %>
-
+                    <%= link_to 'Entfernen', shopping_cart_entry, method: :delete, data: { confirm: 'Sind Sie sicher?' } %>
                 </p>
                 <%= viewtag_seperator %>
             <% end %>
@@ -37,6 +37,4 @@
     <% else %>
         Keine Artikel vorhanden
     <% end %>
-
-<br>
 </div>
