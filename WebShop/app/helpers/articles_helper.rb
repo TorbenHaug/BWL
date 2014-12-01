@@ -49,13 +49,13 @@ module ArticlesHelper
     return 0
   end
   
-  def association_analysis_data(min_support, min_confidence, articles, bills)
+  def association_analysis_data(min_support, min_confidence)
     # [left, right, bc_left, bc_right, bc_both, left2right_confidence, right2left_confidence, support]
     
     return []
   end
   
-  def association_analysis_data_of(article, min_support, min_confidence, articles, bills)
+  def association_analysis_data_of(article, min_support, min_confidence)
     # [left, right, bc_left, bc_right, bc_both, left2right_confidence, support]
     
     return []

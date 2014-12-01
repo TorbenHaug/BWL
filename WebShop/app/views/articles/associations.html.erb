@@ -1,12 +1,6 @@
-<%
-force_refresh = true
-            
-@bills = {}
-@articles = {}
-if (force_refresh || @articles.empty?)             
-  cache_articles_and_bills(@bills, @articles)
-end
-
+<% 
+    cache_articles_and_bills(true)
+    association_data = association_analysis_data(0.5, 0.5)
 %>
 
 <% if (admin_user?) %>
@@ -25,7 +19,7 @@ end
                 <td style="text-align: center; width: 60px; padding: 5px;"><strong>Support</strong></td>
             </tr>
             
-            <% association_analysis_data(0.5, 0.5, @articles, @bills).each{|data| %>
+            <% association_data.each{|data| %>
                 <tr>
                     <td style="padding: 5px;">
                         <% data[0].each{|article| %>
