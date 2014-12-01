@@ -1,9 +1,28 @@
-<% 
-    cache_articles_and_bills(true)
-    min_support = 8.0
-    min_confidence = 0.0
-    association_data = association_analysis_data(min_support, min_confidence)
-%>
+<script type="text/javascript">
+  function validateForm() {
+      var result;
+      var val_min_support = document.getElementById('min_support').value;
+      var val_min_confidence = document.getElementById('min_confidence').value;
+      
+      val_min_support = val_min_support.replace(",", "."); 
+      result = (!isNaN(val_min_support) && (val_min_support >= 0.0) && (val_min_support <= 100.0);
+      if (!result) {
+        alert("Minimaler Support muss zwischen 0,00 und 100,00 liegen!");
+        return false;
+      }
+      
+      val_min_confidence = val_min_confidence.replace(",", "."); 
+      result = (!isNaN(val_min_confidence) && (val_min_confidence >= 0.0) && (val_min_confidence <= 100.0);
+      if (!result) {
+        alert("Minimale Konfidenz muss zwischen 0,00 und 100,00 liegen!");
+        return false;
+      }
+      
+      document.getElementById('min_support').value = document.getElementById('min_support').value.replace(".", ",");
+      document.getElementById('min_confidence').value = document.getElementById('min_confidence').value.replace(".", ",");
+      return true;
+  }
+</script>
 
 <% if (admin_user?) %>
     <h1>Assoziationsanalyse</h1>
@@ -11,6 +30,50 @@
 
     <div class="post">
         <%= "Insgesamt wurden #{get_bill_count_all} Verkaufstransaktionen getätigt.".html_safe %><br/><br/>
+        
+        <%
+          # default values
+          min_support = 8.0
+          min_confidence = 0.0
+
+          # get parameters if passed
+          if (request.GET.include? "min_support")
+            min_support = params[:min_support].to_s.sub(",", ".").to_f
+          end
+          if (request.GET.include? "min_confidence")
+            min_confidence = params[:min_confidence].to_s.sub(",", ".").to_f
+          end
+
+          # correct values of parameters
+          min_support = min_support.round(2)
+          min_confidence = min_confidence.round(2)
+        %>
+        
+        <%= form_tag('' , method: "get") do %>
+            <table style="margin-left: 20px; margin-top: 6px; margin-bottom: 20px;">
+                <tr>
+                    <td><strong><em>Parameter für die Berechnung:</em></strong>&nbsp;&nbsp;&nbsp;</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Minimaler Support:</td>
+                    <td style="text-align: center"><%= text_field_tag :min_support, min_support.to_s.sub(".", ","), size: 7 %></td>
+                </tr>
+                <tr>
+                    <td>Minimale Konfidenz:</td>
+                    <td style="text-align: center"><%= text_field_tag :min_confidence, min_confidence.to_s.sub(".", ","), size: 7 %></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td style="text-align: center"><%= submit_tag("Berechnen", :onclick => "return validateForm();") %></td>
+                </tr>
+            </table>
+        <% end %>
+        
+        <% 
+            cache_articles_and_bills(true)
+            association_data = association_analysis_data(min_support, min_confidence)
+        %>
         
         <table border="1px" bordercolor="#d3d7d9" frame="void" rules="rows" style="width: 580px; border: solid 1px #d3d7d9">
             <tr>
