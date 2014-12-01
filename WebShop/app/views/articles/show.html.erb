@@ -149,11 +149,13 @@
         <%= viewtag_seperator_without_space_top %>
         <% 
             cache_articles_and_bills(true)
-            association_data = association_analysis_data_of(@article, 0.5, 0.5)
+            min_support = 0.0
+            min_confidence = 0.0
+            association_data = association_analysis_data_of(get_cached_article(@article), min_support, min_confidence)
         %>
         <% if (admin_user?) %>
             <strong>Assoziationsanalyse:</strong><br/>
-            <% bill_count_self = get_bill_count([@article]) %>
+            <% bill_count_self = get_bill_count([get_cached_article(@article)]) %>
             <% if (bill_count_self > 0) %>
                 Insgesamt wurden <%= get_bill_count_all %> Verkaufstransaktionen getätigt.<br/>
                 Der aktuelle Artikel kommt in <%= bill_count_self %> dieser Verkaufstransaktionen vor.<br/>
@@ -165,11 +167,13 @@
                         <td style="text-align: center; width: 65px; padding: 5px;"><strong>Konfidenz</strong></td>
                         <td style="text-align: center; width: 60px; padding: 5px;"><strong>Support</strong></td>
                     </tr>
-                    <% association_data.each{|left, right, bc_left, bc_right, bc_both, left2right_confidence, support| %>
+                    <% association_data.each{|data| %>
                         <tr>
-                            <td style="padding: 5px;"><%= right[0].link_to((right[0].name.size > 55) ? (right[0].name[0..55].to_s + "...") : right[0].name) %></td>
-                            <td style="text-align: center; padding: 5px;"><%= format("%.2f", left2right_confidence).to_s.sub(".", ",") %> %</td>
-                            <td style="text-align: center; padding: 5px;"><%= format("%.2f", support).to_s.sub(".", ",") %> %</td>
+                            <td style="padding: 5px;">
+                                <%= data[1][0].link_to("#{(data[1][0].name.size > 55) ? (data[1][0].name[0..55].to_s + "...") : (data[1][0].name)}") %>, 
+                            </td>
+                            <td style="text-align: center; padding: 5px;"><%= format("%.2f", data[5]).to_s.sub(".", ",") %> %</td>
+                            <td style="text-align: center; padding: 5px;"><%= format("%.2f", data[6]).to_s.sub(".", ",") %> %</td>
                         </tr>
                     <% } %>
                 </table>

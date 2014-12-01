@@ -1,6 +1,8 @@
 <% 
     cache_articles_and_bills(true)
-    association_data = association_analysis_data(0.5, 0.5)
+    min_support = 8.0
+    min_confidence = 0.0
+    association_data = association_analysis_data(min_support, min_confidence)
 %>
 
 <% if (admin_user?) %>
@@ -23,12 +25,12 @@
                 <tr>
                     <td style="padding: 5px;">
                         <% data[0].each{|article| %>
-                            <%= link_to article.id, article %>, 
+                            <%= article.link_to("#{article.id}") %>, 
                         <%  } %></td>
                     <td style="padding: 5px;">&rarr;</td>
                     <td style="padding: 5px;">
                         <% data[1].each{|article| %>
-                            <%= link_to article.id, article %>, 
+                            <%= article.link_to("#{article.id}") %>, 
                         <%  } %></td>
                     <td style="text-align: center; padding: 5px;"><%= data[5] %></td>
                     <td style="text-align: center; padding: 5px;"><%= data[6] %></td>
