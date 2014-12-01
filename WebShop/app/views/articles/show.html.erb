@@ -154,7 +154,7 @@
         <% if (admin_user?) %>
             <strong>Assoziationsanalyse:</strong><br/>
             <% bill_count_self = get_bill_count([@article]) %>
-            <% if (count_with_self > 0) %>
+            <% if (bill_count_self > 0) %>
                 Insgesamt wurden <%= get_bill_count_all %> Verkaufstransaktionen getätigt.<br/>
                 Der aktuelle Artikel kommt in <%= bill_count_self %> dieser Verkaufstransaktionen vor.<br/>
                 Folgende Artikel kamen ebenfalls in diesen Verkaufstransaktionen vor:
@@ -168,8 +168,8 @@
                     <% association_data.each{|left, right, bc_left, bc_right, bc_both, left2right_confidence, support| %>
                         <tr>
                             <td style="padding: 5px;"><%= right[0].link_to((right[0].name.size > 55) ? (right[0].name[0..55].to_s + "...") : right[0].name) %></td>
-                            <td style="text-align: center; padding: 5px;"><%= format("%.2f", left2right_confidence).to_s.sub(".", ",")% %></td>
-                            <td style="text-align: center; padding: 5px;"><%= format("%.2f", support).to_s.sub(".", ",")% %></td>
+                            <td style="text-align: center; padding: 5px;"><%= format("%.2f", left2right_confidence).to_s.sub(".", ",") %> %</td>
+                            <td style="text-align: center; padding: 5px;"><%= format("%.2f", support).to_s.sub(".", ",") %> %</td>
                         </tr>
                     <% } %>
                 </table>

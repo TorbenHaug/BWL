@@ -41,6 +41,7 @@ module ArticlesHelper
     end
   end
   
+  # association analysis
   def get_bill_count_all
     return @@bills.size
   end
@@ -61,6 +62,7 @@ module ArticlesHelper
     return []
   end
   
+  # shopping card
   def add_to_shopping_card_helper(article_id, amount)
     article = Article.find(article_id)
     entry = ShoppingCartEntry.where(user: current_user, article: article)
@@ -72,5 +74,64 @@ module ArticlesHelper
     end
     session[:not_insert_shopping_card_entry] = nil
     redirect_to(article)
+  end
+end
+
+class CachedBill
+  def initialize(id, user_id)
+    @id = id
+    @user_id = user_id
+    @entry_data = []
+  end
+  
+  attr_reader :id
+  attr_reader :user_id
+  attr_reader :entry_data
+  
+  def add_entry(entry_data)
+    @entry_data.push(entry_data)
+  end
+  
+  def to_s
+    return "B" + @id.to_s
+  end
+  
+  def <=>(o)
+    return self.id <=> o.id
+  end
+end
+
+class CachedBillEntry
+  def initialize(bill_data, article_data, amount)
+    @bill_data = bill_data
+    @article_data = article_data
+    @amount = amount
+  end
+  
+  attr_reader :bill_data
+  attr_reader :article_data
+  attr_reader :amount
+end
+
+class CachedArticle
+  def initialize(id, name, link_to)
+    @id = id
+    @name = name
+    @link_to = link_to
+  end
+  
+  attr_reader :id
+  attr_reader :name
+  
+  def link_to(description)
+    return @link.sub("LINK_DESCRIPTION", description)
+  end
+  
+  def to_s
+    return "A" + @id.to_s
+  end
+  
+  def <=>(o)
+    return self.id <=> o.id
   end
 end
