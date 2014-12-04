@@ -149,7 +149,7 @@
                 <div style="width: 146px; display: inline-block; vertical-align: top;">
                     <% association_data.each{|left, right, bc_left, bc_right, bc_both, left2right_confidence, support| %>
                         <div style="width: 125px;">
-                            <%= image_tag entry.photo.url(:small), size: "125" %>
+                            <% #image_tag right[0].photo.url(:small), size: "125" %>
                             <%= right[0].link_to((right[0].name.size > 55) ? (right[0].name[0..55].to_s + "...") : right[0].name) %>
                         </div>
                     <% } %>
