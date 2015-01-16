@@ -30,6 +30,7 @@
 
     <div class="post">
         <strong><em>Allgemeine Daten:</em></strong><br/>
+        <% cache_articles_and_bills(true) %>
         <%= "Insgesamt wurden #{get_bill_count_all} Verkaufstransaktionen getätigt.".html_safe %><br/><br/>
         
         <%= viewtag_seperator %>
@@ -75,10 +76,7 @@
         
         <%= viewtag_seperator %>
         
-        <% 
-            cache_articles_and_bills(true)
-            association_data = association_analysis_data(min_support, min_confidence)
-        %>
+        <%  association_data = association_analysis_data(min_support, min_confidence) %>
         
         <strong><em>Ergebnisse der Berechnung:</em></strong>
         
@@ -94,14 +92,14 @@
             <% association_data.each{|data| %>
                 <tr>
                     <td style="padding: 5px;">
-                        <% data[0].each{|article| %>
-                            <%= article.link_to("#{article.id}") %>, 
-                        <%  } %></td>
+                        <% data[0].each_with_index{|article, index|
+                            if (index != 0) then %>, 
+                            <% end %><%= article.link_to("#{article.id}") %><% } %></td>
                     <td style="padding: 5px;">&rarr;</td>
                     <td style="padding: 5px;">
-                        <% data[1].each{|article| %>
-                            <%= article.link_to("#{article.id}") %>, 
-                        <%  } %></td>
+                        <% data[1].each_with_index{|article, index|
+                            if (index != 0) then %>, 
+                            <% end %><%= article.link_to("#{article.id}") %><% } %></td>
                     <td style="text-align: center; padding: 5px;"><%= data[5] %></td>
                     <td style="text-align: center; padding: 5px;"><%= data[6] %></td>
                 </tr>
